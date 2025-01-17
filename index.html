@@ -1,29 +1,92 @@
 <!DOCTYPE html>
-<!--[if IE 8]> <html class="ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<html lang="tr">
+
 <head>
 	<meta charset="utf-8">
-	<title>Diana’s jewelry</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<title>Tarzı Şahane</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
 	<link rel="stylesheet" media="all" href="css/style.css">
-	<!--[if lt IE 9]>
-		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+
+	<!-- / boostrap -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+		integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<!-- / fontawsome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+		integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
 
 	<header id="header">
 		<div class="container">
-			<a href="index.html" id="logo" title="Diana’s jewelry">Diana’s jewelry</a>
+			<a href="index.html" id="logo" title="tarzı sahane">Tarzı Şahane</a>
 			<div class="right-links">
 				<ul>
-					<li><a href="cart.html"><span class="ico-products"></span>3 products, $4 500.00</a></li>
-					<li><a href="#"><span class="ico-account"></span>Account</a></li>
-					<li><a href="#"><span class="ico-signout"></span>Sign out</a></li>
+					<li><a href="cart.html"><span class="ico-products"></span>3 ürün, $4 500.00</a></li>
+					<li><a href="#"><span class="ico-account"></span>hesabım</a></li>
+					<li><a href="#"><span class="ico-signout"></span>çıkış</a></li>
 				</ul>
 			</div>
 		</div>
 		<!-- / container -->
+
+		<!-- urun resim modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title fs-5" id="exampleModalLabel">Yıldız kolye</h3>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div id="carouselExample" class="carousel slide">
+							<div class="carousel-inner">
+								<div class="carousel-item active">
+									<div class="list-group">
+										<a href="javascript:void(0)" class="list-group-item list-group-item-action">
+											Gümüş kaplamadır. Zincir zevkinize göre değiştirilebilir.
+										</a>
+										<a href="javascript:void(0)" class="list-group-item list-group-item-action">
+											Zincir zevkinize göre değiştirilebilir.
+										</a>
+									</div>
+								</div>
+								<div class="carousel-item ">
+									<img src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
+										class="d-block w-100" alt="...">
+								</div>
+								<div class="carousel-item">
+									<img src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_c471ba3b09621e37b2b1f2a7ca97ced9.JPG"
+										class="d-block w-100" alt="...">
+								</div>
+								<div class="carousel-item">
+									<iframe width="420" height="315" src="http://www.youtube.com/embed/5qJiIGlCmnM">
+									</iframe>
+								</div>
+
+							</div>
+							<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+								data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+								data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Next</span>
+							</button>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- / urun resim modal -->
 	</header>
 	<!-- / header -->
 
@@ -36,7 +99,7 @@
 				<li><a href="products.html">earrings</a></li>
 				<li><a href="products.html">Rings</a></li>
 				<li><a href="products.html">Gift cards</a></li>
-				<li><a href="products.html">Promotions</a></li>
+				<li><a href="text-page.html">Blog</a></li>
 			</ul>
 		</div>
 		<!-- / container -->
@@ -45,21 +108,21 @@
 
 	<div id="slider">
 		<ul>
-			<li style="background-image: url(images/0.jpg)">
+			<!-- <li style="background-image: url(images/0.jpg)">
 				<h3>Make your life better</h3>
 				<h2>Genuine diamonds</h2>
 				<a href="#" class="btn-more">Read more</a>
-			</li>
+			</li> -->
 			<li class="purple" style="background-image: url(images/01.jpg)">
-				<h3>She will say “yes”</h3>
-				<h2>engagement ring</h2>
-				<a href="#" class="btn-more">Read more</a>
+				<h3>Tarzınızı Şahane yapalım...</h3>
+				<h2>en güzel doğal taşlarla...</h2>
+				<!-- <a href="#" class="btn-more">Read more</a> -->
 			</li>
-			<li class="yellow" style="background-image: url(images/02.jpg)">
+			<!-- <li class="yellow" style="background-image: url(images/02.jpg)">
 				<h3>You deserve to be beauty</h3>
 				<h2>golden bracelets</h2>
 				<a href="#" class="btn-more">Read more</a>
-			</li>
+			</li> -->
 		</ul>
 	</div>
 	<!-- / body -->
@@ -67,77 +130,128 @@
 	<div id="body">
 		<div class="container">
 			<div class="last-products">
-				<h2>Last added products</h2>
+				<h2>Son Eklenenler</h2>
 				<section class="products">
 					<article>
-						<img src="images/1.jpg" alt="">
-						<h3>Excepteur sint occaecat</h3>
-						<h4>$1 850.00</h4>
-						<a href="cart.html" class="btn-add">Add to cart</a>
+						<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<img src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
+								alt="gümüş kaplama kolye">
+						</a>
+						<h3>Yıldız kolye</h3>
+						<h4><span>1</span><span><i class="fa-solid fa-turkish-lira-sign"></i></span></h4>
+						<div class="d-flex flex-wrap justify-content-center">
+							<a href="https://www.shopier.com/32283966" class="btn-add m-1">Shopier Satın Al</a>
+							<a href="cart.html" class="btn-add m-1">sepete Ekle</a>
+						</div>
 					</article>
 					<article>
-						<img src="images/11.jpg" alt="">
-						<h3>Lorem ipsum dolor</h3>
-						<h4>$990.00</h4>
-						<a href="cart.html" class="btn-add">Add to cart</a>
+						<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<img src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
+								alt="gümüş kaplama kolye">
+						</a>
+						<h3>Yıldız kolye</h3>
+						<h4><span>1</span><span><i class="fa-solid fa-turkish-lira-sign"></i></span></h4>
+						<div class="d-flex flex-wrap justify-content-center">
+							<a href="https://www.shopier.com/32283966" class="btn-add m-1">Shopier Satın Al</a>
+							<a href="cart.html" class="btn-add m-1">sepete Ekle</a>
+						</div>
 					</article>
 					<article>
-						<img src="images/12.jpg" alt="">
-						<h3>cupidatat non proident</h3>
-						<h4>$1 200.00</h4>
-						<a href="cart.html" class="btn-add">Add to cart</a>
+						<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<img src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
+								alt="gümüş kaplama kolye">
+						</a>
+						<h3>Yıldız kolye</h3>
+						<h4><span>1</span><span><i class="fa-solid fa-turkish-lira-sign"></i></span></h4>
+						<div class="d-flex flex-wrap justify-content-center">
+							<a href="https://www.shopier.com/32283966" class="btn-add m-1">Shopier Satın Al</a>
+							<a href="cart.html" class="btn-add m-1">sepete Ekle</a>
+						</div>
 					</article>
 					<article>
-						<img src="images/13.jpg" alt="">
-						<h3>Duis aute irure</h3>
-						<h4>$2 650.00</h4>
-						<a href="cart.html" class="btn-add">Add to cart</a>
+						<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<img src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
+								alt="gümüş kaplama kolye">
+						</a>
+						<h3>Yıldız kolye</h3>
+						<h4><span>1</span><span><i class="fa-solid fa-turkish-lira-sign"></i></span></h4>
+						<div class="d-flex flex-wrap justify-content-center">
+							<a href="https://www.shopier.com/32283966" class="btn-add m-1">Shopier Satın Al</a>
+							<a href="cart.html" class="btn-add m-1">sepete Ekle</a>
+						</div>
 					</article>
 					<article>
-						<img src="images/14.jpg" alt="">
-						<h3>magna aliqua</h3>
-						<h4>$3 500.00</h4>
-						<a href="cart.html" class="btn-add">Add to cart</a>
+						<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<img src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
+								alt="gümüş kaplama kolye">
+						</a>
+						<h3>Yıldız kolye</h3>
+						<h4><span>1</span><span><i class="fa-solid fa-turkish-lira-sign"></i></span></h4>
+						<div class="d-flex flex-wrap justify-content-center">
+							<a href="https://www.shopier.com/32283966" class="btn-add m-1">Shopier Satın Al</a>
+							<a href="cart.html" class="btn-add m-1">sepete Ekle</a>
+						</div>
 					</article>
 				</section>
 			</div>
 			<section class="quick-links">
-				<article style="background-image: url(images/2.jpg)">
-					<a href="#" class="table">
+				<article style="background-image: url(../images/yarari-taslar.jpeg)">
+					<a href="blog.html" class="table">
 						<div class="cell">
 							<div class="text">
-								<h4>Lorem ipsum</h4>
+
+								<h3>Yarı Değerli Taşlar</h3>
 								<hr>
-								<h3>Dolor sit amet</h3>
+								<h4>Taşların Anlamları</h4>
+
 							</div>
 						</div>
 					</a>
 				</article>
-				<article class="red" style="background-image: url(images/3.jpg)">
-					<a href="#" class="table">
+				<article style="background-image: url(../images/burc-taslar.jpeg)">
+					<a href="blog.html" class="table">
 						<div class="cell">
 							<div class="text">
-								<h4>consequatur</h4>
+
+								<h3>Yarı Değerli Taşlar</h3>
 								<hr>
-								<h3>voluptatem</h3>
-								<hr>
-								<p>Accusantium</p>
-							</div>
-						</div>
-					</a>
-				</article>
-				<article style="background-image: url(images/4.jpg)">
-					<a href="#" class="table">
-						<div class="cell">
-							<div class="text">
-								<h4>culpa qui officia</h4>
-								<hr>
-								<h3>magnam aliquam</h3>
+								<h4>Burçlara Göre Taşlar</h4>
+
 							</div>
 						</div>
 					</a>
 				</article>
 			</section>
+
+			<div id="blog" class="last-products">
+				<h2>Blog</h2>
+				<section class="products">
+					<article style="background-image: url(../images/yarari-taslar.jpeg)">
+						<a href="blog.html" class="table">
+							<div class="cell">
+								<div class="text">
+									<h4>Taşların Anlamları</h4>
+
+								</div>
+							</div>
+						</a>
+					</article>
+					<article style="background-image: url(../images/burc-taslar.jpeg)">
+						<a href="blog.html" class="table">
+							<div class="cell">
+								<div class="text">
+									<h4>Burçlara Göre Taşlar</h4>
+
+								</div>
+							</div>
+						</a>
+					</article>
+				</section>
+			</div>
+
+
+
+
 		</div>
 		<!-- / container -->
 	</div>
@@ -147,37 +261,40 @@
 		<div class="container">
 			<div class="cols">
 				<div class="col">
-					<h3>Frequently Asked Questions</h3>
+					<h3>Merak Edilenler ve Sorular</h3>
 					<ul>
-						<li><a href="#">Fusce eget dolor adipiscing </a></li>
-						<li><a href="#">Posuere nisl eu venenatis gravida</a></li>
-						<li><a href="#">Morbi dictum ligula mattis</a></li>
-						<li><a href="#">Etiam diam vel dolor luctus dapibus</a></li>
-						<li><a href="#">Vestibulum ultrices magna </a></li>
+						<li><a href="blog.html">Esnaf Muafiyeti Nedir ??</a></li>
+						<li><a href="blog.html">Esnaf Muafiyeti Belgesi</a></li>
+						<li><a href="blog.html">Neden Fatura Yok ??</a></li>
+						<li><a href="blog.html">Ürün İade Koşulları</a></li>
+						<li><a href="blog.html">Neden Fatura Yok ??</a></li>
+						<li><a href="blog.html">Mesafeli Satış Sözleşmesi</a></li>
+						<li><a href="blog.html">İade Koşulları</a></li>
+
 					</ul>
 				</div>
 				<div class="col media">
-					<h3>Social media</h3>
+					<h3>Sosyal Medya</h3>
 					<ul class="social">
-						<li><a href="#"><span class="ico ico-fb"></span>Facebook</a></li>
-						<li><a href="#"><span class="ico ico-tw"></span>Twitter</a></li>
-						<li><a href="#"><span class="ico ico-gp"></span>Google+</a></li>
-						<li><a href="#"><span class="ico ico-pi"></span>Pinterest</a></li>
+						<li><a href="https://www.facebook.com/profile.php?id=61571969485536"><span class="pe-1"><i
+										class="fa-brands fa-facebook"></i></span>Facebook</a></li>
+						<li><a href="https://www.instagram.com/unsal__38/"><span class="pe-1"><i
+										class="fa-brands fa-instagram"></i></span>İnsatagram</a></li>
 					</ul>
 				</div>
 				<div class="col contact">
-					<h3>Contact us</h3>
-					<p>Diana’s Jewelry INC.<br>54233 Avenue Street<br>New York</p>
-					<p><span class="ico ico-em"></span><a href="#">contact@dianasjewelry.com</a></p>
-					<p><span class="ico ico-ph"></span>(590) 423 446 924</p>
+					<h3>İletişim</h3>
+					<p>Tarzı Şahane<br>Büyükçekmece<br>İstanbul</p>
+					<p><span class="ico ico-em"></span><a href="#">contact@tarzisahane.com</a></p>
+					<p><span class="ico ico-ph"></span>(551) 702 68 13</p>
 				</div>
 				<div class="col newsletter">
-					<h3>Join our newsletter</h3>
-					<p>Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium.</p>
-					<form action="#">
+					<h3>Tarzı Şahane</h3>
+					<p>Tarzınız için en iyi seçim...</p>
+					<!-- <form action="#">
 						<input type="text" placeholder="Your email address...">
 						<button type="submit"></button>
-					</form>
+					</form> -->
 				</div>
 			</div>
 			<p class="copy">Copyright 2013 Jewelry. All rights reserved.</p>
@@ -186,10 +303,18 @@
 	</footer>
 	<!-- / footer -->
 
-
+	<!-- / boostrap -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+		integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+		crossorigin="anonymous"></script>
+	<!-- / boostrap -->
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script>window.jQuery || document.write("<script src='js/jquery-1.11.1.min.js'>\x3C/script>")</script>
 	<script src="js/plugins.js"></script>
 	<script src="js/main.js"></script>
 </body>
+
 </html>
