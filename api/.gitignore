@@ -1,2 +1,4 @@
-*node_modules/*
-shopier anahtar.rtf
+*/node_modules/*
+package-lock.json
+node_modules/
+*/web template
