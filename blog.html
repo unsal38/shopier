@@ -1,29 +1,92 @@
 <!DOCTYPE html>
-<!--[if IE 8]> <html class="ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<html lang="tr">
+
 <head>
 	<meta charset="utf-8">
-	<title>Diana’s jewelry</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<title>Tarzı Şahane</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
 	<link rel="stylesheet" media="all" href="css/style.css">
-	<!--[if lt IE 9]>
-		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+
+	<!-- / boostrap -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+		integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<!-- / fontawsome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+		integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
+
+<body id="blog">
 
 	<header id="header">
 		<div class="container">
-			<a href="index.html" id="logo" title="Diana’s jewelry">Diana’s jewelry</a>
+			<a href="index.html" id="logo" title="tarzı sahane">Tarzı Şahane</a>
 			<div class="right-links">
 				<ul>
-					<li><a href="cart.html"><span class="ico-products"></span>3 products, $4 500.00</a></li>
-					<li><a href="#"><span class="ico-account"></span>Account</a></li>
-					<li><a href="#"><span class="ico-signout"></span>Sign out</a></li>
+					<li><a href="cart.html"><span class="ico-products"></span>3 ürün, $4 500.00</a></li>
+					<li><a href="#"><span class="ico-account"></span>hesabım</a></li>
+					<li><a href="#"><span class="ico-signout"></span>çıkış</a></li>
 				</ul>
 			</div>
 		</div>
 		<!-- / container -->
+
+		<!-- urun resim modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title fs-5" id="exampleModalLabel">Yıldız kolye</h3>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div id="carouselExample" class="carousel slide">
+							<div class="carousel-inner">
+								<div class="carousel-item active">
+									<div class="list-group">
+										<a href="javascript:void(0)" class="list-group-item list-group-item-action">
+											Gümüş kaplamadır. Zincir zevkinize göre değiştirilebilir.
+										</a>
+										<a href="javascript:void(0)" class="list-group-item list-group-item-action">
+											Zincir zevkinize göre değiştirilebilir.
+										</a>
+									</div>
+								</div>
+								<div class="carousel-item ">
+									<img src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
+										class="d-block w-100" alt="...">
+								</div>
+								<div class="carousel-item">
+									<img src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_c471ba3b09621e37b2b1f2a7ca97ced9.JPG"
+										class="d-block w-100" alt="...">
+								</div>
+								<div class="carousel-item">
+									<iframe width="420" height="315" src="http://www.youtube.com/embed/5qJiIGlCmnM">
+									</iframe>
+								</div>
+
+							</div>
+							<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+								data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+								data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Next</span>
+							</button>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- / urun resim modal -->
 	</header>
 	<!-- / header -->
 
@@ -36,7 +99,7 @@
 				<li><a href="products.html">earrings</a></li>
 				<li><a href="products.html">Rings</a></li>
 				<li><a href="products.html">Gift cards</a></li>
-				<li><a href="products.html">Promotions</a></li>
+				<li><a href="blog.html">Blog</a></li>
 			</ul>
 		</div>
 		<!-- / container -->
@@ -46,8 +109,8 @@
 	<div id="breadcrumbs">
 		<div class="container">
 			<ul>
-				<li><a href="#">Home</a></li>
-				<li>Text page</li>
+				<li><a href="index.html">Home</a></li>
+				<li>Blog</li>
 			</ul>
 		</div>
 		<!-- / container -->
@@ -57,21 +120,30 @@
 	<div id="body">
 		<div class="container">
 			<div id="content" class="full">
-				<h1>sed do eiusmod tempor incididunt</h1>
-				<div class="entry">
-					<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
-					<h2>Duis aute irure dolor in reprehenderit </h2>
-					<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur:</p>
-					<ol>
-						<li>Phasellus vitae enim non quam adipiscing suscipit nec quis mauris.</li>
-						<li>Vivamus feugiat erat vel pellentesque luctus.</li>
-						<li>Nullam ac urna facilisis, fringilla arcu in, sodales velit.</li>
-						<li>Nam tempus nisi ornare urna mollis cursus.</li>
-					</ol>
-					<h2>dignissimos ducimus blanditiis praesentium</h2>
-					<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio <a href="#"><strong>nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit</strong></a> quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus.</p>
+				<h1>Blog</h1>
+				<div class="row row-cols-1 row-cols-md-4 g-4">
+					<div class="col">
+						<a href="blog-page/tasların-anlamları.html">
+							<div class="card">
+								<img src="images/yarari-taslar.jpeg" class="card-img-top w-100" alt="Taşların Anlamları">
+								<div class="card-body text-center">
+									<h5 class="card-title">Taşların Anlamları</h5>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col">
+						<a href="blog-page/burc-taslar.html">
+							<div class="card">
+								<img src="images/burc-taslar.jpeg" class="card-img-top" alt="Burçlara Göre Taşlar">
+								<div class="card-body">
+									<h5 class="card-title text-center">Burçlara Göre Taşlar</h5>
+								</div>
+							</div>
+						</a>
+					</div>
 				</div>
-		
+
 			</div>
 			<!-- / content -->
 		</div>
@@ -83,37 +155,40 @@
 		<div class="container">
 			<div class="cols">
 				<div class="col">
-					<h3>Frequently Asked Questions</h3>
+					<h3>Merak Edilenler ve Sorular</h3>
 					<ul>
-						<li><a href="#">Fusce eget dolor adipiscing </a></li>
-						<li><a href="#">Posuere nisl eu venenatis gravida</a></li>
-						<li><a href="#">Morbi dictum ligula mattis</a></li>
-						<li><a href="#">Etiam diam vel dolor luctus dapibus</a></li>
-						<li><a href="#">Vestibulum ultrices magna </a></li>
+						<li><a href="blog.html">Esnaf Muafiyeti Nedir ??</a></li>
+						<li><a href="blog.html">Esnaf Muafiyeti Belgesi</a></li>
+						<li><a href="blog.html">Neden Fatura Yok ??</a></li>
+						<li><a href="blog.html">Ürün İade Koşulları</a></li>
+						<li><a href="blog.html">Neden Fatura Yok ??</a></li>
+						<li><a href="blog.html">Mesafeli Satış Sözleşmesi</a></li>
+						<li><a href="blog.html">İade Koşulları</a></li>
+
 					</ul>
 				</div>
 				<div class="col media">
-					<h3>Social media</h3>
+					<h3>Sosyal Medya</h3>
 					<ul class="social">
-						<li><a href="#"><span class="ico ico-fb"></span>Facebook</a></li>
-						<li><a href="#"><span class="ico ico-tw"></span>Twitter</a></li>
-						<li><a href="#"><span class="ico ico-gp"></span>Google+</a></li>
-						<li><a href="#"><span class="ico ico-pi"></span>Pinterest</a></li>
+						<li><a href="https://www.facebook.com/profile.php?id=61571969485536"><span class="pe-1"><i
+										class="fa-brands fa-facebook"></i></span>Facebook</a></li>
+						<li><a href="https://www.instagram.com/unsal__38/"><span class="pe-1"><i
+										class="fa-brands fa-instagram"></i></span>İnsatagram</a></li>
 					</ul>
 				</div>
 				<div class="col contact">
-					<h3>Contact us</h3>
-					<p>Diana’s Jewelry INC.<br>54233 Avenue Street<br>New York</p>
-					<p><span class="ico ico-em"></span><a href="#">contact@dianasjewelry.com</a></p>
-					<p><span class="ico ico-ph"></span>(590) 423 446 924</p>
+					<h3>İletişim</h3>
+					<p>Tarzı Şahane<br>Büyükçekmece<br>İstanbul</p>
+					<p><span class="ico ico-em"></span><a href="#">contact@tarzisahane.com</a></p>
+					<p><span class="ico ico-ph"></span>(551) 702 68 13</p>
 				</div>
 				<div class="col newsletter">
-					<h3>Join our newsletter</h3>
-					<p>Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium.</p>
-					<form action="#">
+					<h3>Tarzı Şahane</h3>
+					<p>Tarzınız için en iyi seçim...</p>
+					<!-- <form action="#">
 						<input type="text" placeholder="Your email address...">
 						<button type="submit"></button>
-					</form>
+					</form> -->
 				</div>
 			</div>
 			<p class="copy">Copyright 2013 Jewelry. All rights reserved.</p>
@@ -122,10 +197,18 @@
 	</footer>
 	<!-- / footer -->
 
-
+	<!-- / boostrap -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+		integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+		crossorigin="anonymous"></script>
+	<!-- / boostrap -->
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script>window.jQuery || document.write("<script src='js/jquery-1.11.1.min.js'>\x3C/script>")</script>
 	<script src="js/plugins.js"></script>
 	<script src="js/main.js"></script>
 </body>
+
 </html>
