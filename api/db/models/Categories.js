@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const schema = mongoose.Schema({
+const CategoriesSchema = mongoose.Schema({
     title: String,
     placement: String,
     is_active: Boolean,
-    created_by: ObjectId, //USERDAN GELEN İD
+    created_by: mongoose.Types.ObjectId, //USERDAN GELEN İD
 
 },{
     versionKey: false,
@@ -16,5 +16,6 @@ class Categories extends mongoose.Model {
 
 };
 
-schema.loadClass(Categories);
-module.exports = mongoose.model('categories', schema);
+CategoriesSchema.loadClass(Categories);
+const categories = mongoose.model('categories', CategoriesSchema);
+module.exports = categories
