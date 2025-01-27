@@ -1,15 +1,15 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 
 require('dotenv').config()
 
 // router
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var panelRouter = require('./routes/panel');
-var tokengenerator = require('./config/token_generator');
+var loginRouter = require('./routes/login');
+var tokengenerator = require('./routes/token_generator');
+const permission_check = require("./controller/token_check");
 var app = express();
 
 // view engine setup
@@ -18,13 +18,14 @@ app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use("/*", permission_check.authorization_check())
 app.use("/tokengenerator", tokengenerator)
-app.use('/', indexRouter);
-app.use("/panel", panelRouter);
-app.use('/users', usersRouter);
+app.use('/', permission_check.permission_check(["visitor","user", "admin"]), indexRouter);
+app.use('/login',permission_check.permission_check(["visitor", "admin"]), loginRouter);
+app.use("/panel",permission_check.permission_check(["user", "admin"]), panelRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

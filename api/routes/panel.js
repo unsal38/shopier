@@ -24,6 +24,7 @@ router.post("/users", (req, res) => {
 });
 
 router.get("/categoriesAdd", (req, res, next) => {
+
   let categories_save = shopier_api.all_categories_database_save
   
   categories_save
@@ -44,6 +45,9 @@ router.get("/productAdd", (req, res, next) => {
 
 var admin = true;
 router.get('/', function (req, res, next) {
+  const permissions = req.permission
+  if(permissions === false) res.redirect("/login")
+    
   if(admin === true)res.render('admin_panel', { title: 'Admin panel' });
   if(admin === false)res.render('user_panel', { title: 'User panel' });
   

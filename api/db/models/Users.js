@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema({
-    email: {type: String, required: true, unique: true},
+    email: {type: String, required: true, unique: true, lowercase: true},
     password: {type: String, required: true},
     is_active:  {type: Boolean, default: false},
-    first_name: String,
-    last_name: String,
-    phone_number: String,
+    first_name: {type: String, lowercase: true},
+    last_name: {type: String, lowercase: true},
+    phone_number: {type: String, lowercase: true},
     favorite: Array,
 },{
     versionKey: false,

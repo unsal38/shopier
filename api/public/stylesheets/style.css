@@ -3,6 +3,9 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+.valid{
+  border: 2px solid green;
+}
+.invalid{
+  border: 2px solid #ff000073;
 }
