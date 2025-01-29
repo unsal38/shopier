@@ -6,6 +6,7 @@ const schema = mongoose.Schema({
     first_name: {type: String, lowercase: true},
     last_name: {type: String, lowercase: true},
     phone_number: {type: String, lowercase: true},
+    admin: {type: Boolean, default: false},
     favorite: Array,
 },{
     versionKey: false,

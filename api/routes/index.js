@@ -4,9 +4,10 @@ var router = express.Router();
 router.get('/',function (req, res, next) {
   const permissions = req.permissions
   res.render('index', { 
-    title: 'Ana Sayfa', 
     permissions,
-    javascript_file: "index.js"
+    javascript_file: "index.js",
+    javascript_file1: "main.js",
+    javascript_file2: "plugins.js"
   });
   
 });

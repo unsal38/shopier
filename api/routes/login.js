@@ -34,14 +34,29 @@ router.post("/login", async (req, res) => {
     .toLowerCase()
 
   try {
-    const user_data = await userSchema.find({ email: pass_form_data_email_tolowercase })
+    var user_data = await userSchema.find({ email: pass_form_data_email_tolowercase })
+    console.log(user_data)
     if (user_data.length > 0) {
-      const user = "user"
+      var password = jwt_lib.jwt_verify_reflesh(user_data[0].password)
+      if (password.pass === pass_form_data_pass_tolowercase) var pass = true
+      if (password.pass != pass_form_data_pass_tolowercase) var pass = false
+    }
+
+    if (user_data.length === 0 || pass === false) res.json({ message: "kullanıcı yada şifre hatalı" })
+    if (user_data.length >= 0 && pass === true) {
+      if(user_data[0].admin === true) var user = "admin"
+      if(user_data[0].admin === false) var user = "user"
       const id = user_data[0]._id
       const new_jwt = jwt_lib.jwt_sign_access_cookie(user, id)
-      res.json({jwt: new_jwt})
+      const new_password_pass = {pass: password.pass}
+      const new_reflesh_token = jwt_lib.jwt_sign_reflesh(new_password_pass)
+      try {
+        await userSchema.findByIdAndUpdate(id, {password: `${new_reflesh_token}`})
+      } catch (error) {
+        console.log(error, "login js login")
+      }
+      res.json({ jwt: new_jwt })
     }
-    if (user_data.length === 0) res.json({message: "kullanıcı bulunamadı"})
   } catch (error) {
     console.log(error)
   }

@@ -1,10 +1,15 @@
 var express = require('express');
 var router = express.Router();
-
+const db_search = require("../lib/db_search")
 const shopier_api = require("../lib/shopier");
+const {
+  pane_params_get
+} = require("../controller/panel")
 //const all_products = shopier_api.all_categories_database_save();
 
 /* GET home page. */
+
+
 
 router.post("/users", (req, res) => {
   const email = res.data.email
@@ -26,30 +31,21 @@ router.post("/users", (req, res) => {
 router.get("/categoriesAdd", (req, res, next) => {
 
   let categories_save = shopier_api.all_categories_database_save
-  
+
   categories_save
-  .then(value => {
-    if(value === true) {
-      res.json({categories_save : true});
-    } else {res.json({categories_save : false})}
-  })
-  
-  
+    .then(value => {
+      if (value === true) {
+        res.json({ categories_save: true });
+      } else { res.json({ categories_save: false }) }
+    })
+
+
 });
 router.get("/productAdd", (req, res, next) => {
-  
+
   //shopier_api.all_product_database_save();
 });
 
-
-
-var admin = true;
-router.get('/', function (req, res, next) {
-  const permissions = req.permission
-  if(permissions === false) res.redirect("/login")
-    
-  if(admin === true)res.render('admin_panel', { title: 'Admin panel' });
-  if(admin === false)res.render('user_panel', { title: 'User panel' });
-  
-});
+router.get('/:page', pane_params_get);
+router.get('/', pane_params_get);
 module.exports = router;

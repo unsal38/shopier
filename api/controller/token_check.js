@@ -7,7 +7,7 @@ const permission_check = (permission) => {
         if (access_token) { var access_token_split = access_token.split("Authorization=Bearer ")[1] }
         try {
             const decoded__token = jwt_lib.jwt_verify_access(access_token_split)
-            console.log(decoded__token)
+
             if (decoded__token === false) {
                 req.permissions = "visitor"
                 const filter_permission = permission.filter(findData => { return findData === req.permissions })
@@ -16,7 +16,10 @@ const permission_check = (permission) => {
             if (decoded__token !== false) {
                 const filter_permission = permission.filter(findData => { return findData === decoded__token.user })
                 if (filter_permission.length === 0) return res.redirect("/")
-                if(filter_permission.length > 0) req.permissions = `${decoded__token.user}`
+                if(filter_permission.length > 0) {
+                    req.permissions = `${decoded__token.user}`
+                    req.id = `${decoded__token.id}`
+                }
             }
 
         } catch (error) {
@@ -25,8 +28,6 @@ const permission_check = (permission) => {
         }
         next();
     }
-
-
 }
 
 //// POSTLARDA AXİOS HEADERS KONTROLÜ
@@ -37,7 +38,7 @@ const authorization_check = () => {
             var token_split = token.split("Bearer ")[1]
             try {
                 const decoded_token = jwt_lib.jwt_verify_access(token_split)
-                if (decoded_token === false) return 
+                if (decoded_token === false) return  res.redirect("/login")
             } catch (error) {
                 console.log(error, "token check js catch")
             }
