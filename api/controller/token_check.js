@@ -7,7 +7,6 @@ const permission_check = (permission) => {
         if (access_token) { var access_token_split = access_token.split("Authorization=Bearer ")[1] }
         try {
             const decoded__token = jwt_lib.jwt_verify_access(access_token_split)
-
             if (decoded__token === false) {
                 req.permissions = "visitor"
                 const filter_permission = permission.filter(findData => { return findData === req.permissions })

@@ -4,10 +4,11 @@ const pane_params_get = async (req, res) => {
   const page_check = req.params.page
   if(!page_check) var page = null
   if(page_check) var page = req.params.page
-  var permissions = req.permissions
-  //var permissions = "admin"
-  var user_id = req.id
 
+  // var permissions = req.permissions
+  var permissions = "user"
+  
+  var user_id = req.id
 
   const user_data = await db_search.find_by_id(user_id)
   var first_name = user_data.first_name
@@ -24,12 +25,17 @@ const pane_params_get = async (req, res) => {
     if (check_page_permission.length === 0) var page_name = 'panel_user'
     if (check_page_permission.length > 0) var page_name = 'panel_error'
   }
+  const page_params = "panel"
   res.render(page_name, {
     title,
     permissions,
-    javascript_file: null,
     page,
     first_name,
+    page_params,
+    javascript_file: null,
+    javascript_file1: null,
+    javascript_file2: null,
+    
   });
 
 }

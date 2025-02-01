@@ -1,100 +1,116 @@
-  <!DOCTYPE html>
-  <html lang="tr">
-  
-  <head>
-    <meta charset="utf-8">
-    <title>Tarzı Şahane</title>
-    <meta name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+	<meta charset="utf-8">
+	<title>Tarzı Şahane</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
 
 
 	<!-- / boostrap -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
-    integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  	<!-- / fontawsome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+		integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<!-- / fontawsome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-  integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" media="all" href='/stylesheets/style.css' />
+		integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" media="all" href='/stylesheets/style.css' />
 </head>
 
 <body>
-
 	<header id="header">
-		<div class="container">
-			<a href="index.html" id="logo" title="tarzı sahane">Tarzı Şahane</a>
-			<div class="right-links">
-				<ul>
-					<li><a href="sepet.html"><span class="ico-products"></span>3 ürün, 4 500.00 tl</a></li>
-					<li><a href="#"><span class="ico-account"></span>hesabım</a></li>
-					<li><a href="#"><span class="ico-signin"></span>giriş</a></li>
-					<li><a href="#"><span class="ico-signout"></span>çıkış</a></li>
-				</ul>
-			</div>
-		</div>
-		<!-- / container -->
+		<% if(page_params !="panel" ) { %>
+			<div class="container">
+				<a href="index.html" id="logo" title="tarzı sahane">Tarzı Şahane</a>
+				<div class="right-links">
+					<ul>
+						<li><a href="/">Ana Sayfa</a></li>
+						<% if(page_params !=="passchange" ){ %>
+							<% if(permissions==="admin" || permissions==="user" ) { %>
+								<li><a href="sepet.html"><span class="ico-products"></span>3 ürün, 4 500.00 tl</a></li>
+								<li><a href="panel"><span class="ico-account"></span>hesabım</a></li>
+								<li><a id="page_exit" href="javascript:void(0)"><span
+											class="ico-signout"></span>çıkış</a></li>
+								<% } %>
+									<% if(permissions==="visitor" ) { %>
+										<li><a href="login">giriş</a></li>
+										<% } %>
+											<% } %>
 
-		<!-- urun resim modal -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h3 class="modal-title fs-5" id="exampleModalLabel">Yıldız kolye</h3>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<div id="carouselExample" class="carousel slide">
-							<div class="carousel-inner">
-								<div class="carousel-item active">
-									<img src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
-										class="d-block w-100" alt="...">
-								</div>
-								<div class="carousel-item">
-									<img src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_c471ba3b09621e37b2b1f2a7ca97ced9.JPG"
-										class="d-block w-100" alt="...">
-								</div>
-								<div class="carousel-item">
-									<iframe width="420" height="315" src="http://www.youtube.com/embed/5qJiIGlCmnM">
-									</iframe>
-								</div>
-
-							</div>
-							<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-								data-bs-slide="prev">
-								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-								<span class="visually-hidden">Previous</span>
-							</button>
-							<button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-								data-bs-slide="next">
-								<span class="carousel-control-next-icon" aria-hidden="true"></span>
-								<span class="visually-hidden">Next</span>
-							</button>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					</div>
+					</ul>
 				</div>
 			</div>
-		</div>
-		<!-- / urun resim modal -->
+			<!-- / container -->
+			<% } %>
+				<!-- urun resim modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h3 class="modal-title fs-5" id="exampleModalLabel">Yıldız kolye</h3>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div id="carouselExample" class="carousel slide">
+									<div class="carousel-inner">
+										<div class="carousel-item active">
+											<img src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
+												class="d-block w-100" alt="...">
+										</div>
+										<div class="carousel-item">
+											<img src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_c471ba3b09621e37b2b1f2a7ca97ced9.JPG"
+												class="d-block w-100" alt="...">
+										</div>
+										<div class="carousel-item">
+											<iframe width="420" height="315"
+												src="http://www.youtube.com/embed/5qJiIGlCmnM">
+											</iframe>
+										</div>
+
+									</div>
+									<button class="carousel-control-prev" type="button"
+										data-bs-target="#carouselExample" data-bs-slide="prev">
+										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Previous</span>
+									</button>
+									<button class="carousel-control-next" type="button"
+										data-bs-target="#carouselExample" data-bs-slide="next">
+										<span class="carousel-control-next-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Next</span>
+									</button>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- / urun resim modal -->
 	</header>
 	<!-- / header -->
-
-	<nav id="menu">
-		<div class="container">
-			<div class="trigger"></div>
-			<ul>
-				<li><a href="products.html">New collection</a></li>
-				<li><a href="products.html">necklaces</a></li>
-				<li><a href="products.html">earrings</a></li>
-				<li><a href="products.html">Rings</a></li>
-				<li><a href="products.html">Gift cards</a></li>
-				<li><a href="blog.html">Blog</a></li>
-			</ul>
-		</div>
-		<!-- / container -->
-	</nav>
-	<!-- / navigation -->
+	<% if(permissions==="admin" || permissions==="user" ) { %>
+		<% if(page_params !=="passchange" ){ %>
+			<nav id="menu">
+				<div class="container">
+					<div class="trigger"></div>
+						<ul>
+							<li><a href="products.html">New collection</a></li>
+							<li><a href="products.html">necklaces</a></li>
+							<li><a href="products.html">earrings</a></li>
+							<li><a href="products.html">Rings</a></li>
+							<li><a href="products.html">Gift cards</a></li>
+							<li><a href="blog.html">Blog</a></li>
+						</ul>
+					
+				</div>
+				<!-- / container -->
+			</nav>
+			<% } %>
+				<% } %>
+					<!-- / navigation -->

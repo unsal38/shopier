@@ -1,3 +1,4 @@
+<% if(page_params !== "panel") {%>
 <footer id="footer">
   <div class="container">
     <div class="cols">
@@ -42,6 +43,7 @@
   </div>
   <!-- / container -->
 </footer>
+<% } %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
   integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -60,10 +62,16 @@
   <% if ( javascript_file1 !== null) { %>
     <script src="../javascripts/<%= javascript_file1 _%>"></script>
   <% } %>
-  <% if ( javascript_file1 !== null) { %>
+  <% if ( javascript_file2 !== null) { %>
     <script src="../javascripts/<%= javascript_file2 _%>"></script>
   <% } %>
+  <% if ( javascript_file3 !== null) { %>
+    <script src="<%= javascript_file3 _%>"></script>
+  <% } %>
+  <% if ( javascript_file4 !== null) { %>
+    <script src="<%= javascript_file4 _%>"></script>
+  <% } %>
 
-<script src="../javascripts/token.js"></script>
+
 </body>
 </html>

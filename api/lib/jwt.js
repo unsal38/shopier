@@ -19,7 +19,6 @@ const jwt_sign_access = function jwt_sign_access(jwt_data) {
     try {
         const jwt_data_sign = {
             user: jwt_data,
-            id: id || null
         }
         return jwt.sign(jwt_data_sign, ACCESS_TOKEN, { expiresIn: '1h' })
     } catch (error) {
@@ -29,7 +28,7 @@ const jwt_sign_access = function jwt_sign_access(jwt_data) {
 }
 const jwt_sign_reflesh = function jwt_sign_reflesh(jwt_data) {
     try {
-        return jwt.sign(jwt_data, REFLESH_TOKEN, { expiresIn: '365 days' })
+        return jwt.sign(jwt_data, REFLESH_TOKEN)
     } catch (error) {
         console.log(error, "jwt_reflesh error");
     }

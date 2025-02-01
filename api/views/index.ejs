@@ -1,118 +1,105 @@
 <%- include('../views/header'); %>
+  <div id="slider">
+    <ul>
+      <!-- <li style="background-image: url(images/0.jpg)">
+        <h3>Make your life better</h3>
+        <h2>Genuine diamonds</h2>
+        <a href="#" class="btn-more">Read more</a>
+      </li> -->
+      <li class="purple" style="background-image: url(images/01.jpg)">
+        <h3>Tarzınızı Şahane yapalım...</h3>
+        <h2>en güzel doğal taşlarla...</h2>
+        <a href="#" class="btn-more">Read more</a>
+      </li>
+      <li class="yellow" style="background-image: url(images/02.jpg)">
+        <h3>You deserve to be beauty</h3>
+        <h2>golden bracelets</h2>
+        <a href="#" class="btn-more">Read more</a>
+      </li>
+    </ul>
+  </div>
+  <!-- / body -->
 
-    <% if(permissions==="visitor" || !permissions) {%>
-      <a class="btn btn-primary btn-sm " href="login" role="button">login</a>
-      <% } %>
-        <% if(permissions==="user" || permissions==="admin" ) {%>
-          <a class="btn btn-primary btn-sm " href="javascript:void(0)" id="page_exit" role="button">logout</a>
-          <% } %>
-            <% if(permissions==="admin" || permissions==="user" ) {%>
-              <a class="btn btn-primary btn-sm " href="panel" role="button">panel</a>
-              <% } %>
+  <div id="body">
+    <div class="containers">
+      <div class="last-products">
+        <h2>Son Eklenenler</h2>
+        <section class="products">
+          <article>
+            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <img
+                src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
+                alt="gümüş kaplama kolye">
+            </a>
+            <a href="product.html">
+              <h3>Yıldız kolye</h3>
+            </a>
+            <h4><span>1</span><span><i class="fa-solid fa-turkish-lira-sign"></i></span></h4>
+            <div class="d-flex flex-wrap justify-content-center">
+              <a href="https://www.shopier.com/32283966" class="btn-add m-1">Shopier Satın Al</a>
+              <a href="sepet.html" class="btn-add m-1">sepete Ekle</a>
+            </div>
+          </article>
 
+        </section>
+      </div>
+      <section class="quick-links">
+        <article style="background-image: url(../images/yarari-taslar.jpeg)">
+          <a href="blog-page/tasların-anlamları.html" class="table">
+            <div class="cell">
+              <div class="text">
 
-                  <div id="slider">
-                    <ul>
-                      <!-- <li style="background-image: url(images/0.jpg)">
-                        <h3>Make your life better</h3>
-                        <h2>Genuine diamonds</h2>
-                        <a href="#" class="btn-more">Read more</a>
-                      </li> -->
-                      <li class="purple" style="background-image: url(images/01.jpg)">
-                        <h3>Tarzınızı Şahane yapalım...</h3>
-                        <h2>en güzel doğal taşlarla...</h2>
-                        <a href="#" class="btn-more">Read more</a>
-                      </li>
-                      <li class="yellow" style="background-image: url(images/02.jpg)">
-                        <h3>You deserve to be beauty</h3>
-                        <h2>golden bracelets</h2>
-                        <a href="#" class="btn-more">Read more</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <!-- / body -->
+                <h3>Yarı Değerli Taşlar</h3>
+                <hr>
+                <h4>Taşların Anlamları</h4>
 
-                  <div id="body">
-                    <div class="containers">
-                      <div class="last-products">
-                        <h2>Son Eklenenler</h2>
-                        <section class="products">
-                          <article>
-                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                              <img
-                                src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
-                                alt="gümüş kaplama kolye">
-                            </a>
-                            <a href="product.html">
-                              <h3>Yıldız kolye</h3>
-                            </a>
-                            <h4><span>1</span><span><i class="fa-solid fa-turkish-lira-sign"></i></span></h4>
-                            <div class="d-flex flex-wrap justify-content-center">
-                              <a href="https://www.shopier.com/32283966" class="btn-add m-1">Shopier Satın Al</a>
-                              <a href="sepet.html" class="btn-add m-1">sepete Ekle</a>
-                            </div>
-                          </article>
+              </div>
+            </div>
+          </a>
+        </article>
+        <article style="background-image: url(../images/burc-taslar.jpeg)">
+          <a href="blog-page/burc-taslar.html" class="table">
+            <div class="cell">
+              <div class="text">
 
-                        </section>
-                      </div>
-                      <section class="quick-links">
-                        <article style="background-image: url(../images/yarari-taslar.jpeg)">
-                          <a href="blog-page/tasların-anlamları.html" class="table">
-                            <div class="cell">
-                              <div class="text">
+                <h3>Yarı Değerli Taşlar</h3>
+                <hr>
+                <h4>Burçlara Göre Taşlar</h4>
 
-                                <h3>Yarı Değerli Taşlar</h3>
-                                <hr>
-                                <h4>Taşların Anlamları</h4>
+              </div>
+            </div>
+          </a>
+        </article>
+      </section>
 
-                              </div>
-                            </div>
-                          </a>
-                        </article>
-                        <article style="background-image: url(../images/burc-taslar.jpeg)">
-                          <a href="blog-page/burc-taslar.html" class="table">
-                            <div class="cell">
-                              <div class="text">
+      <div id="blog" class="last-products">
+        <h2>Blog</h2>
+        <section class="products">
+          <article style="background-image: url(../images/yarari-taslar.jpeg)">
+            <a href="blog-page/tasların-anlamları.html" class="table">
+              <div class="cell">
+                <div class="text">
+                  <h4>Taşların Anlamları</h4>
 
-                                <h3>Yarı Değerli Taşlar</h3>
-                                <hr>
-                                <h4>Burçlara Göre Taşlar</h4>
+                </div>
+              </div>
+            </a>
+          </article>
+          <article style="background-image: url(../images/burc-taslar.jpeg)">
+            <a href="blog-page/burc-taslar.html" class="table">
+              <div class="cell">
+                <div class="text">
+                  <h4>Burçlara Göre Taşlar</h4>
 
-                              </div>
-                            </div>
-                          </a>
-                        </article>
-                      </section>
-
-                      <div id="blog" class="last-products">
-                        <h2>Blog</h2>
-                        <section class="products">
-                          <article style="background-image: url(../images/yarari-taslar.jpeg)">
-                            <a href="blog-page/tasların-anlamları.html" class="table">
-                              <div class="cell">
-                                <div class="text">
-                                  <h4>Taşların Anlamları</h4>
-
-                                </div>
-                              </div>
-                            </a>
-                          </article>
-                          <article style="background-image: url(../images/burc-taslar.jpeg)">
-                            <a href="blog-page/burc-taslar.html" class="table">
-                              <div class="cell">
-                                <div class="text">
-                                  <h4>Burçlara Göre Taşlar</h4>
-
-                                </div>
-                              </div>
-                            </a>
-                          </article>
-                        </section>
-                      </div>
-                    </div>
-                    <!-- / container -->
-                  </div>
-                  <!-- / body -->
-                  <%- include('../views/footer'); %>
-                  <!-- / footer -->
-  </body>
+                </div>
+              </div>
+            </a>
+          </article>
+        </section>
+      </div>
+    </div>
+    <!-- / container -->
+  </div>
+  <!-- / body -->
+  <%- include('../views/footer'); %>
+  <!-- / footer -->

@@ -1415,51 +1415,63 @@ section.products article img {
 	width: 100px;
 	max-width: 100px;
 }
+
 #blog article {
 	background-position: center;
 }
+
 section.quick-links article,
 #blog article {
 	background-size: cover;
 	background-repeat: no-repeat;
 	border-radius: 5%;
 }
+
 .quick-links h3,
 .quick-links h4,
 #blog article h4,
-#blog article a{
-	color: #4b4141!important;
-	background-color: #ffffff6e!important;
+#blog article a {
+	color: #4b4141 !important;
+	background-color: #ffffff6e !important;
 	text-decoration: none;
 }
-.modal .list-group{
+
+.modal .list-group {
 	background-color: #ffffff2e;
 	--bs-list-group-bg: inherit;
 }
-.modal .modal-content{
+
+.modal .modal-content {
 	background-color: #ffffff70;
 }
+
 .modal .modal-header,
-.modal .modal-footer{
+.modal .modal-footer {
 	border: 0;
 }
-.modal .modal-footer button{
+
+.modal .modal-footer button {
 	background-color: #7d6262;
 }
-.modal .modal-footer button:hover{
-	background-color: #fff; 
+
+.modal .modal-footer button:hover {
+	background-color: #fff;
 	color: #7d6262;
 }
+
 .modal .modal-title {
 	font-family: fantasy;
 	text-transform: capitalize;
 }
-.modal .carousel-item img{
+
+.modal .carousel-item img {
 	border-radius: 5%;
 }
-#blog a{
+
+#blog a {
 	text-decoration: none;
 }
+
 #sepet h3 a {
 	color: #959697;
 	text-decoration: none;
@@ -1470,56 +1482,64 @@ section.quick-links article,
 	width: 1170px;
 	margin: 0 auto;
 }
-#product div.urun-ozellikler{
+
+#product div.urun-ozellikler {
 	border: 1px solid #cecece;
-    border-radius: 0 0 20px 20px;
-    padding: 15px;
-    border-top: 0;
+	border-radius: 0 0 20px 20px;
+	padding: 15px;
+	border-top: 0;
 }
-#product div.urun-ozellikler blockquote{
+
+#product div.urun-ozellikler blockquote {
 	font-style: italic;
 }
-#product ul.urun-ozellikler button{
+
+#product ul.urun-ozellikler button {
 	color: #656567;
 }
-#product .actions .sepete-ekle{
-    padding: 0 44px;
-    height: 40px;
+
+#product .actions .sepete-ekle {
+	padding: 0 44px;
+	height: 40px;
 	margin-top: 10px;
 	display: inline-block;
-    line-height: 53px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #fff;
-    font-family: "Novecentowide";
-    background-color: #373737;
+	line-height: 53px;
+	font-size: 12px;
+	font-weight: 500;
+	color: #fff;
+	font-family: "Novecentowide";
+	background-color: #373737;
 	display: flex;
 	align-items: center;
 }
+
 #tasların-anlamları .card,
-#burc-taslar .card{
-    font-family: inherit;
-    color: #656565;
-    border-radius: 50px;
-    padding: 20px;
+#burc-taslar .card {
+	font-family: inherit;
+	color: #656565;
+	border-radius: 50px;
+	padding: 20px;
 }
+
 #tasların-anlamları .card h5,
 #burc-taslar .card h5 {
 	text-align: center;
 	margin-bottom: 30px;
 	font-size: 2vw;
 }
+
 #tasların-anlamları .card .card-text,
-#burc-taslar .card .card-text{
+#burc-taslar .card .card-text {
 	text-align: justify;
 }
+
 #tasların-anlamları .card img,
-#burc-taslar .card img{
+#burc-taslar .card img {
 	max-width: 20vw;
 	margin: auto;
 }
 
-#panelUser .menuLeft ul{
+#panelUser .menuLeft ul {
 	border-right: 2px solid #0000002b;
 	width: 14rem;
 	float: left;
@@ -1528,41 +1548,55 @@ section.quick-links article,
 	top: 50px;
 	padding-top: 2rem;
 	padding-left: 1rem;
-	
-  }
-  #panelUser .menuLeft ul li a{
+
+}
+
+#panelUser .menuLeft ul li a {
 	text-transform: capitalize;
-  }
-  #panelUser .menuLeft ul li a:not(a.active){
+}
+
+#panelUser .menuLeft ul li a:not(a.active) {
 	color: #575757;
-  }
-  #panelUser .menuLeft ul li a.active{
+}
+
+#panelUser .menuLeft ul li a.active {
 	color: #dee2e6;
 	background: #575757;
 	border-radius: 20px 0 0 20px;
-  }
-  
-  #panelUser .panelBody{
+}
+
+#panelUser .panelBody {
 	width: calc(100% - 15rem);
 	left: 14rem;
 	position: absolute;
 	top: 6rem;
-  }
-  #panelUser .panelBody .body{
+}
+
+#panelUser .panelBody .body {
 	margin-bottom: 100px;
-  }
-  #panelUser .navbar .navbar-brand{
+}
+
+#panelUser .navbar .navbar-brand {
 	border-right: 2px solid #0000002b;
 	width: 14rem;
 	font-family: cursive;
-  }
-  .valid{
+}
+
+.valid {
 	border: 2px solid green;
-  }
-  .invalid{
+}
+
+.invalid {
 	border: 2px solid #ff000073;
-  }
-  
+}
+
+.loginRegisterForm {
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	max-width: 50vw;
+}
+
 /* Fonts
 ------------------------------------------------------------------------------*/
 

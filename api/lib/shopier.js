@@ -16,36 +16,35 @@ const instance = axios.create({
 });
 
 
-const all_categories_database_save =
-    instance.get("/categories")
-        .then(async res => {
+// const all_categories_database_save = instance.get("/categories")
+//     .then(async res => {
 
-            // const data = categoriesSchema.create({
-            //     title: "deneme2",
-            //     placement: 1,
-            //     is_active: true,
-            // })
+//         // const data = categoriesSchema.create({
+//         //     title: "deneme2",
+//         //     placement: 1,
+//         //     is_active: true,
+//         // })
 
-            // const data = await categoriesSchema.find()
-
+//         // const data = await categoriesSchema.find()
 
 
 
 
-            //  if (res) return true;
-        })
-        .catch(err => {
-            console.error(err);
-            if (err) return err
-        });
+
+//         //  if (res) return true;
+//     })
+//     .catch(err => {
+//         console.error(err);
+//         if (err) return err
+//     });
 
 function all_product_database_save() {
-    instance.get("/products")
-        .then(res => console.log(res.data))
-        .catch(err => console.error(err));
+    // instance.get("/products")
+    //     .then(res => console.log(res.data))
+    //     .catch(err => console.error(err));
 }
 
 module.exports = {
     all_product_database_save,
-    all_categories_database_save
+    // all_categories_database_save
 }

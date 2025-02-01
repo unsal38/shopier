@@ -39,7 +39,42 @@ function alert(message) {
    .remove()
    $(".alert")
    .removeClass("d-none")
-   .append(`<p class="m-0 p-0 text">${message}</p>`);
+   .append(`<p class="m-0 p-0 text-capitalize">${message}</p>`);
+}
+function login() {
+   const form_register_inputs = $("#formlogin input[type]")
+   input_check_vall(form_register_inputs)
+   const form_register_inputs_check = $("#formlogin input[type].valid")
+   if (form_register_inputs_check.length >= 2) {
+      let register_form_array = new Array()
+      $(form_register_inputs_check).each(function (i, v) {
+         const item = $(v).attr("id")
+         const item_vall = $(v).val()
+         register_form_array.push([item, item_vall])
+      });
+      const url = "/login/login"
+      const data = { register_form_array }
+      const axios_form_post_config = {
+         baseURL: document.location.origin,
+         headers: {
+            authorization: `${getCookie("Authorization")}`
+         },
+      }
+      axios.post(url, data, axios_form_post_config)
+      .then(res => {
+         const res_check = res.data
+         if(res_check.message) {
+            const message = res_check.message
+            alert(message)
+         }
+         if (res_check.jwt) {
+            const new_jwt = res_check.jwt
+            document.cookie = `Authorization=Bearer ${new_jwt}`
+            alert("giriş başarılı");
+            document.location.href = "/"
+         }
+      })
+   }
 }
 $(() => {
    $("#page_exit").on("click", () => {
@@ -51,41 +86,6 @@ $(() => {
 $(() => {
    $("button#submitFormLogin").on("click", async (e) => {
       e.preventDefault()
-      function login() {
-         const form_register_inputs = $("#formlogin input[type]")
-         input_check_vall(form_register_inputs)
-         const form_register_inputs_check = $("#formlogin input[type].valid")
-         if (form_register_inputs_check.length >= 2) {
-            let register_form_array = new Array()
-            $(form_register_inputs_check).each(function (i, v) {
-               const item = $(v).attr("id")
-               const item_vall = $(v).val()
-               register_form_array.push([item, item_vall])
-            });
-            const url = "/login/login"
-            const data = { register_form_array }
-            const axios_form_post_config = {
-               baseURL: document.location.origin,
-               headers: {
-                  authorization: `${getCookie("Authorization")}`
-               },
-            }
-            axios.post(url, data, axios_form_post_config)
-            .then(res => {
-               const res_check = res.data
-               if(res_check.message) {
-                  const message = res_check.message
-                  alert(message)
-               }
-               if (res_check.jwt) {
-                  const new_jwt = res_check.jwt
-                  document.cookie = `Authorization=Bearer ${new_jwt}`
-                  alert("giriş başarılı");
-                  document.location.href = "/"
-               }
-            })
-         }
-      }
       await token_generator.get("/tokengenerator")
       .then( res => {
          document.cookie = `Authorization= Bearer ${res.data.new_jwt}`
@@ -148,3 +148,8 @@ $(()=> {
    }
    
 }) // PANEL LEFT MENU ACTİVE CLASS EKLEME
+$(()=> {
+   $("#menu div.trigger").on("click", ()=> {
+      $("#menu ul").toggleClass("d-block")
+   })
+})//      #menu ul show
