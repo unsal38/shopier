@@ -1,4 +1,24 @@
-
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+       let c = ca[i];
+       while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+       }
+       if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+       }
+    }
+    return "";
+ }
+var baseURL = document.location.origin
+var token = getCookie("Authorization")
+var axios_config= {
+    baseURL,
+    headers: {'Authorization': `Bearer ${token.split("Bearer ")[1]}`}
+}
 $(() => {
     $("#kategori-ekle").on("click", () => {
         axios.get("panel/categoriesAdd")
@@ -132,7 +152,20 @@ $(() => {
     })
 
 }) // USER KONTROL
-
 $(()=>{
-    
-})
+    const page_url = document.location.pathname
+    const page_url_split = page_url.split("panel/")
+    $(`div.menuLeft a[href]`).removeClass("active")
+    if(page_url_split.length > 1) $(`a[href="/panel/${page_url_split[1]}"]`).addClass("active")
+})// LEFT MENU ACTİVE
+$(()=> {
+    $("#catacory_add").on("click", function () {
+        const getURL="panel/categoriesAdd"
+        axios.get(getURL, axios_config)
+        .then(res => {
+            if(res.data === true) {alert("işlem başarılı")}
+            if(res.data === false) {alert("tekrar deneyiniz")}
+        })
+
+    });
+}) // PANEL KATEGORİ EKLEME

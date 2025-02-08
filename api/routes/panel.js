@@ -2,13 +2,8 @@ var express = require('express');
 var router = express.Router();
 const db_search = require("../lib/db_search")
 const shopier_api = require("../lib/shopier");
-const {
-  pane_params_get
-} = require("../controller/panel")
-//const all_products = shopier_api.all_categories_database_save();
-
-/* GET home page. */
-
+const jwt = require("../lib/jwt")
+const { pane_params_get } = require("../controller/panel")
 
 
 router.post("/users", (req, res) => {
@@ -28,17 +23,14 @@ router.post("/users", (req, res) => {
   // })
 });
 
-router.get("/categoriesAdd", (req, res, next) => {
-
-  let categories_save = shopier_api.all_categories_database_save
-
-  categories_save
-    .then(value => {
-      if (value === true) {
-        res.json({ categories_save: true });
-      } else { res.json({ categories_save: false }) }
-    })
-
+router.get("/categoriesAdd", async (req, res) => {
+  const authorization_token = req.headers.authorization
+  const authorization_split = authorization_token.split("Bearer ")[1]
+  const jwt_data = jwt.jwt_verify_access(authorization_split)
+  const user_id = jwt_data.id
+  const shopier_kategori = await shopier_api.all_categories_database_save(user_id)
+  if (shopier_kategori === true) res.send(true)
+  if (shopier_kategori === false) res.send(false)
 
 });
 router.get("/productAdd", (req, res, next) => {

@@ -1,105 +1,143 @@
 <%- include('../views/header'); %>
-  <div id="slider">
-    <ul>
-      <!-- <li style="background-image: url(images/0.jpg)">
-        <h3>Make your life better</h3>
-        <h2>Genuine diamonds</h2>
-        <a href="#" class="btn-more">Read more</a>
-      </li> -->
-      <li class="purple" style="background-image: url(images/01.jpg)">
+  <div id="carouseltopslideRide" class="carousel slide" data-bs-ride="carousel" >
+    <div class="carousel-inner d-flex">
+
+      <!-----------------NOT--------------------------------
+      1) data-blog iki değer true ve false css(d-none)
+      2) manuel reklam ve tanıtım için slayt koymak için yaptım
+      ----------------------------------------------------->
+
+      <div class="carousel-item active">
         <h3>Tarzınızı Şahane yapalım...</h3>
         <h2>en güzel doğal taşlarla...</h2>
-        <a href="#" class="btn-more">Read more</a>
-      </li>
-      <li class="yellow" style="background-image: url(images/02.jpg)">
-        <h3>You deserve to be beauty</h3>
-        <h2>golden bracelets</h2>
-        <a href="#" class="btn-more">Read more</a>
-      </li>
-    </ul>
+        <a data-blog="false" class="btn-more" href="blog">Okumak için Tıklayınız</a>
+        
+        <img src="images/01.jpg" class="d-block w-100" alt="image">
+      </div>
+      <div class="carousel-item">
+        <h3>Yarı Değerli Taşlar</h3>
+        <h2>Taşların Anlamları</h2>
+        <a data-blog="true" class="btn-more" href="blog/tasların-anlamları">Okumak için Tıklayınız</a>
+        <img src="images/yarari_taslar.jpeg" class="d-block w-100" alt="yarari_taslar">
+      </div>
+      <div class="carousel-item ">
+        <h3>Özel Günlerinizle Yanınızdayız</h3>
+        <h2>Kadına Hitap Eden Herşey</h2>
+        <a data-blog="false" class="btn-more" href="blog">Okumak için Tıklayınız</a>
+        <img src="images/02.jpg" class="d-block w-100" alt="image">
+      </div>
+      <div class="carousel-item">
+        <h3>Yarı Değerli Taşlar</h3>
+        <h2>Burçlara Göre Taşlar</h2>
+        <a data-blog="true" class="btn-more" href="blog/burc-taslar">Okumak için Tıklayınız</a>
+        <img src="images/burc_taslar.jpeg" class="d-block w-100" alt="burc-taslar">
+      </div>
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouseltopslideRide" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouseltopslideRide" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
+
   <!-- / body -->
 
   <div id="body">
-    <div class="containers">
-      <div class="last-products">
-        <h2>Son Eklenenler</h2>
-        <section class="products">
-          <article>
-            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              <img
-                src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
-                alt="gümüş kaplama kolye">
-            </a>
-            <a href="product.html">
-              <h3>Yıldız kolye</h3>
-            </a>
-            <h4><span>1</span><span><i class="fa-solid fa-turkish-lira-sign"></i></span></h4>
-            <div class="d-flex flex-wrap justify-content-center">
-              <a href="https://www.shopier.com/32283966" class="btn-add m-1">Shopier Satın Al</a>
-              <a href="sepet.html" class="btn-add m-1">sepete Ekle</a>
-            </div>
-          </article>
-
-        </section>
-      </div>
-      <section class="quick-links">
-        <article style="background-image: url(../images/yarari-taslar.jpeg)">
-          <a href="blog-page/tasların-anlamları.html" class="table">
-            <div class="cell">
-              <div class="text">
-
-                <h3>Yarı Değerli Taşlar</h3>
-                <hr>
-                <h4>Taşların Anlamları</h4>
-
+    <section id="index">
+      <div class="container">
+        <div class="row">
+          <div class="card p-0">
+            <div class="card-header bg-transparent">
+              <h3 class="card-title">Son Eklenenler</h3>
+              <a href="/products" class="card-subtitle mb-2 text-body-secondary">Tümünü Gör</a>
+              <div class="d-flex me-5">
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
               </div>
             </div>
-          </a>
-        </article>
-        <article style="background-image: url(../images/burc-taslar.jpeg)">
-          <a href="blog-page/burc-taslar.html" class="table">
-            <div class="cell">
-              <div class="text">
+            <div class="card-body">
+                <!-- Swiper -->
+                <div class="swiper mySwiper">
+                  <div class="swiper-wrapper">
 
-                <h3>Yarı Değerli Taşlar</h3>
-                <hr>
-                <h4>Burçlara Göre Taşlar</h4>
+                    <div class="swiper-slide">
+                      <div class="card">
+                        
+                        <img 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#exampleModal"
+                        src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
+                        class="card-img-top" alt="gümüş kaplama kolye">
+                        <div class="card-body text-center">
+                          <h5 class="card-title fw-medium text-secondary">Yıldız kolye</h5>
+                          <h6 class="card-text fw-medium text-secondary">1200 <span>tl</span></h6>
+                        </div>
+                        <div class="card-footer bg-transparent d-flex  flex-column justify-content-between">
+                          <a class="card-link m-0" href="https://www.shopier.com/32283966">
+                            <span class="me-1" style="display: inline-block; width: 4vw;">
+                              <img class="w-100" src="../images/Shopier.png" alt="icon">
+                            </span>
+                            Shopier Satın Al
+                          </a>
+                          <a class="card-link m-0" href="sepet">
+                            <span class="me-1 text-center" style="display: inline-block; width: 4vw;">
+                              <i style="font-size: 2.2vw;" class="bi bi-cart4"></i>
+                            </span>
+                            Sepete Ekle
+                          </a>
+                        </div>
+                      </div>
+                    </div>
 
-              </div>
-            </div>
-          </a>
-        </article>
-      </section>
 
-      <div id="blog" class="last-products">
-        <h2>Blog</h2>
-        <section class="products">
-          <article style="background-image: url(../images/yarari-taslar.jpeg)">
-            <a href="blog-page/tasların-anlamları.html" class="table">
-              <div class="cell">
-                <div class="text">
-                  <h4>Taşların Anlamları</h4>
-
+                  </div>
                 </div>
-              </div>
-            </a>
-          </article>
-          <article style="background-image: url(../images/burc-taslar.jpeg)">
-            <a href="blog-page/burc-taslar.html" class="table">
-              <div class="cell">
-                <div class="text">
-                  <h4>Burçlara Göre Taşlar</h4>
-
-                </div>
-              </div>
-            </a>
-          </article>
-        </section>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <!-- / container -->
+    </section>
+    <section id="blog">
+      <div class="container">
+        <div class="row">
+          <div class="card p-0">
+            <div class="card-header bg-transparent">
+              <h3 class="card-title">Blog</h3>
+              <a href="blog" class="card-subtitle mb-2 text-body-secondary">Tümünü Gör</a>
+              <div class="d-flex me-5">
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+              </div>
+            </div>
+            <div class="card-body">
+            
+                <div class="swiper mySwiper1">
+                  <div class="swiper-wrapper">
+                    <% blog_data.forEach(e => {%>
+                      <div class="swiper-slide">
+                        <div class="card text-bg-dark">
+                          <img src="images/<%= e.image %>" class="card-img" alt="<%= e.title %>">
+                          <div class="card-img-overlay">
+                            <h5 class="card-title"><%= e.title %></h5>
+                            <a class="card-link" href="<%= e.url %>">Okumak için tıklayınız</a>
+                          </div>
+                        </div>
+                      </div>
+                   <% }); %>
+                  </div>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+   <!-- / container -->
   </div>
   <!-- / body -->
   <%- include('../views/footer'); %>
-  <!-- / footer -->
+    <!-- / footer -->

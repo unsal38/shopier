@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema({
-    created_by: ObjectId, // user gelen id
+    created_by: mongoose.Types.ObjectId, // user gelen id
     title: String, 
     body: String, // metin gövdesi sonradan bak
     url: String,

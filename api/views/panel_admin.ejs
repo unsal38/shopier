@@ -3,144 +3,26 @@
 
   <body id="panelAdmin">
     <%- include('../views/panel_top_menu'); %>
-
-  <!--SOL MENU -----------------
--------------------------------->
-  <div style="max-width: 25vw;" class="offcanvas offcanvas-start" tabindex="-1" id="leftmenu" aria-labelledby="leftmenuLabel">
-    <div class="offcanvas-header">
-      <!-- <h5 class="offcanvas-title" id="offcanvasExampleLabel">Ünsal ÖZKARA</h5> -->
-      <img class="offcanvas-title" src="images/logo.png" alt="logo">
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      <ul class="nav flex-column mt-4 pt-4">
-
-        <li class="nav-item">
-          <a data-bs-toggle="collapse" data-bs-target="#personadd" aria-expanded="false" aria-controls="personadd"
-            class="personadd nav-link active" href="javascript:void(0)">
-            Kullanıcı Ekle
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-
-      </ul>
-    </div>
-  </div>
-
-
-  <!--GÖVDE --- -----------------
--------------------------------->
-
-  <div class="collapse collapse-horizontal" id="personadd">
-    <div class="d-flex flex-row">
-      <div class="row g-3 align-items-center mx-2 my-2">
-        <div class="kategori-ekle col-auto">
-
-          <i class="d-none bi bi-check text-success" style="font-size: 25px;"></i>
-          <i class="d-none bi bi-x-circle text-danger" style="font-size: 25px;"></i>
-          <label for="kategori-ekle" class="form-label">Kategorileri Ekle</label>
-        </div>
-        <div class="col-auto">
-          <button class="btn btn-outline-secondary" type="button" id="kategori-ekle">Ekle</button>
-        </div>
-      </div>
-      <div class="row g-3 align-items-center mx-2 my-2">
-        <div class="col-auto">
-          <label for="urun-ekle" class="form-label">Ürünleri Ekle</label>
-        </div>
-        <div class="col-auto">
-          <button class="btn btn-outline-secondary" type="button" id="urun-ekle">Ekle</button>
-        </div>
-      </div>
-      <div class="row g-3 align-items-center mx-2 my-2">
-
-      </div>
-    </div>
-    <form class="row g-3 needs-validation">
-      <div class="col-md-4">
-        <label for="validationCustom01" class="form-label">İsim</label>
-        <input type="text" class="form-control is-invalid" id="validationCustom01" maxlength="10" minlength="4" value=""
-          required>
-        <div class="valid-feedback">
-          Teşekkürler...
-        </div>
-        <div class="invalid-feedback">
-          Lütfen geçerli bir giriş yapın.
-        </div>
-      </div>
-      <div class="col-md-4">
-        <label for="validationCustom02" class="form-label">Soyad</label>
-        <input type="text" class="form-control is-invalid" id="validationCustom02" maxlength="10" minlength="4"
-          required>
-        <div class="valid-feedback">
-          Teşekkürler...
-        </div>
-        <div class="invalid-feedback">
-          Lütfen geçerli bir giriş yapın.
-        </div>
-      </div>
-      <div class="col-md-4">
-        <label for="validationCustom03" class="form-label">Telefon Numarası</label>
-        <input type="number" class="form-control is-invalid" id="validationCustom03" maxlength="10" minlength="4"
-          required>
-        <div class="valid-feedback">
-          Teşekkürler...
-        </div>
-        <div class="invalid-feedback">
-          Lütfen geçerli bir giriş yapın.
-        </div>
-      </div>
-      <div class="col-md-4">
-        <label for="validationCustom04" class="form-label">E-Posta</label>
-        <input type="email" class="form-control is-invalid" id="validationCustom04" maxlength="20" minlength="4"
-          required>
-        <div class="valid-feedback">
-          Teşekkürler...
-        </div>
-        <div class="invalid-feedback">
-          Lütfen geçerli bir giriş yapın.
-        </div>
-      </div>
-      <div class="col-md-4">
-        <label for="validationCustom05" class="form-label">Sifre</label>
-        <input type="text" class="form-control is-invalid" id="validationCustom05" minlength="4" required>
-
-        <div class="position-relative p-3" style="z-index: 11; width: 20rem;">
-          <div id="liveToast" class="toast d-block" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-body">
-
-              <ul class="list-group list-group-flush">
-                <li id="uppercase" class="list-group-item"><i
-                    class="bi bi-check2-square me-1 text-success d-none"></i><i
-                    class="me-1 bi bi-file-excel text-danger"></i>Şifrenizde 1 büyük harf </li>
-                <li id="lowercase" class="list-group-item"><i
-                    class="bi bi-check2-square me-1 text-success d-none"></i><i
-                    class="me-1 bi bi-file-excel text-danger"></i>Şifrenizde 1 küçük harf</li>
-                <li id="special" class="list-group-item"><i class="bi bi-check2-square me-1 text-success d-none"></i><i
-                    class="me-1 bi bi-file-excel text-danger"></i>Şifrenizde 1 özel karakter "!@@#$%^&*" </li>
-                <li id="number" class="list-group-item"><i class="bi bi-check2-square me-1 text-success d-none"></i><i
-                    class="me-1 bi bi-file-excel text-danger"></i>Şifrenizde 1 sayı</li>
-              </ul>
+    <div class="container-fruid">
+      <div class="row">
+        <!--  MENU LEFT ---------------------
+  ---------------------------------->
+  <%- include('../views/panel_left_menu'); %>
+          <!--  BODY ---------------------
+  ---------------------------------->
+          <div class="panelBody">
+            <div class="container-fluid">
+              <div class="row">
+                <% if(page===null) { %>
+                  <%- include(`../views/panel_page/ana_sayfa`); %>
+                <% } %>
+                <% if(page !==null) { %>
+                    <%- include(`../views/panel_page/${page}`); %>
+                <% } %>
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div class="valid-feedback">
-          Teşekkürler...
-        </div>
-        <div class="invalid-feedback">
-          Lütfen geçerli bir giriş yapın.
+            </div>
         </div>
       </div>
-      <div class="col-12">
-        <button class="btn btn-light" type="submit">Gönder</button>
-      </div>
-    </form>
-  </div>
-  <nav class="navbar fixed-bottom bg-body-tertiary">
-    <div class="container-fluid">
-      <%- include('../views/footer'); %>
     </div>
-  </nav>
+    <%- include('../views/footer'); %>

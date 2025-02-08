@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
-const CategoriesSchema = mongoose.Schema({
+const CategoriesSchema = new mongoose.Schema({
     title: String,
     placement: String,
     is_active: Boolean,
     created_by: mongoose.Types.ObjectId, //USERDAN GELEN İD
+    shopier_id: String
 
 },{
     versionKey: false,
@@ -12,10 +13,10 @@ const CategoriesSchema = mongoose.Schema({
         updateAt: "update_at",
     }
 });
-class Categories extends mongoose.Model {
+// class Categories extends mongoose.Model {
 
-};
+// };
 
-CategoriesSchema.loadClass(Categories);
-const categories = mongoose.model('categories', CategoriesSchema);
-module.exports = categories
+// CategoriesSchema.loadClass(Categories);
+module.exports = mongoose.model('categories', CategoriesSchema);
+

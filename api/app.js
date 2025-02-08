@@ -7,6 +7,8 @@ require('dotenv').config()
 var indexRouter = require('./routes/index');
 var panelRouter = require('./routes/panel');
 var loginRouter = require('./routes/login');
+var blogRouter = require('./routes/blog');
+var productsRouter = require('./routes/products');
 var tokengenerator = require('./routes/token_generator');
 const permission_check = require("./controller/token_check");
 var app = express();
@@ -21,9 +23,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/*", permission_check.authorization_check())
 app.use("/tokengenerator", tokengenerator)
-app.use('/', permission_check.permission_check(["visitor","user", "admin"]), indexRouter);
 app.use('/login',permission_check.permission_check(["visitor", "admin"]), loginRouter);
 app.use("/panel",permission_check.permission_check(["user", "admin"]), panelRouter);
+app.use('/blog',permission_check.permission_check(["visitor", "admin", "vizitor"]), blogRouter);
+app.use('/products',permission_check.permission_check(["visitor", "admin", "vizitor"]), productsRouter);
+app.use('/', permission_check.permission_check(["visitor","user", "admin"]), indexRouter);
 
 
 // catch 404 and forward to error handler

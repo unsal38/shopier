@@ -1,0 +1,80 @@
+<%- include('../views/header'); %>
+
+  <div class="container">
+    <input class="form-control my-2" type="search" placeholder="ürün arama" aria-label="Search">
+  </div>
+
+  <div id="product" class="container-fruid m-4">
+    <div class="row">
+      <div class="alert alert-danger col-8 m-auto mb-2 d-none" role="alert"></div>
+
+      <div id="body">
+        <%- include('../views/products_pagination'); %>
+          <div class="products-wrap">
+            <aside id="sidebar">
+              <div class="widget">
+                <h3>Sıralama:</h3>
+                <fieldset>
+
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      Favori
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Fiyat
+                    </label>
+                  </div>
+
+                </fieldset>
+              </div>
+              <div class="widget">
+                <h3>Fiyat: 0-<span id="customRange3-price"></span></h3>
+                <fieldset>
+                  <input type="range" class="form-range" min="1" max="5" step="0.5" id="customRange3">
+                </fieldset>
+              </div>
+            </aside>
+
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+              <div class="col">
+                <div class="card">
+                  <img data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
+                    class="card-img-top" alt="...">
+
+                    <span class="produckt_eye"><i class="bi bi-eye-fill"></i></span>
+
+                  <div style="font: initial;" class="card-body">
+                    <h5 class="card-title">Yıldız Kolye - <span>1200 tl</span></h5>
+                    <div class="d-flex flex-column text-start">
+                      <a class="card-link" href="https://www.shopier.com/32283966">
+                        <span style="font-size: 1.3vw;" class="me-1 my-1">
+                          <i class="bi bi-cart4"></i>
+                        </span>
+                        Shopier ile satın al
+                      </a>
+                      <a class="card-link ms-0" href="sepet">
+                        <span style="font-size: 1.3vw;" class="me-1 my-1">
+                          <i class="bi bi-cart4"></i>
+                        </span>
+                        Sepete Ekle
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <%- include('../views/products_pagination'); %>
+            <!-- / container -->
+      </div>
+
+
+    </div>
+  </div>
+  <%- include('../views/footer'); %>
