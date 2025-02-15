@@ -1,5 +1,5 @@
 const db_search = require("../lib/db_search")
-const {find} = require("../lib/db_search")
+const { find } = require("../lib/db_search")
 const pane_params_get = async (req, res) => {
   const page_check = req.params.page
   if (!page_check) var page = null
@@ -31,9 +31,10 @@ const pane_params_get = async (req, res) => {
     var categories_data = null
   }
   if (page !== null) {
-    if(page === "shopier") {
+    if (page === "shopier") {
       try {
         var categories_data = await find("Categories")
+        var product_data = await find("Product")
       } catch (error) {
         console.log(error)
       }
@@ -41,6 +42,7 @@ const pane_params_get = async (req, res) => {
   }
   res.render(page_name, {
     categories_data,
+    product_data,
     title,
     permissions,
     page,

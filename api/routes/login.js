@@ -67,6 +67,7 @@ router.post("/login", async (req, res) => {
 })
 router.post("/updatepass", async (req, res) => {
   const forgetpass_email = req.body.data
+  console.log(forgetpass_email)
   try {
     const user_check = await userSchema.findOne({ email: forgetpass_email })
     if (!user_check) res.json({ success: false, message: "email hatalı kontrol ediniz." })

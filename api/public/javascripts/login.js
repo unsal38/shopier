@@ -105,13 +105,6 @@ $(() => {
             if (acct.data.success === false) alert(acct.data.message)
         }
     })
-    // 
-
-
-
-
-
-    // console.log(token_split, "çalıştı login js ")
 })// FORGET PASS
 $(() => {
     $("#submitFormPassChange").on("click", (e) => {

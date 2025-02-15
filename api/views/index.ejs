@@ -63,37 +63,47 @@
                 <!-- Swiper -->
                 <div class="swiper mySwiper">
                   <div class="swiper-wrapper">
+                    <% product_data.forEach(e => {%>
+                      <div class="swiper-slide">
 
-                    <div class="swiper-slide">
-                      <div class="card">
+                        <div class="card">
+                          <img 
+                          <% if(e.media[0] !== undefined) {var data = e.media[0].url}%>
+                          <% if(e.media[0] === undefined) {var data = "images/logo.jpeg"}%>
+                          data-bs-toggle="modal" 
+                          data-bs-target="#productModal"
+                          data-product-id="<%= e.id %>"
+                          class="card-img-top" alt="<%= e.title %>"
+                          src="<%= data %>"
+                          >
+                          <div class="card-body text-center">
+                            <h5 class="card-title fw-medium text-secondary"><%= e.title %></h5>
+                            <h6 class="card-text fw-medium text-secondary"><%= e.price_data.price %> <span>tl</span></h6>
+                          </div>
+                          <div class="card-footer bg-transparent d-flex  flex-column justify-content-between">
+                            <a class="card-link m-0" href="<%= e.url %>" target="_blank">
+                              <span class="me-1" style="display: inline-block; width: 4vw;">
+                                <img src="../images/Shopier.png" alt="icon">
+                              </span>
+                              Shopier Devam Et
+                            </a>
+                            <a class="card-link m-0" href="https://www.shopier.com/s/store/tarzi_Sahane&sid=N2oySlBYM1pNV29wdlRHdTBfLTFfIF8g" target="_blank">
+                              <span class="me-1" style="display: inline-block; width: 4vw;">
+                                <img src="../images/Shopier.png" alt="icon">
+                              </span>
+                              Shopier Dükkan
+                            </a>
+                            <a class="card-link m-0" href="sepet">
+                              <span class="me-1 text-center" style="display: inline-block; width: 4vw;">
+                                <i style="font-size: 2.2vw;" class="bi bi-cart4"></i>
+                              </span>
+                              Sepete Ekle
+                            </a>
+                          </div>
+                        </div>
                         
-                        <img 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#exampleModal"
-                        src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
-                        class="card-img-top" alt="gümüş kaplama kolye">
-                        <div class="card-body text-center">
-                          <h5 class="card-title fw-medium text-secondary">Yıldız kolye</h5>
-                          <h6 class="card-text fw-medium text-secondary">1200 <span>tl</span></h6>
-                        </div>
-                        <div class="card-footer bg-transparent d-flex  flex-column justify-content-between">
-                          <a class="card-link m-0" href="https://www.shopier.com/32283966">
-                            <span class="me-1" style="display: inline-block; width: 4vw;">
-                              <img class="w-100" src="../images/Shopier.png" alt="icon">
-                            </span>
-                            Shopier Satın Al
-                          </a>
-                          <a class="card-link m-0" href="sepet">
-                            <span class="me-1 text-center" style="display: inline-block; width: 4vw;">
-                              <i style="font-size: 2.2vw;" class="bi bi-cart4"></i>
-                            </span>
-                            Sepete Ekle
-                          </a>
-                        </div>
                       </div>
-                    </div>
-
-
+                    <%}); %>
                   </div>
                 </div>
             </div>

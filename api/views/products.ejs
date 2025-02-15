@@ -1,7 +1,7 @@
 <%- include('../views/header'); %>
 
   <div class="container">
-    <input class="form-control my-2" type="search" placeholder="ürün arama" aria-label="Search">
+    <input id="searchİnput" class="form-control my-2" type="search" placeholder="ürün arama" aria-label="Search">
   </div>
 
   <div id="product" class="container-fruid m-4">
@@ -17,13 +17,13 @@
                 <fieldset>
 
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" checked>
+                    <input id="favori" class="form-check-input" type="checkbox" value="" checked>
                     <label class="form-check-label" for="flexCheckChecked">
                       Favori
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="">
+                    <input id="fiyat" class="form-check-input" type="checkbox" value="">
                     <label class="form-check-label" for="flexCheckDefault">
                       Fiyat
                     </label>
@@ -34,40 +34,42 @@
               <div class="widget">
                 <h3>Fiyat: 0-<span id="customRange3-price"></span></h3>
                 <fieldset>
-                  <input type="range" class="form-range" min="1" max="5" step="0.5" id="customRange3">
+                  <input id="customRange3" type="range" class="form-range" min="1" max="<%= filter_range_max _%>" step="0.5"  value="0">
+                  <button id="customRange3Button" type="button" class="btn btn-secondary text-capitalize w-100">filtrele</button>
                 </fieldset>
               </div>
             </aside>
 
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-              <div class="col">
-                <div class="card">
-                  <img data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    src="https://s3.eu-central-1.amazonaws.com/shopier1/pictures_large/tarzi_Sahane_9e20bf97d91446d51357bdc5d1d61ef8.JPG"
-                    class="card-img-top" alt="...">
-
-                    <span class="produckt_eye"><i class="bi bi-eye-fill"></i></span>
-
-                  <div style="font: initial;" class="card-body">
-                    <h5 class="card-title">Yıldız Kolye - <span>1200 tl</span></h5>
-                    <div class="d-flex flex-column text-start">
-                      <a class="card-link" href="https://www.shopier.com/32283966">
-                        <span style="font-size: 1.3vw;" class="me-1 my-1">
-                          <i class="bi bi-cart4"></i>
-                        </span>
-                        Shopier ile satın al
-                      </a>
-                      <a class="card-link ms-0" href="sepet">
-                        <span style="font-size: 1.3vw;" class="me-1 my-1">
-                          <i class="bi bi-cart4"></i>
-                        </span>
-                        Sepete Ekle
-                      </a>
+              <% product_data.forEach(e => { %>
+                <div data-filter-id="<%= e.id %>" class="col inputSearch">
+                    <div class="card">
+                      <img data-product-id= <%= e.id %> data-bs-toggle="modal" data-bs-target="#productModal"
+                      <% if(e.media[0] !== undefined) {var data = e.media[0].url}%>
+                      <% if(e.media[0] === undefined) {var data = "../images/logo.jpeg"}%>
+                        src="<%= data %>"
+                        class="card-img-top" alt="<%= e.title %>">
+                        <span class="produckt_eye"><i class="bi bi-eye-fill"></i></span>
+                      <div style="font: initial;" class="card-body">
+                        <h5 class="card-title"><%= e.title %> - <span><%= e.price_data.price %> tl</span></h5>
+                        <div class="d-flex flex-column text-start">
+                          <a class="card-link" href="<%= e.url %>">
+                            <span style="font-size: 1.3vw;" class="me-1 my-1">
+                              <i class="bi bi-cart4"></i>
+                            </span>
+                            Shopier Devam Et
+                          </a>
+                          <a class="card-link ms-0" href="sepet">
+                            <span style="font-size: 1.3vw;" class="me-1 my-1">
+                              <i class="bi bi-cart4"></i>
+                            </span>
+                            Sepete Ekle
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
-
+              <%  }); %>
             </div>
           </div>
           <%- include('../views/products_pagination'); %>

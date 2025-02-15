@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const schema = mongoose.Schema({
+const Usersschema = mongoose.Schema({
     email: {type: String, required: true, unique: true, lowercase: true},
     password: {type: String, required: true},
     is_active:  {type: Boolean, default: false},
@@ -15,9 +15,9 @@ const schema = mongoose.Schema({
         updateAt: "update_at",
     }
 });
-class Users extends mongoose.Model {
+// class Users extends mongoose.Model {
 
-};
+// };
 
-schema.loadClass(Users);
-module.exports = mongoose.model('users', schema);
+// schema.loadClass(Users);
+module.exports = mongoose.model('users', Usersschema);

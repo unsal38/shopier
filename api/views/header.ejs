@@ -30,13 +30,15 @@
 		<!-- urun resim modal -->
 		<%- include("../views/product_modal") %>
 		<!-- / urun resim modal -->
+		 <div id="alert" class="d-none" onclick="on_click_alert()">
+			<div class="alert alert-danger col-8 m-auto mb-2" role="alert"></div>
+		 </div>
+		
 	</header>
-	<% if(permissions==="admin" || permissions==="user" ) { %>
-		<% if(page_params !=="passchange" ){ %>
-			<% if(page_params !== "panel") { %>
-				<% if(page_params !== "index") { %>
-					<%- include("../views/page_top_menu_category") %>
-				<% } %>
-			<% } %>
+	<% if(permissions==="admin" || permissions==="user" || permissions=== "visitor") { %>
+		<% if(page_params !=="login" && page_params !=="passchange" && page_params !== "panel" && page_params !== "index" && page_params !== "blog"){ %>
+
+			<%- include("../views/page_top_menu_category") %>
+
 		<% } %>
 	<% } %>
