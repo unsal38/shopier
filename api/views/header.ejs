@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+	<meta charset="utf-8">
+	<title>Tarzı Şahane</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+
+	<!-- / boostrap -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+		integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<!-- / fontawsome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+		integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" media="all" href='/stylesheets/style.css' />
+	<!-- Link Swiper's CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+</head>
+<body>
+	<header id="header">
+		<% if(page_params !== "panel" ) { %>
+			<%- include("../views/page_top_menu") %>
+		<% } %>
+		<!-- urun resim modal -->
+		<%- include("../views/product_modal") %>
+		<!-- / urun resim modal -->
+		 <div id="alert" class="d-none" onclick="on_click_alert()">
+			<div class="alert alert-danger col-8 m-auto mb-2" role="alert"></div>
+		 </div>
+		
+	</header>
+	<% if(permissions==="admin" || permissions==="user" || permissions=== "visitor") { %>
+		<% if(page_params !=="login" && page_params !=="passchange" && page_params !== "panel" && page_params !== "index" && page_params !== "blog"){ %>
+
+			<%- include("../views/page_top_menu_category") %>
+
+		<% } %>
+	<% } %>
