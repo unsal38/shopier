@@ -122,6 +122,7 @@ section {
 
 img {
 	vertical-align: middle;
+	width: 100%;
 }
 
 ol,
@@ -147,11 +148,11 @@ table {
 	border-spacing: 0;
 }
 
-a[href]:not(#footer a):not(a[href="blog"]):not(a[href="/products"]):not(a[href="/blog"]):not(.card-link):not(a[href="/"]):not(a[href="/login"]):not(a[href="/panel"]):not(a#page_exit):not(a[href="sepet.html"]),
-label[for]:not(label[for="email"]):not(label[for="password"]),
-select,
-input[type=checkbox]:not(input.form-check-input),
-input[type=radio] {
+a[href]:not([href="/sozlesmeler"]):not([href="sepetFinish"]):not([href="sepet"]):not(a[href="javascript:void(0)"]):not(#footer a):not(a[href="blog"]):not(a[href="/products"]):not(a[href="/blog"]):not(.card-link):not(a[href="/"]):not(a[href="/login"]):not(a[href="/panel"]):not(a#page_exit):not(a[href="sepet.html"]),
+label[for]:not(#sepetmodal label):not(label[for="firstName"]):not(label[for="lastName"]):not(label[for="phoneNumber"]):not(label[for="email"]):not(label[for="password"]):not(label.form-check-label),
+select:not(.sepet):not(#sepetmodal select),
+input[type=checkbox]:not(#sepetmodal input):not(input.form-check-input),
+input[type=radio]:not(#sepetmodal input) {
 	cursor: pointer;
 	position: relative;
 	bottom: -3.5vh;
@@ -305,7 +306,7 @@ a:hover {
 	font-family: "Novecentowide";
 }
 
-#header .right-links span {
+#header .right-links span:not(#sepetmiktari) {
 	float: left;
 	width: 20px;
 	height: 20px;
@@ -1423,9 +1424,9 @@ h1 {
 	align-items: center;
 }
 
-.swiper-slide img {
-	display: block;
+.swiper-slide .card img {
 	width: 100%;
+	display: block;
 	height: 100%;
 	object-fit: cover;
 }
@@ -1456,8 +1457,32 @@ h1 {
 	color: #4f5356 !important;
 }
 
-/* Sonradan Eklenen CSS
-------------------------------------------------------------------------------*/
+/*  ------------------------------------------------------------------------------*/
+/* Sonradan Eklenen CSS */
+/* ------------------------------------------------------------------------------*/
+#sepetmodal input{
+	border-radius: 20px;
+}
+#sepet .list-group-item{
+	color: #959697;
+	text-transform: capitalize;
+}
+#sepet a[href="sepetFinish"]{
+	background-color: #465d61;
+}
+#sepet a[href="sepetFinish"]:hover{
+	background-color: #446f76;
+}
+button[data-bs-target="#sepetModalToggleİyzco"]{
+	width: 15%;
+}
+button[data-bs-target="#sepetModalToggleİyzco"]:hover{
+	background-color: blue!important;
+}
+#sepet .image {
+	max-width: 10vw;
+}
+
 #alert {
 	position: fixed;
 	text-align: center;
@@ -1691,7 +1716,7 @@ section.products article img {
 	--bs-list-group-bg: inherit;
 }
 
-.modal .modal-content {
+.modal:not(#sepetmodal .modal) .modal-content {
 	background-color: #ffffff70;
 }
 
@@ -1700,7 +1725,7 @@ section.products article img {
 	border: 0;
 }
 
-.modal .modal-footer button {
+.modal:not(#sepetmodal .modal) .modal-footer button {
 	background-color: #7d6262;
 }
 
@@ -1937,7 +1962,7 @@ section.products article img {
 		background-size: cover;
 	}
 
-	#header .right-links span {
+	#header .right-links span:not(#sepetmiktari) {
 		background-image: url(../images/ico_header@2x.png);
 		background-size: 60px 20px;
 	}

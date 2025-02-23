@@ -6,10 +6,14 @@
             <li><a href="/products">Ürünler</a></li>
             <li><a href="/blog">Blog</a></li>
             <% if(page_params !=="passchange" ){ %>
-                <% if(permissions==="admin" || permissions==="user" ) { %>
-                    <li><a href="sepet.html"><span class="ico-products"></span>3 ürün, 4 500.00 tl</a></li>
-                    <li><a href="/panel"><span class="ico-account"></span>hesabım</a></li>
-                    <li><a id="page_exit" href="javascript:void(0)"><span class="ico-signout"></span>çıkış</a></li>
+                <% if(permissions==="admin" || permissions==="user" || permissions==="visitor") { %>
+                    <% if(page_params === "products" || page_params === "sepet") {%>
+                        <li><a href="sepet"><span class="ico-products"></span><span class="h6 text-danger font-3" id="sepetmiktari"></span> ürün</a></li>
+                    <% } %>
+                    <li><a href="/panel"><i class="h6 me-2 bi bi-person-vcard-fill"></i>hesabım</a></li>
+                    <% if(permissions==="admin" || permissions==="user") { %>
+                        <li><a id="page_exit" href="javascript:void(0)"><i class="h6 me-2 bi bi-box-arrow-left"></i> çıkış</a></li>
+                    <% } %>
                 <% } %>
                 <% if(permissions==="visitor" ) { %>
                     <li><a href="/login">giriş</a></li>

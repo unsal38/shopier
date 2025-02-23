@@ -1,4 +1,3 @@
-//document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 function getCookie(cname) {
    let name = cname + "=";
    let decodedCookie = decodeURIComponent(document.cookie);
@@ -14,6 +13,31 @@ function getCookie(cname) {
    }
    return "";
 }
+const token_generator = axios.create({
+   baseURL: document.location.origin,
+});
+function cookie_check_date(cookie) {
+   const data_now = Date.now()
+   var date_format = new Intl.DateTimeFormat("en-GB", {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+   }).format(data_now)
+   if (cookie.length === 0) {
+      token_generator.get("/tokengenerator").then(res => {
+         document.cookie = `Authorization= Bearer ${res.data.new_jwt}; expires=${date_format} 23:59:00 UTC; path=/;`
+      })
+   }
+   if (cookie.length > 0) {
+      token_generator.get("/tokengenerator/cookiecheck").then(res => {
+         if (!res.data.user) {
+            document.cookie = `Authorization= Bearer ${res.data.new_jwt}; expires=${date_format} 23:59:00 UTC; path=/;`
+         }
+      })
+   }
+
+}
 function search_input(searc_data_target, input_search_data, parents) {
    $(searc_data_target).each(function (i, v) {
       const data_target = $(v).text().trim().toLowerCase()
@@ -28,9 +52,7 @@ function search_input(searc_data_target, input_search_data, parents) {
       }
    });
 }
-const token_generator = axios.create({
-   baseURL: document.location.origin,
-});
+
 function input_check_vall(input) {
    $(input).each(function (i, v) {
       const form_data = $(v).val()
@@ -87,7 +109,14 @@ function login() {
             }
             if (res_check.jwt) {
                const new_jwt = res_check.jwt
-               document.cookie = `Authorization=Bearer ${new_jwt}`
+               const data_now = Date.now()
+               var date_format = new Intl.DateTimeFormat("en-GB", {
+                  weekday: "short",
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+               }).format(data_now)
+               if (new_jwt) document.cookie = `Authorization= Bearer ${new_jwt}; expires=${date_format} 23:59:00 UTC; path=/;`
                alert("giriş başarılı");
                document.location.href = "/"
             }
@@ -109,9 +138,95 @@ async function axios_post(product_id) {
       .then(res => {
          return res.data
       })
-      .catch(error => console.log(error))
+      .catch(error => console.log(error, "token 141"))
    return axios_res_data
 }
+async function axios_post_sepet_ekle(url_data, axios_data) {
+   const authorization_data = getCookie("Authorization")
+   const url = url_data
+   const data = { axios_data }
+   const axios_form_post_config = {
+      baseURL: document.location.origin,
+      headers: {
+         authorization: `${authorization_data}`
+      },
+   }
+   const axios_res_data = await axios.post(url, data, axios_form_post_config)
+      .then(res => {
+         return res.data.success
+      })
+      .catch(error => console.log(error, "token 158"))
+   return axios_res_data
+}
+async function axios_post_urun_bilgileri(axios_data) {
+   const authorization_data = getCookie("Authorization")
+   const url = "/sepet/product"
+   const data = { axios_data }
+   const axios_form_post_config = {
+      baseURL: document.location.origin,
+      headers: {
+         authorization: `${authorization_data}`
+      },
+   }
+   const axios_res_data = await axios.post(url, data, axios_form_post_config)
+      .then(res => {
+         return res.data
+      })
+      .catch(error => console.log(error, "token 175"))
+   return axios_res_data
+}
+async function axios_post_sepet_delete(delete_id, axios_data) {
+   const authorization_data = getCookie("Authorization")
+   const url = "/sepet/delete"
+   const data = { delete_id, axios_data }
+   const axios_form_post_config = {
+      baseURL: document.location.origin,
+      headers: {
+         authorization: `${authorization_data}`
+      },
+   }
+   const axios_res_data = await axios.post(url, data, axios_form_post_config)
+      .then(res => {
+         return res.data.success
+      })
+      .catch(error => console.log(error, "token 192"))
+   return axios_res_data
+}
+async function axios_post_iyzco(axios_data) {
+   const authorization_data = getCookie("Authorization")
+   const url = "/sepet/iyzco"
+   const data = { axios_data }
+   const axios_form_post_config = {
+      baseURL: document.location.origin,
+      headers: {
+         authorization: `${authorization_data}`
+      },
+   }
+   const axios_res_data = await axios.post(url, data, axios_form_post_config)
+      .then(res => {
+         return res.data.success
+      })
+      .catch(error => console.log(error, "token 209"))
+   return axios_res_data
+}
+async function axios_post_sepet_product_miktar_update(axios_data) {
+   const authorization_data = getCookie("Authorization")
+   const url = "/sepet/miktar"
+   const data = { axios_data }
+   const axios_form_post_config = {
+      baseURL: document.location.origin,
+      headers: {
+         authorization: `${authorization_data}`
+      },
+   }
+   const axios_res_data = await axios.post(url, data, axios_form_post_config)
+      .then(res => {
+         return res.data.success
+      })
+      .catch(error => console.log(error, "token 226"))
+   return axios_res_data
+}
+
 $(() => {
    $("#page_exit").on("click", () => {
       document.cookie = "Authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
@@ -120,14 +235,27 @@ $(() => {
 }) // LOGOUT BUTTON
 
 $(() => {
+   $("#sepetModalToggleEft .form-select").on("change", function () {
+      const option_value = $(this).val()
+      if (option_value === "sec") {
+         const dnone_value = $("#sepetModalToggleEft .card .card-body")
+         for (let index = 0; index < dnone_value.length; index++) {
+            const element = dnone_value[index];
+            $(element).addClass("d-none")
+         }
+      }
+      if (option_value !== "sec") {
+         $(`#${option_value}`).removeClass("d-none")
+      }
+   });
+}) // SELECT EFT OPTİON HİDE SHOW
+
+$(() => {
+   const cookie_data = getCookie("Authorization")
+   cookie_check_date(cookie_data)
    $("button#submitFormLogin").on("click", async (e) => {
       e.preventDefault()
-      await token_generator.get("/tokengenerator")
-         .then(res => {
-            document.cookie = `Authorization= Bearer ${res.data.new_jwt}`
-            login()
-         })
-
+      login()
    });
 
    $("button#submitFormRegister").on("click", async (e) => {
@@ -168,7 +296,7 @@ $(() => {
          })
 
    });
-})// SUBMİT FORM BUTTON
+})// SUBMİT FORM BUTTON LOGİN LOGOUT
 $(() => {
    const page_params = document.location.pathname
    const page_params_split = page_params.split("/")[2]
@@ -177,12 +305,9 @@ $(() => {
       $(menu_list).each(function (i, v) {
          $(v).removeClass("active")
          const check_href = $(v).attr("href")
-         console.log(page_params)
          if (check_href === page_params) $(v).addClass("active")
       });
-
    }
-
 }) // PANEL LEFT MENU ACTİVE CLASS EKLEME
 $(() => {
    $("#menu div.trigger").on("click", () => {
@@ -446,61 +571,336 @@ $(() => {
 
    });
 }) // SEARCH İNPUT 
+$(() => {
+   $('img[data-bs-toggle="modal"]').on("click", async function () {
+      const product_id = $(this).attr("data-product-id")
+      try {
+         const data = await axios_post(product_id)
+         const product_corrosel_data = new Array()
+         if (data.data === true) {
+            $(data.data_value_media).each(function (i, v) {
+               product_corrosel_data.push(["media", v.url])
+            });
+            if (data.data_value_youtube_video_link) { product_corrosel_data.push(["youtube", data.data_value_youtube_video_link]) }
+         }
 
-$('img[data-bs-toggle="modal"]').on("click", async function () {
-   const product_id = $(this).attr("data-product-id")
-   try {
-      const data = await axios_post(product_id)
-      const product_corrosel_data = new Array()
-      if (data.data === true) {
-         $(data.data_value_media).each(function (i, v) {
-            product_corrosel_data.push(["media", v.url])
-         });
-         if (data.data_value_youtube_video_link) { product_corrosel_data.push(["youtube", data.data_value_youtube_video_link]) }
-      }
-
-      $("#productModal .carousel-inner .carousel-item").each(function (i, v) {
-         $(v).remove()
-      })
-      if (product_corrosel_data.length === 0) {
-         $("#productModal .carousel-inner").append(
-            `<div class="carousel-item active">
-         <img src="../images/logo.jpeg"class="d-block w-100" alt="product image">
-         </div>`
-         )
-      }
-      $(product_corrosel_data).each(function (i, v) {
-         if (i === 0) {
+         $("#productModal .carousel-inner .carousel-item").each(function (i, v) {
+            $(v).remove()
+         })
+         if (product_corrosel_data.length === 0) {
             $("#productModal .carousel-inner").append(
                `<div class="carousel-item active">
-            <img src="${v[1]}"class="d-block w-100" alt="product image">
+            <img src="../images/logo.jpeg"class="d-block w-100" alt="product image">
             </div>`
             )
          }
-         else if (i !== 0) {
-            if (v[0] === "media") {
+         $(product_corrosel_data).each(function (i, v) {
+            if (i === 0) {
                $("#productModal .carousel-inner").append(
-                  `<div class="carousel-item">
+                  `<div class="carousel-item active">
                <img src="${v[1]}"class="d-block w-100" alt="product image">
                </div>`
                )
             }
-            if (v[0] === "youtube") {
-               $("#productModal .carousel-inner").append(
-                  `<div class="carousel-item">
-               <iframe width="420" height="315" src="${v[1]}"></iframe>
-               </div>`
-               )
+            else if (i !== 0) {
+               if (v[0] === "media") {
+                  $("#productModal .carousel-inner").append(
+                     `<div class="carousel-item">
+                  <img src="${v[1]}"class="d-block w-100" alt="product image">
+                  </div>`
+                  )
+               }
+               if (v[0] === "youtube") {
+                  $("#productModal .carousel-inner").append(
+                     `<div class="carousel-item">
+                  <iframe width="420" height="315" src="${v[1]}"></iframe>
+                  </div>`
+                  )
+               }
             }
-         }
-      });
+         });
 
-   } catch (err) {
-      if (err) {
-         console.log(err, "token js")
-         alert("lütfen giriş yapınız")
+      } catch (err) {
+         if (err) {
+            console.log(err, "token js 625")
+            alert("lütfen giriş yapınız")
+         }
+      }
+   });
+})/// PRODUCT MODAL DB SORGU VE APPEND
+
+$(() => {
+   const sepet_product_check = localStorage.getItem("product_sepet")
+   if (sepet_product_check === null || undefined || sepet_product_check.length <= 10) localStorage.clear()
+   $("a[href='sepetAdd']").on("click", async function (e) {
+      e.preventDefault()
+      var product_id = $(this).attr("data-product-id")
+      const sepet_product_check = localStorage.getItem("product_sepet")
+      if (sepet_product_check) {
+         const new_data = {
+            product_id,
+            sepet_product_check
+         }
+         const sepet_return_data = await axios_post_sepet_ekle("/sepet/update", new_data)
+         localStorage.setItem("product_sepet", `${sepet_return_data}`);
+         document.location.reload()
+      } else if (!sepet_product_check) {
+         const new_data = { product_id, }
+         const sepet_return_data = await axios_post_sepet_ekle("/sepet/ekle", new_data)
+         document.location.reload()
+         if (sepet_return_data === false) {
+            document.cookie = "Authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.location.reload()
+         } else {
+            localStorage.setItem("product_sepet", `${sepet_return_data}`);
+            document.location.reload()
+         }
+      }
+
+
+   });
+}) // SEPETE EKLE
+$(async () => {
+   const product_sepet = localStorage.getItem("product_sepet")
+   const url_check = document.location.pathname
+   if (url_check === "/sepet" || url_check === "/products" && product_sepet) {
+      const product_data = await axios_post_urun_bilgileri(product_sepet)
+      if (product_data.success === false) localStorage.clear()
+      if (product_data.success !== false && product_data.success !== undefined) {
+         function append_product(url, e, mik) {
+            $("#sepet table")
+               .append(`
+            <tr>
+               <td class="items">
+                  <div class="image">
+                     <img src="${url}" alt="product image">
+                  </div>
+                  <h3><a href="javascript:void(0)">${e.title}</a></h3>
+               </td>
+               <td class="price"><i class="fa-solid fa-turkish-lira-sign"></i>${e.price_data.discountedPrice}</td>
+               <td id="${e._id}" data-miktar="${mik}" data-stockQuantity="${e.stockQuantity}" class="qnt">
+                  <select class="sepet"></select>
+               </td>
+               <td class="total"><i class="fa-solid fa-turkish-lira-sign"></i><span class="totaltext"></span></td>
+               <td id="${e._id}" class="delete"><a href="javascript:void(0)" class="ico-del"></a></td>
+            </tr>
+         `)
+         }
+         const new_product_data = product_data.success
+         const product_miktar = product_data.miktar
+         new_product_data.forEach((e, v, d) => {
+            const media_product = e.media
+            const mik = product_miktar[v].miktar
+            if (media_product.length === 0) {
+               const url = "images/logo.jpeg"
+               append_product(url, e, mik)
+            }
+            if (media_product.length > 0) {
+               const url = e.media[0].url
+               append_product(url, e, mik)
+            }
+
+         });
+         const data_check_sepet_mik = $("#sepetmiktari")
+         if (data_check_sepet_mik.length > 0) {
+            if (!product_data.success) $("#sepetmiktari")[0].textContent = 0
+            if (product_data.success) $("#sepetmiktari")[0].textContent = product_data.success.length
+         }
       }
    }
-}); /// PRODUCT MODAL DB SORGU VE APPEND
+   const element_target_product_td = $("td[data-stockQuantity]")
+   if (element_target_product_td) {
+      const element_target_product_select_value = $("td[data-stockQuantity]")
+      function add_element(element, stockQuantity_value) {
+         for (let index = 1; index < Number(stockQuantity_value) + 1; index++) {
+            if (stockQuantity_value >= index) {
+               $(element)
+                  .append(`
+               <option value="${index}">${index}</option>
+               `)
+            }
+         }
+      }
+      $.each(element_target_product_select_value, function (i, v) {
+         const stockQuantity_value = $(v).attr("data-stockQuantity")
+         add_element($(`td[data-stockQuantity] .sepet`)[i], stockQuantity_value)
+      });
+      const select_target = $(`td[data-stockQuantity] .sepet`)
+      for (let index = 0; index < select_target.length; index++) {
+         const element = $(select_target)[index];
+         const data_mik_parent = $(select_target).parent()[index]
+         const data_mik = $(data_mik_parent).attr("data-miktar")
+         $(element).children(`option:nth-child(${data_mik})`)[0].selected = true
+      }
+      function total_price() {
+         const target_value1 = $(`td.total`)
+         const total_price = new Array()
+         for (let index = 0; index < target_value1.length; index++) {
+            const element = target_value1[index].textContent;
+            total_price.push(Number(element))
+         }
+         let element = 0
+         for (let index = 0; index < total_price.length; index++) {
+            element += total_price[index];
+         }
+         const check_element = $("li.total .fa-turkish-lira-sign")
+         if (check_element.length !== 0) {
+            $("li.total .fa-turkish-lira-sign")[0].textContent = String(element)
+            const eft_total = element - (element * 2 / 100)
+            $("li.efttotal .fa-turkish-lira-sign")[0].textContent = String(eft_total)
+            $("li.krkarttotal .fa-turkish-lira-sign")[0].textContent = String(element)
+         }
 
+      }
+      function sepet_price() {
+         const target_value = $(`td[data-stockQuantity] .sepet`)
+         for (let index = 0; index < target_value.length; index++) {
+            const element = target_value[index];
+            const option_value = $(element).children("option:selected")[0].value
+            const target_element = $(element).parents("tr")
+            const product_price = $(target_element).children(".price")[0].textContent
+            $(target_element).children(".total").children(".totaltext")[0].textContent = String(Number(option_value) * Number(product_price))
+         }
+         total_price()
+      }
+      sepet_price()
+      $(`td[data-stockQuantity] .sepet`).on("change", async function () {
+         const option_value = $(this).children("option:selected")[0].value
+         const target_element = $(this).parents("tr")
+         const product_price = $(target_element).children(".price")[0].textContent
+         $(target_element).children(".total").children(".totaltext")[0].textContent = String(Number(option_value) * Number(product_price))
+         total_price()
+         const product_id = $(this).parent().attr("id")
+         const miktar = option_value
+         const localStorage_data = localStorage.getItem("product_sepet")
+         const axios_data = {
+            product_id,
+            miktar,
+            localStorage_data
+         }
+         const check_axios_mik = await axios_post_sepet_product_miktar_update(axios_data)
+         localStorage.setItem("product_sepet", check_axios_mik)
+         document.location.reload()
+         if (check_axios_mik === false) document.location.reload()
+
+      })
+   }
+
+   $("#sepet .delete").on("click", async function () {
+      const target = $(this).attr("id")
+      const localStorage_data = localStorage.getItem("product_sepet")
+      if (localStorage_data) {
+         const delete_check = await axios_post_sepet_delete(target, localStorage_data)
+         if (delete_check === false) localStorage.clear()
+         if (delete_check !== false) {
+            localStorage.setItem("product_sepet", delete_check)
+            document.location.reload()
+         }
+      }
+
+   });
+
+}) // SEPET SAYFASI ÜRÜNLERİ DB ALARAK SAYFADA GÖSTERME
+function validateEmail($email) {
+   var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+   return emailReg.test($email);
+}// mail kontrol **************************
+function sepet_model_button_enable(check) {
+   const button = $("#sepetmodal #sepetModalToggle .modal-footer button")
+   if (check === true) {
+      for (let index = 0; index < button.length; index++) {
+         $(button[index]).removeClass("disabled")
+      }
+   }
+   if (check === false) {
+      for (let index = 0; index < button.length; index++) {
+         console.log(button[index])
+         $(button[index]).addClass("disabled")
+      }
+   }
+}
+function check_valid() {
+   const target_input_valid = $("#sepetmodal #sepetModalToggle input.is-valid").length
+   const input_toplam = $("#sepetmodal #sepetModalToggle input").length
+   if (Number(input_toplam) === Number(target_input_valid)) sepet_model_button_enable(true)
+   if (Number(input_toplam) !== Number(target_input_valid)) sepet_model_button_enable(false)
+}
+function database_save_odeme(data) {
+   console.log(data,"save token js829")
+}
+$(() => {
+   const target_input = $("#sepetmodal #sepetModalToggle input")
+   $(target_input).on("change", function () {
+      const check_mail_data = $(this).attr("id")
+      if (check_mail_data === "validationCustom06") {
+         const mail_data = $(this).val()
+         const check = validateEmail(mail_data)
+         if (check === true) $(this).removeClass("is-invalid").addClass("is-valid")
+         if (check === false) $(this).addClass("is-invalid").removeClass("is-valid")
+         check_valid()
+      }
+      if (check_mail_data === "mesSatısSoz") {
+         const check_form_data = $(this)[0].checked
+         if (check_form_data === true) $(this).removeClass("is-invalid").addClass("is-valid")
+         if (check_form_data === false) $(this).addClass("is-invalid").removeClass("is-valid")
+         check_valid()
+      }
+      if (check_mail_data !== "validationCustom06" && check_mail_data !== "mesSatısSoz") {
+         const check_data_length = $(this).val()
+         if (check_data_length.length > 0) {
+            $(this).removeClass("is-invalid").addClass("is-valid")
+         }
+         if (check_data_length.length === 0) {
+            $(this).addClass("is-invalid").removeClass("is-valid")
+         }
+         check_valid()
+      }
+
+   });
+   const target_input1 = $("#sepetmodal #sepetModalToggleEft select")
+   $(target_input1).on("change", function () {
+      const check_data = $(this).children("option:selected").val()
+      if (check_data === "sec") $("#sepetmodal #sepetModalToggleEft .modal-footer button.odemeyitamamla").addClass("disabled")
+      if (check_data !== "sec") $("#sepetmodal #sepetModalToggleEft .modal-footer button.odemeyitamamla").removeClass("disabled")
+   });
+   $("#sepetmodal #sepetModalToggleEft button.odemeyitamamla").on("click", function () {
+      database_save_odeme("eft")
+   });
+})// SEPET MODAL İÇERİK KONTROLÜ
+
+
+
+
+
+
+
+$(() => {
+   $('a[href="sepetFinish"]').on("click", async function (e) {
+      e.preventDefault()
+      async function ip() {
+         try {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            return data.ip
+         } catch (error) {
+            console.error('Error fetching IP address:', error);
+         }
+      }
+
+      const basket = localStorage.getItem("product_sepet")
+      const ip_data = await ip()
+      const axios_data = {
+         basket,
+         tcnumber: "",
+         acikadres: "",
+         ip_data,
+         city: "",    // ÖRN İSTANBUL
+         country: "", // ÖRN TÜRKİYE
+         zipCode: "",
+         basket
+      }
+      const iyzco_check = await axios_post_iyzco(axios_data)
+      // window.open(iyzco_check, '_blank');
+   });
+}) //ÖDEME ALMA /// YAPILACAK ????********
 

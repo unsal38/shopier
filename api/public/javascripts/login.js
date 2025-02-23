@@ -18,9 +18,6 @@ function getCookie(cname) {
     }
     return "";
 }
-const token_generator_login = axios.create({
-    baseURL: document.location.origin,
-});
 function axios_post(url, data, authorization) {
     const config = {
         baseURL: document.location.origin,
@@ -73,16 +70,9 @@ $(() => {
         const collapse_id_split = collapse_id.split("#")[1]
         $("div.collapse").removeClass("show")
         $(`#${collapse_id_split}`).addClass("show")
-
     })
 })// COLLAPSE SHOW HİDE BUTTON
-$(() => {
-    document.cookie = "Authorization= Bearer; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    token_generator_login.get("/tokengenerator/cookiecheck")
-        .then(res => {
-            if (res) document.cookie = `Authorization= Bearer ${res.data.new_jwt}`
-        })
-})// token check
+
 $(() => {
     form_hide()
     $(`div.loginRegisterForm  button[data-bs-target]`).on("click", () => {

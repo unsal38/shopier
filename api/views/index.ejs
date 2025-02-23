@@ -54,6 +54,12 @@
             <div class="card-header bg-transparent">
               <h3 class="card-title">Son Eklenenler</h3>
               <a href="/products" class="card-subtitle mb-2 text-body-secondary">Tümünü Gör</a>
+              <a class="card-link m-0" href="https://www.shopier.com/s/store/tarzi_Sahane&sid=N2oySlBYM1pNV29wdlRHdTBfLTFfIF8g" target="_blank">
+                <span style="display: inline-block; width: 2.5vw;">
+                  <img class="w-100" src="../images/Shopier.png" alt="icon">
+                </span>
+                Shopier Dükkan
+              </a>
               <div class="d-flex me-5">
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
@@ -66,41 +72,7 @@
                     <% product_data.forEach(e => {%>
                       <div class="swiper-slide">
 
-                        <div class="card">
-                          <img 
-                          <% if(e.media[0] !== undefined) {var data = e.media[0].url}%>
-                          <% if(e.media[0] === undefined) {var data = "images/logo.jpeg"}%>
-                          data-bs-toggle="modal" 
-                          data-bs-target="#productModal"
-                          data-product-id="<%= e.id %>"
-                          class="card-img-top" alt="<%= e.title %>"
-                          src="<%= data %>"
-                          >
-                          <div class="card-body text-center">
-                            <h5 class="card-title fw-medium text-secondary"><%= e.title %></h5>
-                            <h6 class="card-text fw-medium text-secondary"><%= e.price_data.price %> <span>tl</span></h6>
-                          </div>
-                          <div class="card-footer bg-transparent d-flex  flex-column justify-content-between">
-                            <a class="card-link m-0" href="<%= e.url %>" target="_blank">
-                              <span class="me-1" style="display: inline-block; width: 4vw;">
-                                <img src="../images/Shopier.png" alt="icon">
-                              </span>
-                              Shopier Devam Et
-                            </a>
-                            <a class="card-link m-0" href="https://www.shopier.com/s/store/tarzi_Sahane&sid=N2oySlBYM1pNV29wdlRHdTBfLTFfIF8g" target="_blank">
-                              <span class="me-1" style="display: inline-block; width: 4vw;">
-                                <img src="../images/Shopier.png" alt="icon">
-                              </span>
-                              Shopier Dükkan
-                            </a>
-                            <a class="card-link m-0" href="sepet">
-                              <span class="me-1 text-center" style="display: inline-block; width: 4vw;">
-                                <i style="font-size: 2.2vw;" class="bi bi-cart4"></i>
-                              </span>
-                              Sepete Ekle
-                            </a>
-                          </div>
-                        </div>
+                        <%- include("../views/product",{e,permissions}); %>
                         
                       </div>
                     <%}); %>

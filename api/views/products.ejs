@@ -1,0 +1,58 @@
+<%- include('../views/header'); %>
+
+  <div class="container">
+    <input id="searchİnput" class="form-control my-2" type="search" placeholder="ürün arama" aria-label="Search">
+  </div>
+
+  <div id="product" class="container-fruid m-4">
+    <div class="row">
+      <div class="alert alert-danger col-8 m-auto mb-2 d-none" role="alert"></div>
+
+      <div id="body">
+        <%- include('../views/products_pagination'); %>
+          <div class="products-wrap">
+            <aside id="sidebar">
+              <div class="widget">
+                <h3>Sıralama:</h3>
+                <fieldset>
+
+                  <div class="form-check">
+                    <input id="favori" class="form-check-input" type="checkbox" value="" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      Favori
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input id="fiyat" class="form-check-input" type="checkbox" value="">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Fiyat
+                    </label>
+                  </div>
+
+                </fieldset>
+              </div>
+              <div class="widget">
+                <h3>Fiyat: 0-<span id="customRange3-price"></span></h3>
+                <fieldset>
+                  <input id="customRange3" type="range" class="form-range" min="1" max="<%= filter_range_max _%>" step="0.5"  value="0">
+                  <button id="customRange3Button" type="button" class="btn btn-secondary text-capitalize w-100">filtrele</button>
+                </fieldset>
+              </div>
+            </aside>
+
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+              <% product_data.forEach(e => { %>
+                <div data-filter-id="<%= e.id %>" class="col inputSearch">
+                  <%- include("../views/product",{e,permissions}); %>
+                </div>
+              <%  }); %>
+            </div>
+          </div>
+          <%- include('../views/products_pagination'); %>
+            <!-- / container -->
+      </div>
+
+
+    </div>
+  </div>
+  <%- include('../views/footer'); %>

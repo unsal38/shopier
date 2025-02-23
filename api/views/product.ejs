@@ -1,0 +1,36 @@
+<div class="card">
+    <img 
+    <% if(e.media[0] !== undefined) {var data = e.media[0].url}%>
+    <% if(e.media[0] === undefined) {var data = "images/logo.jpeg"}%>
+    <% if(permissions === "admin" && permissions === "user") {%>
+    data-bs-toggle="modal" 
+    data-bs-target="#productModal"
+    <% } %>
+    data-product-id="<%= e.id %>"
+    class="card-img-top" alt="<%= e.title %>"
+    src="<%= data _%>"
+    >
+    <div class="card-body text-center">
+      <h5 class="card-title fw-medium text-secondary"><%= e.title %></h5>
+      <h6 class="card-text fw-medium text-secondary"><%= e.price_data.price %> <span>tl</span></h6>
+    </div>
+    <div class="card-footer bg-transparent d-flex  flex-column justify-content-between">
+      <a class="card-link m-0" href="<%= e.url %>" target="_blank">
+        <span class="me-1" style="display: inline-block; width: 4vw;">
+          <img src="../images/Shopier.png" alt="icon">
+        </span>
+        Shopier Devam Et
+      </a>
+      <% if(permissions === "admin" || permissions === "user"|| permissions === "visitor") {%>
+        <a data-product-id="<%= e.id %>" class="card-link m-0" href="sepetAdd">
+          <span class="me-1 text-center" style="display: inline-block; width: 4vw;">
+            <i style="font-size: 2.2vw;" class="bi bi-cart4"></i>
+          </span>
+          Sepete Ekle
+        </a>
+      <% } %>
+      <% if(permissions === "") {%>
+        <a class="card-link m-0" href="login">satın alabilmek için lütfen giriş yapınız</a>
+      <% } %>
+    </div>
+  </div>

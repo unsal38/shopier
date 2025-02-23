@@ -1,0 +1,75 @@
+<div id="burclara-gore-taslar">
+    <div class="container-fruid">
+        <div class="row">
+            <div class="card border-0">
+                <div class="card-header">
+                    <ul class="nav burc-taslar-filter justify-content-between">
+                        <li class="nav-item my-2">
+                            <select class="burc-sec form-select rounded-pill text-body-secondary">
+                                <option value="0">Burç Seçiniz</option>
+                                <option value="1">Akrep</option>
+                                <option value="2">Koç</option>
+                                <option value="3">Kova</option>
+                                <option value="4">Boğa</option>
+                                <option value="5">İkizler</option>
+                                <option value="6">Yengeç</option>
+                                <option value="7">Aslan</option>
+                                <option value="8">Başak</option>
+                                <option value="9">Terazi</option>
+                                <option value="10">Yay</option>
+                                <option value="11">Balık</option>
+                                <option value="12">Oğlak</option>
+                            </select>
+                        </li>
+                        <li class="nav-item my-2">
+                            <select class="tas-sec form-select rounded-pill text-body-secondary">
+                                <option value="0">Taş Seçiniz</option>
+                                <% tas_select_array.forEach(el=> { %>
+                                    <option value="<%=el[0]_%>">
+                                        <%=el[1]_%>
+                                    </option>
+                                    <% }); %>
+                            </select>
+                        </li>
+                        <li class="nav-item my-2">
+                            <div style="width: 30rem;">
+                                <input class="form-control rounded-pill" type="search"
+                                    placeholder="Hangi Taşı Aramıştınız ??" aria-label="Search">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body filter pt-0">
+                    <div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
+                        <% tas.forEach(e=> {%>
+                            <div class="col">
+                                <div data-filter-title="<%= e.title %>" 
+                                    data-filter-burc="<%= e.burc %>" 
+                                        class="card">
+                                        <div class="row g-0">
+                                            <div class="col-md-2 d-flex align-item-center  tas-img">
+                                                <img src="<%= e.img _%>" class="img-fluid rounded-start"
+                                                    alt="<%= e.title _%>">
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="card-body metin">
+                                                    <h5 class="card-title">
+                                                        <%= e.title _%>
+                                                    </h5>
+                                                    <p class="card-text">
+                                                        <%= e.text _%>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+
+                            </div>
+                            <% }); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / body -->

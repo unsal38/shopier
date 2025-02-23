@@ -1,8 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 /////env içerisine dahil edilecek
-const ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-const REFLESH_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+const {ACCESS_TOKEN, REFLESH_TOKEN} = require("../config")
 /////env içerisine dahil edilecek
 
 // JSON SİGN FUNCTİONS
@@ -12,7 +11,7 @@ const jwt_sign_access_cookie = function jwt_sign_access_cookie(user, id) {
             user,
             id: id || null
         }
-        return jwt.sign(jwt_data_sign, ACCESS_TOKEN, { expiresIn: '1h' })
+        return jwt.sign(jwt_data_sign, ACCESS_TOKEN, { expiresIn: '1day' })
     } catch (error) {
         console.log(error, "jwt_access error");
     }
@@ -42,16 +41,17 @@ const jwt_sign_reflesh = function jwt_sign_reflesh(jwt_data) {
 // JSON DECODER FUNCTİONS
 const jwt_verify_access = function jwt_verify_access(token) {
     try {
-        if(token !== undefined){
+        if(token !== undefined && token !== null){
             const check_token = token.match("Authorization")
             if(check_token) {var token_data = token.split("Authorization=Bearer ")[1]}
             if(check_token === null || check_token === undefined) {var token_data = token}
             var decoded__token = jwt.verify(token_data, ACCESS_TOKEN);
             return decoded__token
         }
-        if(token === undefined) return false
+        if(token === undefined || token === null) return false
       } catch(err) {
         console.log(err.message, "jwt_verify_access error")
+       // if(err.message === "jwt expired" || "invalid token") return "jwt expired"
         return false;
       }
 }
