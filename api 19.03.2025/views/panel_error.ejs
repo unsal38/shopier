@@ -1,0 +1,30 @@
+<%- include('../views/header'); %>
+  </head>
+
+  <body>
+    <h1 class="text-capitalize">
+      <%= title %>
+    </h1>
+    <p class="text-capitalize">Hoş Geldiniz <%= first_name %>
+    </p>
+
+    
+
+
+    <a class="btn btn-primary btn-sm " href="/" role="button">Ana Sayfa</a>
+    <a class="btn btn-primary btn-sm " href="/panel" role="button">Panel Ana Sayfa</a>
+    <a class="btn btn-primary btn-sm " href="/panel/panel_kullanici_bilgileri" role="button">panel/kullanıcı
+      işlemleri</a>
+      <a class="btn btn-primary btn-sm " href="/panel/kullanici_kontrol" role="button">kullanici_kontrol</a>
+    <% if(permissions==="visitor" || !permissions) {%>
+      <a class="btn btn-primary btn-sm " href="login" role="button">login</a>
+      <% } %>
+        <% if(permissions==="user" || permissions==="admin" ) {%>
+          <a class="btn btn-primary btn-sm " href="javascript:void(0)" id="page_exit" role="button">logout</a>
+          <% } %>
+
+          <h2>Yetkisiz Erişim</h2>
+
+
+
+    <%- include('../views/footer'); %>

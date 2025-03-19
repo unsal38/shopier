@@ -1,0 +1,256 @@
+<%- include('../views/header'); %>
+
+	<div id="sepetmodal">
+		<div class="modal fade" id="sepetModalToggle" aria-hidden="true" aria-labelledby="sepetModalToggleLabel"
+			tabindex="-1">
+			<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalToggleLabel">Bilgileri Doldurunuz</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+							<form class="row g-3 needs-validation" novalidate>
+
+								<div class="col-md-6">
+									<label for="validationCustom06" class="form-label">E posta</label>
+									<input name="email" type="email" class="form-control is-invalid" id="validationCustom06" value=""
+									required>
+									<div class="valid-feedback">
+										Harika..
+									</div>
+									<div class="invalid-feedback">
+										Lütfen doldurunuz
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<label for="validationCustom07" class="form-label text-capitalize">isim</label>
+									<input name="name" type="text" class="form-control is-invalid" id="validationCustom07" value=""
+										required>
+									<div class="valid-feedback">
+										Harika..
+									</div>
+									<div class="invalid-feedback">
+										Lütfen doldurunuz
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<label for="validationCustom08" class="form-label text-capitalize">soyad</label>
+									<input name="surname" type="text" class="form-control is-invalid" id="validationCustom08" value=""
+										required>
+									<div class="valid-feedback">
+										Harika..
+									</div>
+									<div class="invalid-feedback">
+										Lütfen doldurunuz
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<label for="validationCustom09" class="form-label text-capitalize">telefon numarası</label>
+									<input name="phone_number" type="tel" class="form-control is-invalid" id="validationCustom09" value=""
+										required>
+									<div class="valid-feedback">
+										Harika..
+									</div>
+									<div class="invalid-feedback">
+										Lütfen doldurunuz
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<label for="validationCustom01" class="form-label">TC numarası</label>
+									<input name="identityNumber" type="text" class="form-control is-invalid" id="validationCustom01" value=""
+										required>
+									<div class="valid-feedback">
+										Harika..
+									</div>
+									<div class="invalid-feedback">
+										Lütfen doldurunuz
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<label for="validationCustom02" class="form-label text-capitalize">ülke</label>
+									<input name="country" type="text" class="form-control is-valid" id="validationCustom02"
+										value="Türkiye" readonly>
+									<div class="valid-feedback">
+										Harika..
+									</div>
+									<div class="invalid-feedback">
+										Lütfen doldurunuz
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<label for="validationCustom03" class="form-label text-capitalize">şehir</label>
+									<input name="city" type="text" class="form-control is-invalid" id="validationCustom03" value=""
+										required>
+									<div class="valid-feedback">
+										Harika..
+									</div>
+									<div class="invalid-feedback">
+										Lütfen doldurunuz
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<label for="validationCustom04" class="form-label text-capitalize">zipcod</label>
+									<input name="zipCode" type="text" class="form-control is-invalid" id="validationCustom04" value=""
+										required>
+									<div class="valid-feedback">
+										Harika..
+									</div>
+									<div class="invalid-feedback">
+										Lütfen doldurunuz
+									</div>
+								</div>
+
+								<div class="col-md-10">
+									<label for="validationCustom05" class="form-label">Açık Adres</label>
+									<input name="registrationAddress" type="text" class="form-control is-invalid" id="validationCustom05" value=""
+										required>
+									<div class="valid-feedback">
+										Harika..
+									</div>
+									<div class="invalid-feedback">
+										Lütfen doldurunuz
+									</div>
+								</div>
+
+								<div class="col-12">
+									<div class="form-check">
+										<input name="sozlesmeMesafeSatıs" class="form-check-input is-invalid" type="checkbox" value=""
+											id="mesSatısSoz" required>
+										<label class="form-check-label text-capitalize" for="mesSatısSoz">
+											<a href="/sozlesmeler" target="_blank">mesafeli satış sözleşmesi</a>
+										</label>
+										<div class="invalid-feedback text-capitalize">
+											onaylamayı unutmayınız
+										</div>
+										<div class="valid-feedback text-capitalize">
+											Harika
+										</div>
+									</div>
+								</div>
+
+							</form>
+
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary disabled" data-bs-target="#sepetModalToggleEft" data-bs-toggle="modal">
+							<i class="me-2 fa-solid fa-money-bill-1-wave"></i>EFT
+						</button>
+						<button class="btn btn-primary disabled" data-bs-target="#sepetModalToggleİyzco" data-bs-toggle="modal">
+							<img src="/images/iyzico_ile_ode_white.png" alt="iyzco image">
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="sepetModalToggleEft" aria-hidden="true" aria-labelledby="sepetModalToggleEftLabel2"
+			tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalToggleLabel2">EFT</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="card border-0">
+							<div class="card-header p-0 m-0 border-0">
+								<select name="check_eft_number" class="form-select" aria-label="Default select">
+									<option value="sec" selected>Seçiniz</option>
+									<option value="TR680006400000112511186874">İş Bankası</option>
+								</select>
+							</div>
+							<div id="TR680006400000112511186874" class="card-body border-0 d-none">
+								<img class="w-50" src="../images/isbankası_hesap.jpeg" alt="barkod resim">
+								<address>
+									ÜNSAL ÖZKARA <br>
+									Türkiye İş Bankası - BÜYÜKÇEKMECE ŞUBESİ <br>
+									IBAN: TR680006400000112511186874 <br>
+								</address>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary text-capitalize odemeyitamamla disabled">ödemeyi tamamla</button>
+						<button class="btn btn-secondary text-capitalize" data-bs-target="#sepetModalToggle"
+							data-bs-toggle="modal">Geri</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="sepetModalToggleİyzco" aria-hidden="true"
+			aria-labelledby="sepetModalToggleİyzcoLabel2" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="sepetModalToggleİyzco">İYZCO</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body bg-primary">
+						<img class="w-100" src="/images/iyzico_ile_ode_white.png" alt="iyzco logo">
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary text-capitalize odemeyitamamla">ödeme sayfası</button>
+						<button class="btn btn-primary text-capitalize" data-bs-target="#sepetModalToggle"
+							data-bs-toggle="modal">Geri</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<body id="sepet">
+		<div id="body">
+			<div class="container">
+				<div id="content" class="full">
+					<div class="cart-table">
+						<table>
+							<tr>
+								<th class="items">Ürün</th>
+								<th class="price">Fiyat</th>
+								<th class="qnt">Miktar</th>
+								<th class="total">Toplam Miktar</th>
+								<th class="delete"></th>
+							</tr>
+						</table>
+					</div>
+
+				</div>
+
+				<div class="card mb-4">
+					<div class="col-12 d-flex justify-content-between align-items-center">
+						<div class="col-4">
+							<img class="card-header w-100 bg-transparent border-0" src="/images/logo@2x.png" alt="logo">
+						</div>
+						<div>
+							<a data-bs-target="#sepetModalToggle" data-bs-toggle="modal" href="sepetFinish"
+								class="btn btn-grey me-2 text-capitalize">Ödemeyi tamamla
+							</a>
+						</div>
+					</div>
+
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item total">Sepet Tutarı : <i class="fa-solid fa-turkish-lira-sign"></i>
+						</li>
+						<li class="list-group-item">kargo ücreti : <span class="text-danger me-1">ücretsiz</span><i
+								class="fa-solid fa-turkish-lira-sign">0</i></li>
+						<li class="list-group-item efttotal">eft ödeme tutarı: <i
+								class="fa-solid fa-turkish-lira-sign"></i></li>
+						<li class="list-group-item krkarttotal">kredi kart ödeme tutarı: <i
+								class="fa-solid fa-turkish-lira-sign"></i></li>
+					</ul>
+				</div>
+			</div>
+			<!-- / content -->
+		</div>
+		<!-- / container -->
+		</div>
+		<!-- / body -->
+		<%- include('../views/footer'); %>
+			<!-- / footer -->

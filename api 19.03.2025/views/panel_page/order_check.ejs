@@ -1,0 +1,11 @@
+<h4>SİPARŞLER(admin)</h4>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1 mb-4">
+<% order_data_all.forEach(a => {%>
+    
+    <div class="col">
+        <%- include("../../views/order_template",{a}) %>
+    </div>
+
+<% }); %>
+
+</div>

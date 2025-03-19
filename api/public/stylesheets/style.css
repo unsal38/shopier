@@ -1911,14 +1911,7 @@ section.products article img {
 	margin: auto;
 	max-width: 50vw;
 }
-/* Sonradan Eklenen Media
-------------------------------------------------------------------------------*/
-@media screen and (max-width: 700px){
-	.interval-group button,
-	.interval-group input{
-		font-size: 2vw;
-	}
-}
+
 
 /* Fonts
 ------------------------------------------------------------------------------*/
@@ -2400,7 +2393,7 @@ section.products article img {
 
 @media screen and (max-width: 600px) {
 	#header .right-links li {
-		padding: 0;
+		/* padding: 0; */
 	}
 }
 
@@ -2454,5 +2447,13 @@ section.products article img {
 
 	#footer .col:nth-child(2) {
 		width: 49% !important;
+	}
+}
+/* Sonradan Eklenen Media
+------------------------------------------------------------------------------*/
+@media screen and (max-width: 700px){
+	.interval-group button,
+	.interval-group input{
+		font-size: 2vw;
 	}
 }

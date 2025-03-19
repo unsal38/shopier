@@ -1,0 +1,63 @@
+<div class="card product">
+    <img 
+    <% if(b.media[0] !== undefined) {var data = b.media[0].url}%>
+    <% if(b.media[0] === undefined) {var data = "images/logo.jpeg"}%>
+    <% if(permissions === "admin" || permissions === "user" || permissions === "visitor") {%>
+    data-bs-toggle="modal" 
+    data-bs-target="#productModal"
+    <% } %>
+    data-product-id="<%= b.id %>"
+    class="card-img-top" alt="<%= b.title %>"
+    src="<%= data _%>"
+    >
+    <div class="card-body text-center d-flex flex-column">
+      <% if(permissions !== "visitor") {%>   
+        <div class="d-flex justify-content-star">
+          <a data-product-id="<%= b.id %>" class="text-capitalize" href="favori_ekle">
+            <%
+              const data = b.id
+              const check_data = user_favori.filter( v => v === data)
+              if(check_data.length === 0) {var check = false}else if(check_data.length > 0) {var check = true}
+             %>
+             
+            <% if(user_favori !== null && check === true){ %>
+              <i data-product-id="<%= b.id %>" class="bi bi-star-fill"></i>
+            <% } %>
+            <% if(user_favori === null || check === false){ %>
+            <i  class="bi bi-star"></i>
+            <% } %>
+
+            <span class="ms-2">favori</span>
+          </a>
+        </div>
+      <% } %>
+      <div class="d-flex flex-row justify-content-center">
+        <h5 class="card-title fw-medium text-secondary me-3"><%= b.title %></h5>
+        <% if(Number(b.stockQuantity) > 0) {%>
+          <h6 class="card-text fw-medium text-secondary"><%= b.price_data.price %> <span>tl</span></h6>
+        <% } %>
+      </div>
+    </div>
+    <div class="card-footer bg-transparent d-flex  flex-column justify-content-between">
+      <% if(Number(b.stockQuantity) <= 0) {%>
+      <h5 class="text-secondary">ürün stoklarda bulunmamaktadır.</h5>
+      <a class="card-link" aria-label="Chat on WhatsApp" href="https://wa.me/05517026813">
+        Tedarik için tıklayarak iletişime geçiniz.
+      </a>
+      <% } %>
+      <% if(Number(b.stockQuantity) > 0) {%>
+      <a class="card-link m-0" href="<%= b.url %>" target="_blank">
+        <span class="me-1" style="display: inline-block; width: 4vw;">
+          <img src="../images/Shopier.png" alt="icon">
+        </span>
+        Shopier Devam Et
+      </a>
+        <a data-product-id="<%= b.id %>" class="card-link m-0" href="sepetAdd">
+          <span class="me-1 text-center" style="display: inline-block; width: 4vw;">
+            <i style="font-size: 2.2vw;" class="bi bi-cart4"></i>
+          </span>
+          Sepete Ekle
+        </a>
+        <% } %>
+    </div>
+  </div>
