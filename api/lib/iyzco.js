@@ -6,7 +6,8 @@ var iyzipay = new Iyzipay({
     secretKey: IYZCO_SECRET_KEY,
     uri: IYZCO_BASE_URL
 });
-var callbackUrl = 'http://localhost:3000/sepet' // ÖDEME SONRASI YÖNLENDİRİLEN ADRES
+const baseURL = document.location.origin
+var callbackUrl = `${baseURL}/sepet/iyzcoCallBack` // ÖDEME SONRASI YÖNLENDİRİLEN ADRES
 var enabledInstallments = [1, 2, 3, 6, 9]       // TAKSİT BİLGİSİ
 var itemType = Iyzipay.BASKET_ITEM_TYPE.PHYSICAL // FİZİKSEL ÜRÜN
 var iyzco_komisyon1 = (5 / 100) // %4,25
@@ -16,8 +17,8 @@ function chackout_form(request_data) {
     const promise_data = new Promise((resolve, reject) => {
 
         const data = request_data
-      //  console.log(data)
-
+        // console.log(data)
+        const basketItems = data.basketItems
 
         //////////****** */  basketItems//*********** */
 
@@ -45,8 +46,8 @@ function chackout_form(request_data) {
         const gsmNumber = String(data.gsmNumber)
         const email = data.email
         
-        const identityNumber = data.tcnumber
-        const registrationAddress = data.acikadres
+        const identityNumber = data.identityNumber
+        const registrationAddress = data.registrationAddress
         const ip = data.ip
         const city = data.city      // ÖRN İSTANBUL
         const country = data.country // ÖRN TÜRKİYE
@@ -102,36 +103,19 @@ function chackout_form(request_data) {
                 address,
                 zipCode
             },
-            basketItems: [
-                {
-                    id: 'BI101', // ÜRÜN İD BI tarih  "21312313131213BI2312312312312313"
-                    name: 'Binocular',
-                    category1: 'Collectibles',
-                    // category2: 'Accessories',
-                    itemType,
-                    price: '0.3'
-                },
-                {
-                    id: 'BI103', // BI ÜRÜN İD  BI2312312312312313
-                    name: 'Usb',
-                    category1: 'Electronics',
-                    //  category2: 'Usb / Cable',
-                    itemType,
-                    price: '0.2'
-                }
-            ]
+            basketItems
         };
-
-        // iyzipay.checkoutFormInitialize.create(request,
-        //     function (err, result) {
-        //         const callbackUrl = result.paymentPageUrl //.payWithIyzicoPageUrl
-        //         //console.log(result, "iyzco js lib");
-        //         resolve(callbackUrl);
-        //     }
-        // )
+       // console.log(request)
+        iyzipay.checkoutFormInitialize.create(request,
+            function (err, result) {
+                //const callbackUrl = result.paymentPageUrl //.payWithIyzicoPageUrl
+                //console.log(result, "iyzco js lib");
+                resolve(result);
+            }
+        )
 
     });
-    // return promise_data
+    return promise_data
 }
 
 /// SONRA DENECEK OLAN KODLAR

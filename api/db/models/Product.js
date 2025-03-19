@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const schema = mongoose.Schema({
+const productschema = mongoose.Schema({
     shopier_id: String,
     created_by: mongoose.Types.ObjectId, // USERDAN GELEN İD
     title: String,
@@ -21,7 +21,12 @@ const schema = mongoose.Schema({
         type: Boolean
     },
     options: Array,
-    youtube_video_link: String
+    youtube_video_link: String,
+    createAt: {
+        type: Date,
+        default: Date.now()
+    },
+    updateAt: Date
 }, {
     versionKey: false,
     timestamp: {
@@ -29,9 +34,25 @@ const schema = mongoose.Schema({
         updateAt: "update_at",
     }
 });
-// class Product extends mongoose.Model {
-
-// };
-
-// schema.loadClass(Product);
-module.exports = mongoose.model('product', schema);
+const date = Date.now()
+//const intl_date = new Intl.DateTimeFormat("tr-TR").format(date)
+productschema
+.pre(/^find/, async function (next) {
+    try {
+        const data = { updateAt: date}
+        this.updateOne(data)
+        next();
+    } catch (error) {
+        console.log(error)
+    }
+})
+.pre("save", async function (next) {
+    try {
+        const data = { createAt: date}
+        this.updateOne(data)
+        next();
+    } catch (error) {
+        console.log(error)
+    }
+})
+module.exports = mongoose.model('products', productschema);

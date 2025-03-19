@@ -1,0 +1,124 @@
+<div class="accordion accordion-flush" id="accordionFlushOdemeDb">
+    <div class="d-flex justify-content-end">
+        <div class="row">
+            <div class="col">
+                <div class="input-group interval-group">
+                    <button type="button" class="rounded-end btn btn-danger clear-interval-close text-capitalize">sayfa yenilemeyi kapat</button>
+                    <button type="button" class="rounded-end btn btn-success clear-interval-open text-capitalize d-none">sayfa yenilemeyi aç</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <% odeme_data.forEach(e => { %>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button 
+              data-bs-target="#flush-<%= e._id _%>"
+              aria-controls="flush-<%= e._id _%>"
+              class="accordion-button collapsed text-capitalize" type="button" data-bs-toggle="collapse"  aria-expanded="false" >
+                <%= e.name %><span class="ms-1"><%= e.surname %> </span> 
+                <% if(e.iyzco_data.length > 0){ %>
+                    <span class="ms-2">iyzco ödemesi</span>
+                <% } %>
+                <% if(e.iyzco_data.length <= 0){ %>
+                    <span class="ms-2">eft ödemesi</span>
+                <% } %>
+                <% if(e.is_check_ok === true){ %>
+                    <span class="text-success ms-2">onaylı</span>
+                <% } %>
+                <% if(e.is_check_ok === false){ %>
+                    <span class="text-danger ms-2">onaysız</span>
+                <% } %>
+              </button>
+            </h2>
+      
+            <div id="flush-<%= e._id _%>"
+              data-bs-parent="#accordionFlushOdemeDb" 
+              class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <ul class="list-group list-group-flush">
+
+                        <li class="list-group-item">
+                            <span>onaylı: <%= e.is_check_ok %> </span>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button data-db-id="<%= e._id %>" type="button" class="onay btn btn-success text-capitalize">onayla</button>
+                                <button data-db-id="<%= e._id %>" type="button" class="red btn btn-danger text-capitalize">reddet</button>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-capitalize">isim: <%= e.name %> </span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-capitalize">soyad: <%= e.surname %> </span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-capitalize">tel : <%= e.phone_number %> </span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-lowercase">eposta : <%= e.email %> </span>
+                        </li>
+                        <li class="list-group-item"> 
+                            <ol class="list-group list-group-numbered">
+                                <% if(e.iyzco_data.length > 0){ %>
+                                    <li class="list-group-item"><span class="text-capitalize">iyzco converstion id : <%= e.iyzco_data[0].conversationId  _%> </span></li>
+                                    <li class="list-group-item"><span class="text-capitalize">iyzco token :  <%= e.iyzco_data[0].token _%></span></li>
+                                <% }else {%>
+                                    <li class="list-group-item"><span class="text-capitalize">iyzco converstion id : - </span></li>
+                                    <li class="list-group-item"><span class="text-capitalize">iyzco token : -</span></li>
+                                <% } %>
+                            </ol>
+                            
+                        </li>
+                        <li class="list-group-item">
+                            <ul class="list-group list-group-flush product-search">
+                                <% const for_data =  e.product_item %>
+                                <% for (let index = 0; index < for_data.length; index++) { %>
+                                    <% const element = for_data[index]; %>
+                                    <li class="list-group-item">
+                                        <span class="text-capitalize">ürün miktarı : <%= element.product_miktar %> </span>
+                                        <button 
+                                        data-sorgu-product-id="<%= element.product_id _%>" 
+                                        type="button" class="btn btn-info ms-2 text-capitalize"
+                                            >sorgula</button>
+                                    </li>
+                                    <% } %>
+                                    <li class="list-group-item product-data">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <p class="text-capitalize text-danger">lütfen ürün seçiniz</p>
+                                            </div>
+                                            <div class="d-none card-body product-data">
+
+                                            </div>
+
+                                          </div>
+                                    </li>
+                                </ul>
+                            
+                            
+                            
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-capitalize">sözleşme onayı : <%= e.sozlesmeMesafeSatıs %> </span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-capitalize">açık adres : <%= e.registrationAddress %> </span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-capitalize">şehir : <%= e.city %> </span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-capitalize">ülke : <%= e.country %> </span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-capitalize">alıcı eft numarası : <%= e.check_eft_number %> </span>
+                        </li>
+                      </ul>
+                </div>
+            </div>
+      
+          </div>
+    <%  }); %>
+</div>

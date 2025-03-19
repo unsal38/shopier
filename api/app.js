@@ -14,6 +14,7 @@ const sepetRouter = require('./routes/sepet');
 const tokengenerator = require('./routes/token_generator');
 const iyzcoRouter = require("./routes/iyzco")
 const sozlesmelerRouter = require("./routes/sozlesmeler")
+const whatsappRouter = require("./routes/callback")
 //////</ROUTER////////////////////////
 
 //VİEW ENGİNE SETUP //////////////////
@@ -34,6 +35,7 @@ app.use('/blog',permission_check(["visitor", "admin", "vizitor"]), blogRouter);
 app.use("/products",permission_check(["visitor","user", "admin"]), productsRouter)
 app.use("/sepet",permission_check(["visitor","user", "admin"]), sepetRouter)
 app.use("/sozlesmeler",permission_check(["visitor","user", "admin"]), sozlesmelerRouter)
+app.use("/whatsapp", whatsappRouter)
 app.use("/",permission_check(["visitor","user", "admin"]), indexRouter)
 
 app.listen(PORT, ()=> {

@@ -7,24 +7,51 @@ const bcrypt = require('bcrypt');
 let userSchema = require("../db/models/Users");
 
 router.post("/register", async (req, res) => {
-  const pass_form_data = req.body.register_form_array[1][1]
+  //const pass_form_data = req.body.register_form_array[1][1]
 
-  const saltRounds = 10;
-  await bcrypt.hash(pass_form_data, saltRounds,async (err, hash) => {
-    if(err) {
-      console.log(err)
-      return res.json({ success: false })
-    }
-    const pass_reflesh_token = jwt_lib.jwt_sign_reflesh({ hash })
+  // const saltRounds = 10;
+  // await bcrypt.hash(pass_form_data, saltRounds,async (err, hash) => {
+  //   if(err) {
+  //     console.log(err)
+  //     return res.json({ success: false })
+  //   }
+  //   const pass_reflesh_token = jwt_lib.jwt_sign_reflesh({ hash })
+  //   await userSchema.create({
+  //     email: req.body.register_form_array[0][1],
+  //     password: pass_reflesh_token,
+  //     first_name: req.body.register_form_array[2][1],
+  //     last_name: req.body.register_form_array[3][1],
+  //     phone_number: req.body.register_form_array[4][1]
+  //   })
+  //   res.send(true)
+  // });
+
+  try {
     await userSchema.create({
       email: req.body.register_form_array[0][1],
-      password: pass_reflesh_token,
-      first_name: req.body.register_form_array[2][1],
-      last_name: req.body.register_form_array[3][1],
-      phone_number: req.body.register_form_array[4][1]
+      first_name: req.body.register_form_array[1][1],
+      last_name: req.body.register_form_array[2][1],
+      phone_number: req.body.register_form_array[3][1]
     })
+
+    const target_email = req.body.register_form_array[0][1]
+    const user_check = await userSchema.findOne({ email: target_email })
+    if (user_check) {
+      const first_name = user_check.first_name
+      const user_id = user_check.id
+      const baseUrl = req.headers.origin
+      const access_token_data = {
+        user_id
+      }
+
+      const access_token = jwt_lib.jwt_sign_access(access_token_data)
+      nodemailer.nodmail(first_name, access_token, baseUrl)
+    }
     res.send(true)
-  });
+  } catch (error) {
+    console.log(error, "login js")
+  }
+
 })
 router.post("/login", async (req, res) => {
   const pass_form_data_email = req.body.register_form_array[0][1]
@@ -40,11 +67,11 @@ router.post("/login", async (req, res) => {
     if (user_data.length > 0) {
 
       var password_hash = await jwt_lib.jwt_verify_reflesh(user_data[0].password)
-      const validPassword = await bcrypt.compare(pass_form_data_pass,password_hash);
+      const validPassword = await bcrypt.compare(pass_form_data_pass, password_hash);
       if (validPassword) var pass = true
       if (!validPassword) var pass = false
     }
-    
+
     if (user_data.length === 0 || pass === false) res.json({ message: "kullanıcı yada şifre hatalı" })
     if (user_data.length >= 0 && pass === true) {
       if (user_data[0].admin === true) var user = "admin"
@@ -65,7 +92,6 @@ router.post("/login", async (req, res) => {
 })
 router.post("/updatepass", async (req, res) => {
   const forgetpass_email = req.body.data
-  console.log(forgetpass_email)
   try {
     const user_check = await userSchema.findOne({ email: forgetpass_email })
     if (!user_check) res.json({ success: false, message: "email hatalı kontrol ediniz." })
@@ -99,8 +125,8 @@ router.post("/passchange", async (req, res) => {
     if (!user_db_data) res.json({ success: false })
     if (user_db_data) {
       const saltRounds = 10;
-      await bcrypt.hash(user_new_pass, saltRounds,async (err, hash) => {
-        if(err) {
+      await bcrypt.hash(user_new_pass, saltRounds, async (err, hash) => {
+        if (err) {
           console.log(err)
           return res.json({ success: false })
         }

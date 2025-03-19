@@ -14,7 +14,7 @@
 
 								<div class="col-md-6">
 									<label for="validationCustom06" class="form-label">E posta</label>
-									<input type="email" class="form-control is-invalid" id="validationCustom06" value=""
+									<input name="email" type="email" class="form-control is-invalid" id="validationCustom06" value=""
 									required>
 									<div class="valid-feedback">
 										Harika..
@@ -26,7 +26,7 @@
 
 								<div class="col-md-6">
 									<label for="validationCustom07" class="form-label text-capitalize">isim</label>
-									<input type="text" class="form-control is-invalid" id="validationCustom07" value=""
+									<input name="name" type="text" class="form-control is-invalid" id="validationCustom07" value=""
 										required>
 									<div class="valid-feedback">
 										Harika..
@@ -38,7 +38,7 @@
 
 								<div class="col-md-6">
 									<label for="validationCustom08" class="form-label text-capitalize">soyad</label>
-									<input type="text" class="form-control is-invalid" id="validationCustom08" value=""
+									<input name="surname" type="text" class="form-control is-invalid" id="validationCustom08" value=""
 										required>
 									<div class="valid-feedback">
 										Harika..
@@ -50,7 +50,7 @@
 
 								<div class="col-md-6">
 									<label for="validationCustom09" class="form-label text-capitalize">telefon numarası</label>
-									<input type="tel" class="form-control is-invalid" id="validationCustom09" value=""
+									<input name="phone_number" type="tel" class="form-control is-invalid" id="validationCustom09" value=""
 										required>
 									<div class="valid-feedback">
 										Harika..
@@ -62,7 +62,7 @@
 
 								<div class="col-md-6">
 									<label for="validationCustom01" class="form-label">TC numarası</label>
-									<input type="text" class="form-control is-invalid" id="validationCustom01" value=""
+									<input name="identityNumber" type="text" class="form-control is-invalid" id="validationCustom01" value=""
 										required>
 									<div class="valid-feedback">
 										Harika..
@@ -74,7 +74,7 @@
 
 								<div class="col-md-6">
 									<label for="validationCustom02" class="form-label text-capitalize">ülke</label>
-									<input type="text" class="form-control is-valid" id="validationCustom02"
+									<input name="country" type="text" class="form-control is-valid" id="validationCustom02"
 										value="Türkiye" readonly>
 									<div class="valid-feedback">
 										Harika..
@@ -86,7 +86,7 @@
 
 								<div class="col-md-6">
 									<label for="validationCustom03" class="form-label text-capitalize">şehir</label>
-									<input type="text" class="form-control is-invalid" id="validationCustom03" value=""
+									<input name="city" type="text" class="form-control is-invalid" id="validationCustom03" value=""
 										required>
 									<div class="valid-feedback">
 										Harika..
@@ -98,7 +98,7 @@
 
 								<div class="col-md-6">
 									<label for="validationCustom04" class="form-label text-capitalize">zipcod</label>
-									<input type="text" class="form-control is-invalid" id="validationCustom04" value=""
+									<input name="zipCode" type="text" class="form-control is-invalid" id="validationCustom04" value=""
 										required>
 									<div class="valid-feedback">
 										Harika..
@@ -110,7 +110,7 @@
 
 								<div class="col-md-10">
 									<label for="validationCustom05" class="form-label">Açık Adres</label>
-									<input type="text" class="form-control is-invalid" id="validationCustom05" value=""
+									<input name="registrationAddress" type="text" class="form-control is-invalid" id="validationCustom05" value=""
 										required>
 									<div class="valid-feedback">
 										Harika..
@@ -122,7 +122,7 @@
 
 								<div class="col-12">
 									<div class="form-check">
-										<input class="form-check-input is-invalid" type="checkbox" value=""
+										<input name="sozlesmeMesafeSatıs" class="form-check-input is-invalid" type="checkbox" value=""
 											id="mesSatısSoz" required>
 										<label class="form-check-label text-capitalize" for="mesSatısSoz">
 											<a href="/sozlesmeler" target="_blank">mesafeli satış sözleşmesi</a>
@@ -140,10 +140,10 @@
 
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-secondary " data-bs-target="#sepetModalToggleEft" data-bs-toggle="modal">
+						<button class="btn btn-secondary disabled" data-bs-target="#sepetModalToggleEft" data-bs-toggle="modal">
 							<i class="me-2 fa-solid fa-money-bill-1-wave"></i>EFT
 						</button>
-						<button class="btn btn-primary " data-bs-target="#sepetModalToggleİyzco" data-bs-toggle="modal">
+						<button class="btn btn-primary disabled" data-bs-target="#sepetModalToggleİyzco" data-bs-toggle="modal">
 							<img src="/images/iyzico_ile_ode_white.png" alt="iyzco image">
 						</button>
 					</div>
@@ -161,12 +161,13 @@
 					<div class="modal-body">
 						<div class="card border-0">
 							<div class="card-header p-0 m-0 border-0">
-								<select class="form-select" aria-label="Default select">
+								<select name="check_eft_number" class="form-select" aria-label="Default select">
 									<option value="sec" selected>Seçiniz</option>
 									<option value="TR680006400000112511186874">İş Bankası</option>
 								</select>
 							</div>
 							<div id="TR680006400000112511186874" class="card-body border-0 d-none">
+								<img class="w-50" src="../images/isbankası_hesap.jpeg" alt="barkod resim">
 								<address>
 									ÜNSAL ÖZKARA <br>
 									Türkiye İş Bankası - BÜYÜKÇEKMECE ŞUBESİ <br>
@@ -195,7 +196,7 @@
 						<img class="w-100" src="/images/iyzico_ile_ode_white.png" alt="iyzco logo">
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-primary text-capitalize">ödeme sayfası</button>
+						<button class="btn btn-primary text-capitalize odemeyitamamla">ödeme sayfası</button>
 						<button class="btn btn-primary text-capitalize" data-bs-target="#sepetModalToggle"
 							data-bs-toggle="modal">Geri</button>
 					</div>
@@ -227,7 +228,7 @@
 						<div class="col-4">
 							<img class="card-header w-100 bg-transparent border-0" src="/images/logo@2x.png" alt="logo">
 						</div>
-						<div class="">
+						<div>
 							<a data-bs-target="#sepetModalToggle" data-bs-toggle="modal" href="sepetFinish"
 								class="btn btn-grey me-2 text-capitalize">Ödemeyi tamamla
 							</a>

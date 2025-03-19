@@ -26,12 +26,13 @@ function alert(message) {
 function on_click_alert() {
     $("#alert").addClass("d-none")
     document.location.reload()
- }
+}
 var baseURL = document.location.origin
 var token = getCookie("Authorization")
+const token_data = `Bearer ${token.split("Bearer ")[1]}`
 var axios_config = {
     baseURL,
-    headers: { 'Authorization': `Bearer ${token.split("Bearer ")[1]}` }
+    headers: { 'Authorization': token_data }
 }
 $(() => {
     $("#kategori-ekle").on("click", () => {
@@ -174,26 +175,20 @@ $(() => {
 })// LEFT MENU ACTİVE
 $(() => {
     $("#catacory_add").on("click", function () {
-        const getURL = "panel/categoriesAdd"
+        const getURL = "/panel/categoriesAdd"
         axios.get(getURL, axios_config)
             .then(res => {
-                if (res.data === true) {
-                    alert("işlem başarılı")
-                    document.location.reload()
-                }
+                if (res.data === true) { alert("işlem başarılı") }
                 if (res.data === false) { alert("tekrar deneyiniz") }
             })
     });
 }) // PANEL KATEGORİ EKLEME 
 $(() => {
     $("#product_add").on("click", function () {
-        const getURL = "panel/productAdd"
+        const getURL = "/panel/productAdd"
         axios.get(getURL, axios_config)
             .then(res => {
-                if (res.data === true) {
-                    alert("işlem başarılı")
-                    document.location.reload()
-                }
+                if (res.data === true) { alert("işlem başarılı") }
                 if (res.data === false) { alert("tekrar deneyiniz") }
             })
     });
@@ -240,7 +235,19 @@ $(() => {
     });
 }) ///PANEL ADMİN PRODUCT CARD BODY HİDE SHOW
 $(() => {
-    $("#buttonYoutubeDelete").on("click", function () {
+    $('button[data-product_delete-id]').on("click", async function () {
+        const product_id = $(this).attr("data-product_delete-id")
+        const url = "/panel/deleteProduct"
+        const data = {
+            product_id
+        }
+        const check = await axios.post(url, data, axios_config)
+        if (check.data === true) alert("işlem başarılı")
+        if (check.data === false) alert("bir hata oluştu")
+    });
+}) /// PRODUCT DELETE
+$(() => {
+    $("button[data-product_youtube_delete-id]").on("click", function () {
         const product_id = $(this).attr("data-product-id")
         const url_post = "panel/youtubeLinkDelete"
         const axios_data = {
@@ -252,9 +259,9 @@ $(() => {
                 if (res.data === false) alert("lütfen tekrar deneyiniz")
             })
     });
-    $("#buttonYoutubeAdd").on("click", function () {
-        const product_id = $(this).attr("data-product-id")
-        const youtube_video_link = $('[aria-describedby="button-youtube-add"]').val()
+    $("button[data-youtube-product-id]").on("click", function () {
+        const product_id = $(this).attr("data-youtube-product-id")
+        const youtube_video_link = $(`input[name='data-youtube-${product_id}']`).val()
         const url_post = "panel/youtubeLinkAdd"
         const axios_data = {
             product_id,
@@ -266,9 +273,9 @@ $(() => {
                 if (res.data === false) alert("lütfen tekrar deneyiniz")
             })
     });
-})// PRODUCT YOUTUBE LİNK ADD DELETE
+})// PRODUCT  YOUTUBE LİNK ADD DELETE
 
-function axios_post(url, data, authorization) {
+function axios_post_panel(url, data, authorization) {
     const config = {
         baseURL: document.location.origin,
         headers: {
@@ -313,7 +320,7 @@ function validateSpecial(pass) {
 }//Special Character.
 // // password kontrol **************************
 
-$(()=> {
+$(() => {
     $("#button-forgetpass").on("click", async () => {
         const email_form_data = $("#forgetpass").val()
         const email_form_data_lowercase = turkish_letter_lowercase(email_form_data)
@@ -323,9 +330,284 @@ $(()=> {
         const url = "/login/updatepass"
         if (email_data_check === false) { alert("mail adresini kontrol ediniz.") }
         if (email_data_check === true) {
-            const [acct] = await Promise.all([axios_post(url, email_form_data_lowercase, token_split)]);
+            const [acct] = await Promise.all([axios_post_panel(url, email_form_data_lowercase, token_split)]);
             if (acct.data.success === true) alert(acct.data.message)
             if (acct.data.success === false) alert(acct.data.message)
         }
     })
 })// CHANGE FORM PASSWORD
+
+$(() => {
+    $('#accordionFlushUser li span[data-bs-toggle="collapse"]').on("click", function () {
+        const target_check = $(this).attr("aria-expanded")
+        if (target_check === "true") {
+            $(this).parent("li").children(".bi-caret-down-fill").addClass("d-none")
+            $(this).parent("li").children(".bi-caret-up-fill").removeClass("d-none")
+        }
+        if (target_check === "false") {
+            $(this).parent("li").children(".bi-caret-down-fill").removeClass("d-none")
+            $(this).parent("li").children(".bi-caret-up-fill").addClass("d-none")
+        }
+
+    });
+}) // COLLAPSE PANEL FAVORİ ÜRÜNN OK ANİMASYONU
+
+$(() => {
+    $("[data-pass-reset]").on("click", function () {
+        const axios_data = $(this).attr("data-pass-reset")
+        const url = "/login/updatepass"
+        const token = (axios_config.headers.Authorization).split("Bearer ")[1]
+        axios_post_panel(url, axios_data, token)
+        alert("mailinizi kontrol ediniz")
+    });
+}) // şifre GÜNCELLEME
+function card_product(user_id, element) {
+    $(`div#flush-${user_id} .row`)
+        .append(`
+        <div class="col">
+
+            <div class="card product text-bg-dark">
+                <img 
+                src="${element.media[0].url}"           
+                class="card-img" alt="product image">
+                <div
+                data-bs-toggle="modal" 
+                data-bs-target="#productModal"
+                data-product-id="${element._id}"
+                    class="card-img-overlay">
+                    <h5 class="card-title text-capitalize">${element.title}</h5>
+                    <p class="card-text">fiyat: ${element.price_data.discountedPrice}</p>
+                </div>
+                </div>
+
+        </div> 
+        `)
+}
+$(() => {
+    $("span[data-bs-target]").on("click", async function () {
+        const target_data = $(this).attr("data-bs-target")
+        const user_id = target_data.split("#collapseFavori")[1]
+        const url = "/panel/favori"
+        const data = { user_id }
+        const authorization = getCookie("Authorization").split("Bearer ")[1]
+        const check = await axios_post_panel(url, data, authorization)
+        if (check.data.success === true) {
+            const user_id = check.data.user_id
+            const product_data = check.data.data
+            $(`div#flush-${user_id} .row div.col`).remove()
+            $(`div#flush-${user_id} .row p`).remove()
+            if (product_data.length > 0) {
+                for (let index = 0; index < product_data.length; index++) {
+                    const element = product_data[index];
+                    card_product(user_id, element)
+                }
+            } else if (product_data.length === 0) {
+                $(`div#flush-${user_id} .row`).append(`<p class="w-100 text-capitalize">favoriye eklediğiniz ürün bulunmamaktadır.</p>`);
+            }
+        }
+    });
+}) // PANELDEKİ FAVORİ BÖLÜMÜ
+$(() => {
+    $("ul.kullanici-kontrol select ").on("change", function () {
+        const target = $("#accordionFlushUser button span")
+        const check = $(this).children("option:selected").val()
+        for (let index = 0; index < target.length; index++) {
+            const element_active_check = $(target[index]).attr("data-acitive");
+            const target_parent = $(target[index]).parents(".accordion-item");
+            if (check === element_active_check) { $(target_parent).fadeIn() }
+            if (check !== element_active_check) { $(target_parent).fadeOut() }
+        }
+    });
+    $("ul.kullanici-kontrol input[name='search']").on("change", function () {
+        const target = $("#accordionFlushUser .accordion-item")
+        const check = $(this).val().toLowerCase()
+        const check_item = $("#accordionFlushUser .accordion-item button strong") //.textContent //.val().trim().toLowerCase()
+
+        check_item.filter((i, v) => {
+            const check_item_parents = $(v).parents(".accordion-item")
+            const check_data = $(v).text().toLowerCase().indexOf(check)
+            if (check_data > -1) $(check_item_parents).fadeIn()
+            if (check_data === -1) $(check_item_parents).fadeOut()
+        })
+    });
+}) // PANEL KULLANICI KONTROL FİLTER
+
+$(() => {
+    $("[data-sorgu-product-id]").on("click", async function () {
+        const target_parent = $(this).parents(".product-search").children(".product-data").children(".card")
+        $(target_parent).children(".card-body:nth-child(1)").removeClass("d-none")
+        $(target_parent).children(".card-body:nth-child(2)").addClass("d-none").children().remove()
+
+        const product_id = $(this).attr("data-sorgu-product-id")
+        const url = "/panel/searchProduct"
+        const data = {
+            product_id
+        }
+        const authorization = token_data.split("Bearer ")[1]
+        const check = await axios_post_panel(url, data, authorization)
+        if (check.data.success === true) {
+            const target_parent = $(this).parents(".product-search").children(".product-data").children(".card")
+            $(target_parent).children(".card-body").toggleClass("d-none")
+            const product_data = check.data.data
+            $(target_parent).children(".card-body:nth-child(2)").append(`
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="${product_data.product_img_url}" class="img-fluid rounded-start w-100" alt="urun image">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title text-capitalize text-secondary">${product_data.product_title}</h5>
+                        <p class="card-text text-capitalize text-secondary">fiyat: <span>${product_data.product_fiyat}</span><i class="ms-1 fa-solid fa-turkish-lira-sign"></i></p> 
+                    </div>
+                </div>
+            </div>
+                `)
+        }
+        if (check.data.success !== true) {
+            const target_parent = $(this).parents(".product-search").children(".product-data").children(".card")
+            $(target_parent).children(".card-body:nth-child(1)").removeClass("d-none")
+            $(target_parent).children(".card-body:nth-child(2)").addClass("d-none").children().remove()
+        }
+    });
+    $("button.siparis").on("click", async function () {
+        const target = $(this).attr("data-bs-target")
+        const target_element = $(`ul[data-target-id='${target}'] li`)
+        for (let index = 0; index < target_element.length; index++) {
+            const element = target_element[index];
+            $(element).children().remove()
+            const product_id = $(element).attr("data-urun-id")
+            const url = "/panel/searchProduct"
+            const data = {
+                product_id
+            }
+            const authorization = token_data.split("Bearer ")[1]
+            const check = await axios_post_panel(url, data, authorization)
+            const product_data = check.data.data
+
+            $(element).append(`
+                    <div class="card">
+                        <img src="${product_data.product_img_url}" class="card-img-top" alt="ürün resmi">
+                        <div class="card-body">
+                            <p class="card-text">${product_data.product_title}</p>
+                            <p class="card-text">fiyat: ${product_data.product_fiyat}</p>
+                        </div>
+                    </div>
+                `)
+        }
+    });
+    async function kargo_data(odeme_id, parametre, deger) {
+        const url = "/panel/kargo"
+        const axios_data = {
+            odeme_id,
+            parametre,
+            deger
+        }
+        const token = `${token_data.split("Bearer ")[1]}`
+        const check = await axios_post_panel(url, axios_data, token)
+        const check_data = check.data
+        return check_data
+    }
+    $("button[data-odeme-number-id]").on("click", async function () {
+        const odeme_id = $(this).attr("data-odeme-number-id")
+        const parametre = "cargo_number"
+        const deger = $(`input.data-odeme-number-${odeme_id}`).val()
+        const check = await kargo_data(odeme_id, parametre, deger)
+        if (check === true) alert("işlem başarılı")
+        if (check === false) alert("tekrar deneyiniz")
+    });
+    $("button[data-odeme-company-id]").on("click", async function () {
+        const odeme_id = $(this).attr("data-odeme-company-id")
+        const parametre = "cargo_company"
+        const deger = $(`input.data-odeme-company-${odeme_id}`).val()
+        const check = await kargo_data(odeme_id, parametre, deger)
+        if (check === true) alert("işlem başarılı")
+        if (check === false) alert("tekrar deneyiniz")
+    });
+}) // SİPARIŞ İŞLEMLERİ VE ÖDEME İŞLEMLERİ ÜRÜN SORGULAMA GETİRME
+async function onay_red(onay_red, odeme_id) {
+    const url = "/panel/odemeActiveChange"
+    const authorization = token_data.split("Bearer ")[1]
+    const data = {
+        onay_red,
+        odeme_id
+    }
+    await axios_post_panel(url, data, authorization)
+    document.location.reload()
+}
+$(() => {
+    $("button.onay").on("click", function () {
+        const odeme_id = $(this).attr("data-db-id")
+        onay_red(true, odeme_id)
+    });
+    $("button.red").on("click", function () {
+        const odeme_id = $(this).attr("data-db-id")
+        onay_red(false, odeme_id)
+    });
+})// ODEME ACTİVE PASİVE DEĞİŞİMİ
+
+$(() => {
+    $("button[data-user-change]").on("click", async function () {
+        const target = $(this)[0].previousElementSibling
+        const target_name = $(target).attr("name")
+        const target_data = $(target).val()
+        if (target_data.length <= 3) alert("lütfen geçerli bir değer giriniz")
+        if (target_data.length > 3) {
+            const url = "/panel/userDataChange"
+            const data = {
+                target_name,
+                target_data
+            }
+            const authorization = token.split("Bearer ")[1]
+            const check = await axios_post_panel(url, data, authorization)
+            if (check.data.success === true) alert("başarılı")
+            if (check.data.success === false) alert("tekrar deneyiniz")
+        }
+    });
+}) // PANEL KULLANICI İŞLEMLERİ VERİ DEĞİŞTİRME
+
+$(() => {
+    const interval_second = 1000
+    const interval_minute = Number(interval_second) * 60
+    const interval_hours = Number(interval_minute) * 60
+    const interval_day = Number(interval_hours) * 24
+
+
+    const path = document.location.pathname
+    const target_path = path.split("/panel/")[1]
+    if (target_path === "odeme") {
+        var interval_odeme_sayfa = setInterval(function () {
+            document.location.reload()
+        }, interval_hours * 2);
+
+        $(".clear-interval-close").on("click", function () {
+            clearInterval(interval_odeme_sayfa);
+            $(".clear-interval-open").removeClass("d-none")
+            $(".clear-interval-close").addClass("d-none")
+        });
+        $(".clear-interval-open").on("click", function () {
+            document.location.reload()
+        });
+    }
+}) // PANEL ÖDEME SAYFASI YENİLEME İŞLEMİ
+$(() => {
+    $('button[name="whatsup"]').on("click", async function () {
+
+        const tel_number = "05517026813"
+        const template = "reklam2" // siparis // reklam2
+        const text = null // "deneme mesajı"
+
+        const url = "/panel/whatsapp"
+        const post = {
+            success: true,
+            tel_number,
+            template,
+            text
+        }
+        await axios.post(url, post, axios_config)
+            .then(res => {
+                if (res.data.success === true) {
+                    alert("başarılı")
+                }
+            })
+    });
+}) /// WHATSUPP 

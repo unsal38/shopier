@@ -1,0 +1,62 @@
+<div class="card border-0" style="max-width: 24vw;">
+    <div class="card-header border-0 bg-transparent p-1">
+        <button class="btn btn-primary siparis" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse<%= a._id %>" aria-expanded="false" aria-controls="collapse<%= a._id %>">
+            <%= a.name %> <%= a.surname %> - 
+            <% if(a.cargo_company) {%>
+                <%= a.cargo_company %> -
+                <%= a.cargo_number %>
+            <% } %>
+            <% if(!a.cargo_company) {%>
+                kargo bilgisi girilmemiştir.
+           <% }%>
+            
+        </button>
+    </div>
+    <div class="card-body p-0 border-0">
+        <div class="collapse" id="collapse<%= a._id %>">
+            <div class="card card-body border-0 p-0">
+                <ul class="list-group">
+                    <% if(permissions === "admin" && page === "order_check") {%>
+                        <li class="list-group-item">
+                            <label for="button-addon1<%= a._id %>" class="form-label"><%= a.cargo_company %></label>
+                            <div class="input-group">
+                                <input type="text" class="data-odeme-company-<%= a._id %> form-control" placeholder="firma adı giriniz" aria-label="<%= a.cargo_company %>" aria-describedby="button-addon1<%= a._id %>">
+                                <button data-odeme-company-id="<%= a._id %>"  class="btn btn-outline-secondary" type="button" id="button-addon1<%= a._id %>">Ekle</button>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <label for="button-addon2<%= a._id %>" class="form-label"><%= a.cargo_number %></label>
+                            <div class="input-group">
+                                <input type="text" class="data-odeme-number-<%= a._id %> form-control" placeholder="kargo numrası giriniz" aria-label="<%= a.cargo_number %>" aria-describedby="button-addon2<%= a._id %>">
+                                <button data-odeme-number-id="<%= a._id %>" class="btn btn-outline-secondary" type="button" id="button-addon2<%= a._id %>">Ekle</button>
+                            </div>
+                        </li>
+                    <% } %>
+                    <li class="list-group-item">isim soyad: <strong><%= a.name %> <%= a.surname %></strong></li>
+                    <li class="list-group-item">telefon numarası: <strong><%= a.phone_number %></strong></li>
+                    <li class="list-group-item">eposta: <strong><%= a.email %></strong></li>
+                    <li class="list-group-item">ülke:TR   şehir: <strong> <%= a.city %></strong> </li>
+                    <li class="list-group-item">tam adres: <%= a.registrationAddress %></li>
+                    <% const intl_date_createAt = new Intl.DateTimeFormat("tr-TR").format(a.createAt) %>
+                    <% const intl_date_updateAt = new Intl.DateTimeFormat("tr-TR").format(a.updateAt) %>
+                    <li class="list-group-item">sipariş oluşturma tarihi:  <strong><%= intl_date_createAt %></strong></li>
+                    <li class="list-group-item">sipariş güncelleme tarihi: <strong><%= intl_date_updateAt %></strong></li>
+                    
+                    <li class="list-group-item">
+                        <ul data-target-id="#collapse<%= a._id %>" class="list-group list-group-flush product">
+                            <% let product_item = a.product_item %>
+                            <% for (let index = 0; index < product_item.length; index++) { %>
+                                <% const element = product_item[index].product_id; %>
+                                <li data-urun-id="<%= element %>" class="list-group-item"></li>
+                            <% } %>
+                        </ul>
+                    </li>
+
+                    <li class="list-group-item">ödeme: <strong><%= a.check_eft_number %></strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

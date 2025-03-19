@@ -41,9 +41,9 @@
             </aside>
 
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-              <% product_data.forEach(e => { %>
-                <div data-filter-id="<%= e.id %>" class="col inputSearch">
-                  <%- include("../views/product",{e,permissions}); %>
+              <% product_data.forEach(b => { %>
+                <div data-filter-id="<%= b.id %>" class="col inputSearch">
+                  <%- include("../views/product",{b,permissions}); %>
                 </div>
               <%  }); %>
             </div>

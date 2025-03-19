@@ -69,13 +69,12 @@
                 <!-- Swiper -->
                 <div class="swiper mySwiper">
                   <div class="swiper-wrapper">
-                    <% product_data.forEach(e => {%>
+                    <% product_data.forEach( (b) => { %>
                       <div class="swiper-slide">
-
-                        <%- include("../views/product",{e,permissions}); %>
-                        
+                        <%- include("../views/product",{b}); %>
                       </div>
-                    <%}); %>
+                    <% }); %>
+                     
                   </div>
                 </div>
             </div>
@@ -99,17 +98,17 @@
             
                 <div class="swiper mySwiper1">
                   <div class="swiper-wrapper">
-                    <% blog_data.forEach(e => {%>
+                    <% blog_data.forEach(a => {%>
                       <div class="swiper-slide">
                         <div class="card text-bg-dark">
-                          <img src="images/<%= e.image %>" class="card-img" alt="<%= e.title %>">
+                          <img src="images/<%= a.image %>" class="card-img" alt="<%= a.title %>">
                           <div class="card-img-overlay">
-                            <h5 class="card-title"><%= e.title %></h5>
-                            <a class="card-link" href="<%= e.url %>">Okumak için tıklayınız</a>
+                            <h5 class="card-title"><%= a.title %></h5>
+                            <a class="card-link" href="<%= a.url %>">Okumak için tıklayınız</a>
                           </div>
                         </div>
                       </div>
-                   <% }); %>
+                    <% }); %>
                   </div>
                 </div>
               

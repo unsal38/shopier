@@ -148,9 +148,9 @@ table {
 	border-spacing: 0;
 }
 
-a[href]:not([href="/sozlesmeler"]):not([href="sepetFinish"]):not([href="sepet"]):not(a[href="javascript:void(0)"]):not(#footer a):not(a[href="blog"]):not(a[href="/products"]):not(a[href="/blog"]):not(.card-link):not(a[href="/"]):not(a[href="/login"]):not(a[href="/panel"]):not(a#page_exit):not(a[href="sepet.html"]),
-label[for]:not(#sepetmodal label):not(label[for="firstName"]):not(label[for="lastName"]):not(label[for="phoneNumber"]):not(label[for="email"]):not(label[for="password"]):not(label.form-check-label),
-select:not(.sepet):not(#sepetmodal select),
+a[href]:not(#panelAdmin a):not([data-product-id]):not(ul.kullanici-kontrol a):not([href="/sozlesmeler"]):not([href="sepetFinish"]):not([href="sepet"]):not(a[href="javascript:void(0)"]):not(#footer a):not(a[href="blog"]):not(a[href="/products"]):not(a[href="/blog"]):not(.card-link):not(a[href="/"]):not(a[href="/login"]):not(a[href="/panel"]):not(a#page_exit):not(a[href="sepet.html"]),
+label[for]:not(#panelAdmin label):not(#formPassChange label):not(#panelUser label):not(#sepetmodal label):not(label[for="firstName"]):not(label[for="lastName"]):not(label[for="phoneNumber"]):not(label[for="email"]):not(label[for="password"]):not(label.form-check-label),
+select:not(ul.kullanici-kontrol select):not(.sepet):not(#sepetmodal select),
 input[type=checkbox]:not(#sepetmodal input):not(input.form-check-input),
 input[type=radio]:not(#sepetmodal input) {
 	cursor: pointer;
@@ -1460,25 +1460,55 @@ h1 {
 /*  ------------------------------------------------------------------------------*/
 /* Sonradan Eklenen CSS */
 /* ------------------------------------------------------------------------------*/
-#sepetmodal input{
+
+
+
+#accordionFlushUser .product h5{
+	font-size: 1.5vw;
+}
+
+div.product::before {
+	content: "";
+	background-image: url("../images/eye.svg");
+	display: inline-block;
+	width: 1.5vw;
+	height: 1.5vw;
+	margin: 1vw;
+	position: absolute;
+	text-align: left;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#panelAdmin #navbarSupportedContent ul li .nav-link {
+	margin-left: 3vw;
+}
+
+#sepetmodal input {
 	border-radius: 20px;
 }
-#sepet .list-group-item{
+
+#sepet .list-group-item {
 	color: #959697;
 	text-transform: capitalize;
 }
-#sepet a[href="sepetFinish"]{
+
+#sepet a[href="sepetFinish"] {
 	background-color: #465d61;
 }
-#sepet a[href="sepetFinish"]:hover{
+
+#sepet a[href="sepetFinish"]:hover {
 	background-color: #446f76;
 }
-button[data-bs-target="#sepetModalToggleİyzco"]{
+
+button[data-bs-target="#sepetModalToggleİyzco"] {
 	width: 15%;
 }
-button[data-bs-target="#sepetModalToggleİyzco"]:hover{
-	background-color: blue!important;
+
+button[data-bs-target="#sepetModalToggleİyzco"]:hover {
+	background-color: blue !important;
 }
+
 #sepet .image {
 	max-width: 10vw;
 }
@@ -1488,12 +1518,13 @@ button[data-bs-target="#sepetModalToggleİyzco"]:hover{
 	text-align: center;
 	width: 100%;
 	height: 100%;
+	top: 0;
 	z-index: 99999;
 	background-color: #000000b0;
 }
 
 #alert .alert {
-	display: flex;
+	display: flex !important;
 	justify-content: center;
 	top: 50%;
 	transform: translate(0, -50%);
@@ -1815,8 +1846,9 @@ section.products article img {
 	margin: auto;
 }
 
-#panelUser .menuLeft ul,
-#panelAdmin .menuLeft ul:not(.shopier ul) {
+#panelUser .menuLeft ul:not(.collapsing ul):not(.collapse ul):not(#accordionFlushOdemeDb ul):not(#accordionFlushUser ul):not(.shopier ul):not(ul.kullanici-kontrol),
+#panelAdmin .menuLeft ul:not(.collapsing ul):not(.collapse ul):not(#accordionFlushUser ul):not(.shopier ul):not(ul.kullanici-kontrol)
+{
 	border-right: 2px solid #0000002b;
 	width: 14rem;
 	float: left;
@@ -1878,6 +1910,14 @@ section.products article img {
 	flex-direction: column;
 	margin: auto;
 	max-width: 50vw;
+}
+/* Sonradan Eklenen Media
+------------------------------------------------------------------------------*/
+@media screen and (max-width: 700px){
+	.interval-group button,
+	.interval-group input{
+		font-size: 2vw;
+	}
 }
 
 /* Fonts

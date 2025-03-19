@@ -226,7 +226,76 @@ async function axios_post_sepet_product_miktar_update(axios_data) {
       .catch(error => console.log(error, "token 226"))
    return axios_res_data
 }
-
+async function axios_odeme_db_save(url, data) {
+   const token = getCookie("Authorization")
+   const axios_form_post_config = {
+      baseURL: document.location.origin,
+      headers: {
+         authorization: `${token}`
+      },
+   }
+   const axios_url = url
+   const axios_data = {
+      data
+   }
+   const axios_res_data = await axios.post(axios_url, axios_data, axios_form_post_config)
+      .then(res => {
+         return res.data
+      })
+      .catch(error => console.log(error, "token 244"))
+   return axios_res_data
+}
+async function axios_post_favori(product_id) {
+   const url = "/products/favori"
+   const token = getCookie("Authorization")
+   const axios_form_post_config = {
+      baseURL: document.location.origin,
+      headers: {
+         authorization: `${token}`
+      },
+   }
+   const data = { product_id }
+   const axios_res_data = await axios.post(url, data, axios_form_post_config)
+      .then(res => {
+         return res.data
+      })
+      .catch(error => console.log(error, "token 262"))
+   return axios_res_data
+}
+async function axios_post_favori_sil(product_id) {
+   const url = "/products/favori/sil"
+   const cookie = getCookie("Authorization")
+   const axios_form_post_config = {
+      baseURL: document.location.origin,
+      headers: {
+         authorization: `${cookie}`
+      },
+   }
+   const data = { product_id }
+   const axios_res_data = await axios.post(url, data, axios_form_post_config)
+      .then(res => {
+         return res.data
+      })
+      .catch(error => console.log(error, "token 279"))
+   return axios_res_data
+}
+async function axios_post_user_data_change(change_data) {
+   const url = "/panel/userDataChange"
+   const token = await getCookie("Authorization")
+   const axios_form_post_config = {
+      baseURL: document.location.origin,
+      headers: {
+         authorization: `${token}`
+      },
+   }
+   const data = { change_data }
+   const axios_res_data = await axios.post(url, data, axios_form_post_config)
+      .then(res => {
+         return res.data
+      })
+      .catch(error => console.log(error, "token 296"))
+   return axios_res_data
+}
 $(() => {
    $("#page_exit").on("click", () => {
       document.cookie = "Authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
@@ -264,7 +333,7 @@ $(() => {
          const form_register_inputs = $("#formRegister input[type]")
          input_check_vall(form_register_inputs)
          const form_register_inputs_check = $("#formRegister input[type].valid")
-         if (form_register_inputs_check.length >= 5) {
+         if (form_register_inputs_check.length >= 4) {
             let register_form_array = new Array()
             $(form_register_inputs_check).each(function (i, v) {
                const item = $(v).attr("id")
@@ -283,8 +352,7 @@ $(() => {
                .then(res => {
                   const res_check = res.data
                   if (res_check === true) {
-                     alert("Kaydınız Tamamlanmıştır.");
-                     document.location.href = "/"
+                     alert("Kaydınız Tamamlanmıştır. Activasyon Mailinizi kontrol ediniz");
                   }
                })
          }
@@ -571,64 +639,80 @@ $(() => {
 
    });
 }) // SEARCH İNPUT 
-$(() => {
-   $('img[data-bs-toggle="modal"]').on("click", async function () {
-      const product_id = $(this).attr("data-product-id")
-      try {
-         const data = await axios_post(product_id)
-         const product_corrosel_data = new Array()
-         if (data.data === true) {
-            $(data.data_value_media).each(function (i, v) {
-               product_corrosel_data.push(["media", v.url])
-            });
-            if (data.data_value_youtube_video_link) { product_corrosel_data.push(["youtube", data.data_value_youtube_video_link]) }
-         }
+async function product_modal_append(product_id) {
+   try {
+      const data = await axios_post(product_id)
+      const product_corrosel_data = new Array()
+      if (data.data === true) {
+         $(data.data_value_media).each(function (i, v) {
+            product_corrosel_data.push(["media", v.url])
+         });
+         if (data.data_value_youtube_video_link) { product_corrosel_data.push(["youtube", data.data_value_youtube_video_link]) }
+      }
 
-         $("#productModal .carousel-inner .carousel-item").each(function (i, v) {
-            $(v).remove()
-         })
-         if (product_corrosel_data.length === 0) {
+      $("#productModal .carousel-inner .carousel-item").each(function (i, v) {
+         $(v).remove()
+      })
+      if (product_corrosel_data.length === 0) {
+         $("#productModal .carousel-inner").append(
+            `<div class="carousel-item active">
+         <img src="../images/logo.jpeg"class="d-block w-100" alt="product image">
+         </div>`
+         )
+      }
+      $(product_corrosel_data).each(function (i, v) {
+         if (i === 0) {
             $("#productModal .carousel-inner").append(
                `<div class="carousel-item active">
-            <img src="../images/logo.jpeg"class="d-block w-100" alt="product image">
+            <img src="${v[1]}"class="d-block w-100" alt="product image">
             </div>`
             )
          }
-         $(product_corrosel_data).each(function (i, v) {
-            if (i === 0) {
+         else if (i !== 0) {
+            if (v[0] === "media") {
                $("#productModal .carousel-inner").append(
-                  `<div class="carousel-item active">
+                  `<div class="carousel-item">
                <img src="${v[1]}"class="d-block w-100" alt="product image">
                </div>`
                )
             }
-            else if (i !== 0) {
-               if (v[0] === "media") {
-                  $("#productModal .carousel-inner").append(
-                     `<div class="carousel-item">
-                  <img src="${v[1]}"class="d-block w-100" alt="product image">
-                  </div>`
-                  )
-               }
-               if (v[0] === "youtube") {
-                  $("#productModal .carousel-inner").append(
-                     `<div class="carousel-item">
-                  <iframe width="420" height="315" src="${v[1]}"></iframe>
-                  </div>`
-                  )
-               }
+            if (v[0] === "youtube") {
+               $("#productModal .carousel-inner").append(
+                  `<div class="carousel-item">
+               <iframe width="420" height="315" src="${v[1]}"></iframe>
+               </div>`
+               )
             }
-         });
+         }
+      });
 
-      } catch (err) {
-         if (err) {
-            console.log(err, "token js 625")
-            alert("lütfen giriş yapınız")
+   } catch (err) {
+      if (err) {
+         console.log(err, "token js 625")
+         alert("lütfen giriş yapınız")
+      }
+   }
+}
+$(() => {
+   $('img[data-bs-toggle="modal"]').on("click", async function () {
+      const product_id = $(this).attr("data-product-id")
+      product_modal_append(product_id)
+   });
+
+   $('#accordionFlushUser').on("click", function (e) { // div[data-bs-toggle]
+      const target = $(e.target)
+      const product_id = $(e.target).attr("data-product-id")
+      if (product_id === undefined) {
+         const product_id_parent = $(target).parents("div.card-img-overlay")
+         if (product_id_parent.length > 0) {
+            const product_id_parent = $(target).parents("div.card-img-overlay").attr("data-product-id")
+            product_modal_append(product_id_parent)
          }
       }
-   });
-})/// PRODUCT MODAL DB SORGU VE APPEND
+      if (product_id !== undefined) product_modal_append(product_id)
 
+   })
+})/// PRODUCT MODAL DB SORGU VE APPEND
 $(() => {
    const sepet_product_check = localStorage.getItem("product_sepet")
    if (sepet_product_check === null || undefined || sepet_product_check.length <= 10) localStorage.clear()
@@ -660,8 +744,20 @@ $(() => {
 
    });
 }) // SEPETE EKLE
+async function sepet_update(target) {
+   const localStorage_data = localStorage.getItem("product_sepet")
+   if (localStorage_data) {
+      const delete_check = await axios_post_sepet_delete(target, localStorage_data)
+      if (delete_check === false) localStorage.clear()
+      if (delete_check !== false) {
+         localStorage.setItem("product_sepet", delete_check)
+         document.location.reload()
+      }
+   }
+}
 $(async () => {
    const product_sepet = localStorage.getItem("product_sepet")
+
    const url_check = document.location.pathname
    if (url_check === "/sepet" || url_check === "/products" && product_sepet) {
       const product_data = await axios_post_urun_bilgileri(product_sepet)
@@ -689,17 +785,26 @@ $(async () => {
          const new_product_data = product_data.success
          const product_miktar = product_data.miktar
          new_product_data.forEach((e, v, d) => {
+
+
             const media_product = e.media
             const mik = product_miktar[v].miktar
             if (media_product.length === 0) {
                const url = "images/logo.jpeg"
-               append_product(url, e, mik)
+               if (Number(e.stockQuantity) > 0) { append_product(url, e, mik) }
+               if (Number(e.stockQuantity) <= 0) {
+                  const target = e._id
+                  sepet_update(target)
+               }
             }
             if (media_product.length > 0) {
                const url = e.media[0].url
-               append_product(url, e, mik)
+               if (Number(e.stockQuantity) > 0) { append_product(url, e, mik) }
+               if (Number(e.stockQuantity) <= 0) {
+                  const target = e._id
+                  sepet_update(target)
+               }
             }
-
          });
          const data_check_sepet_mik = $("#sepetmiktari")
          if (data_check_sepet_mik.length > 0) {
@@ -773,6 +878,8 @@ $(async () => {
          const product_id = $(this).parent().attr("id")
          const miktar = option_value
          const localStorage_data = localStorage.getItem("product_sepet")
+
+
          const axios_data = {
             product_id,
             miktar,
@@ -781,26 +888,13 @@ $(async () => {
          const check_axios_mik = await axios_post_sepet_product_miktar_update(axios_data)
          localStorage.setItem("product_sepet", check_axios_mik)
          document.location.reload()
-         if (check_axios_mik === false) document.location.reload()
-
       })
    }
-
    $("#sepet .delete").on("click", async function () {
       const target = $(this).attr("id")
-      const localStorage_data = localStorage.getItem("product_sepet")
-      if (localStorage_data) {
-         const delete_check = await axios_post_sepet_delete(target, localStorage_data)
-         if (delete_check === false) localStorage.clear()
-         if (delete_check !== false) {
-            localStorage.setItem("product_sepet", delete_check)
-            document.location.reload()
-         }
-      }
-
+      sepet_update(target)
    });
-
-}) // SEPET SAYFASI ÜRÜNLERİ DB ALARAK SAYFADA GÖSTERME
+}) // SEPET SAYFASI ÜRÜNLERİ DB ALARAK SAYFADA GÖSTERME    ////// YAPILACAK ÇALIŞMIYOR
 function validateEmail($email) {
    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
    return emailReg.test($email);
@@ -814,7 +908,6 @@ function sepet_model_button_enable(check) {
    }
    if (check === false) {
       for (let index = 0; index < button.length; index++) {
-         console.log(button[index])
          $(button[index]).addClass("disabled")
       }
    }
@@ -825,9 +918,47 @@ function check_valid() {
    if (Number(input_toplam) === Number(target_input_valid)) sepet_model_button_enable(true)
    if (Number(input_toplam) !== Number(target_input_valid)) sepet_model_button_enable(false)
 }
-function database_save_odeme(data) {
-   console.log(data,"save token js829")
+async function ip() {
+   try {
+      const response = await fetch('https://api.ipify.org?format=json');
+      const data = await response.json();
+      return data.ip
+   } catch (error) {
+      console.error('Error fetching IP address:', error);
+   }
 }
+async function database_save_odeme(url, check_eft_number, ip_data) {
+   const target_input = $("#sepetmodal #sepetModalToggle input")
+   const product_data = $("td[data-stockquantity]")
+   const target_input_array = new Array()
+   for (let index = 0; index < target_input.length; index++) {
+      const element_name = $(target_input[index]).attr("name");
+      const element_value = String($(target_input[index]).val()).trim().toLowerCase()
+      if (element_name !== "sozlesmeMesafeSatıs") target_input_array.push({ element_name, element_value })
+      if (element_name === "sozlesmeMesafeSatıs") {
+         const element_checked_value = $(target_input[index])[0].checked
+         target_input_array.push({ element_name, element_checked_value })
+      }
+   }
+   target_input_array.push({ element_name: "check_eft_number", check_eft_number })
+   const add_product_item = new Array()
+   if (product_data.length > 0) {
+      for (let index = 0; index < product_data.length; index++) {
+         const product_id = $(product_data[index]).attr("id")
+         const product_miktar = $(product_data[index]).attr("data-miktar")
+         add_product_item.push({ product_id, product_miktar })
+      }
+      target_input_array.push({ add_product_item })
+   }
+   if (product_data.length === 0) return alert("ürün ekleyiniz")
+   target_input_array.push({ ip_data })
+   const data = {
+      target_input_array
+   }
+   const database_save_odeme_check = await axios_odeme_db_save(url, data)
+   return database_save_odeme_check
+}
+
 $(() => {
    const target_input = $("#sepetmodal #sepetModalToggle input")
    $(target_input).on("change", function () {
@@ -863,44 +994,74 @@ $(() => {
       if (check_data === "sec") $("#sepetmodal #sepetModalToggleEft .modal-footer button.odemeyitamamla").addClass("disabled")
       if (check_data !== "sec") $("#sepetmodal #sepetModalToggleEft .modal-footer button.odemeyitamamla").removeClass("disabled")
    });
-   $("#sepetmodal #sepetModalToggleEft button.odemeyitamamla").on("click", function () {
-      database_save_odeme("eft")
+   $("#sepetmodal #sepetModalToggleEft button.odemeyitamamla").on("click", async function () {
+      const target_selected = String($("#sepetmodal #sepetModalToggleEft select[name='check_eft_number'] option:selected").val()).trim().toLowerCase()
+      const url = "/sepet/eft"
+      const ip_data = await ip()
+      const finish = await database_save_odeme(url, target_selected, ip_data)
+      localStorage.clear()
+      if (finish.success === true) alert("işlem başarılı")
+      if (finish.success === false) alert("bir hata oluştu tekrar deneyiniz")
+
    });
-})// SEPET MODAL İÇERİK KONTROLÜ
 
-
-
-
-
-
-
-$(() => {
-   $('a[href="sepetFinish"]').on("click", async function (e) {
-      e.preventDefault()
-      async function ip() {
-         try {
-            const response = await fetch('https://api.ipify.org?format=json');
-            const data = await response.json();
-            return data.ip
-         } catch (error) {
-            console.error('Error fetching IP address:', error);
+   $("#sepetmodal #sepetModalToggleİyzco button.odemeyitamamla").on("click", async function () {
+      const url = "/sepet/iyzco"
+      const target_selected = "iyzco"
+      const ip_data = await ip()
+      const finish = await database_save_odeme(url, target_selected, ip_data)
+      if (finish.success === true) {
+         const check_iyzco = finish.data.status
+         if (check_iyzco === "success") {
+            alert("işlem başarılı")
+            localStorage.clear()
+            const paymentPageUrl = finish.data.paymentPageUrl
+            window.open(paymentPageUrl, '_blank');
+         } else if (check_iyzco === "failure") {
+            console.log(finish, "token js 943")
+            alert("bir hata oluştu tekrar deneyiniz")
          }
       }
-
-      const basket = localStorage.getItem("product_sepet")
-      const ip_data = await ip()
-      const axios_data = {
-         basket,
-         tcnumber: "",
-         acikadres: "",
-         ip_data,
-         city: "",    // ÖRN İSTANBUL
-         country: "", // ÖRN TÜRKİYE
-         zipCode: "",
-         basket
-      }
-      const iyzco_check = await axios_post_iyzco(axios_data)
-      // window.open(iyzco_check, '_blank');
+      if (finish.success === false) alert("bir hata oluştu tekrar deneyiniz")
    });
-}) //ÖDEME ALMA /// YAPILACAK ????********
 
+})// SEPET MODAL İÇERİK KONTROLÜ VERİNİN DB KAYDI
+
+$(() => {
+   $("[href='favori_ekle']").on("click", async function (e) {
+      e.preventDefault()
+      const target_id = $(this).attr("data-product-id")
+      const axios_check = await axios_post_favori(target_id)
+      if (axios_check.success === true) document.location.reload()
+      if (axios_check.success === false) {
+         document.location.reload()
+      }
+   });
+}) // FAVORİYE EKLE
+
+$(() => {
+   $('a[data-product-id]').on("click", async function () {
+      const target_data = $(this).children("i").attr("data-product-id")
+      if (target_data !== undefined) {
+         const check = await axios_post_favori_sil(target_data)
+         if (check.success === true) document.location.reload()
+         if (check.success === false) { alert("Bir hata oluştu tekrar deneyiniz.") }
+      }
+
+   });
+}) // FAVORİ SİL
+
+$(() => {
+   $("#panelUser button[data-user]").on("click", async function () {
+      const user_id = $(this).attr("data-user")
+      const button_id = $(this).attr("id")
+      const change_data = $(`[name='${button_id}']`).val()
+      const axios_data = {
+         user_id,
+         change_data,
+         db_name: button_id
+      }
+      const check = await axios_post_user_data_change(axios_data)
+      console.log(check, "token js")
+   });
+}) // KULLANICI BİLGİLERİ DEĞİŞTİRME

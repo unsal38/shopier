@@ -1,13 +1,104 @@
-<div class="body">
-    <div class="row row-cols-1 row-cols-md-2 g-4">
+<div class="container-fruid">
+    <div class="row">
+        <div class="card border-0">
+            <h2 class="card-header bg-transparent border-0">kullanıcı işlemleri</h2>
+            <div class="card-body">
+                <div class="accordion accordion-flush" id="accordionFlushUser">
 
-        <div class="col">
-            <div class="card border-primary mb-3">
-                <div class="card-header">kullanıcı bilgi formu</div>
-                <div class="card-body text-primary">
-                    <h5 class="card-title">Primary card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button data-bs-target="#flush-<%= page_user_data[0].id %>"
+                                aria-controls="flush-<%= page_user_data.id %>"
+                                class="accordion-button text-capitalize collapsed" type="button"
+                                data-bs-toggle="collapse" aria-expanded="false">
+                                <strong class="pe-4">
+                                    <%= page_user_data.first_name %>
+                                        <%= page_user_data.last_name %>
+                                </strong> üyelik durumu:
+                                <% if(page_user_data[0].is_active === true) {%>
+                                    <span data-acitive="true" class="ps-2 text-success">aktif</span>
+                                <% } %>
+                                <% if(page_user_data[0].is_active === false) {%>
+                                    <span data-acitive="false" class="ps-2 text-danger">pasif</span>
+                                <% } %>
+                            </button>
+                        </h2>
+                        <div id="flush-<%= page_user_data[0].id %>" class="accordion-collapse collapse"
+                            data-bs-parent="#accordionFlushUser">
+                            <div class="accordion-body">
+                                <ul class="list-group list-group-flush text-capitalize">
+                                    <li class="list-group-item">email:
+                                        <span class="ps-1 text-lowercase">
+                                            <%= page_user_data[0].email %>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <span class="me-4">password:</span>
+                                        <button data-pass-reset="<%= page_user_data[0].email %>" type="button"
+                                            class="btn btn-danger btn-sm">Resetle</button>
+                                        <p class="ms-4 text-danger d-none"><em>mail kontrol ediniz</em></p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="mb-3">
+                                            <label for="first_name" class="form-label">isim </label>
+                                            <div class="input-group mb-3 col-6">
+                                                <span class="col-3 input-group-text ps-1 text-lowercase justify-content-center">
+                                                    <%= page_user_data[0].first_name %>
+                                                </span>
+                                                <input name="first_name" type="text" class="col-6 form-control"
+                                                    aria-label="change first_name" aria-describedby="first_name">
+                                                <button data-user-change="<%= page_user_data[0].id %>" class="btn btn-outline-secondary" type="button"
+                                                    id="first_name">değiştir</button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="mb-3">
+                                            <label for="last_name" class="form-label">soyad</label>
+                                            <div class="input-group mb-3 col-6">
+                                                <span class="col-3 input-group-text ps-1 text-lowercase justify-content-center">
+                                                    <%= page_user_data[0].last_name %>
+                                                </span>
+                                                <input name="last_name" type="text" class="col-6 form-control"
+                                                    aria-label="change last_name" aria-describedby="last_name">
+                                                <button data-user-change="<%= page_user_data[0].id %>" class="btn btn-outline-secondary" type="button"
+                                                    id="last_name">değiştir</button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="mb-3">
+                                            <label for="phone_number" class="form-label">telefon numarası</label>
+                                            <div class="input-group mb-3 col-6">
+                                                <span class="col-3 input-group-text ps-1 text-lowercase justify-content-center">
+                                                    <%= page_user_data[0].phone_number %>
+                                                </span>
+                                                <input name="phone_number" type="text" class="col-6 form-control"
+                                                    aria-label="change phone_number" aria-describedby="phone_number">
+                                                <button data-user-change="<%= page_user_data[0].id %>" class="btn btn-outline-secondary" type="button"
+                                                    id="phone_number">değiştir</button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span data-bs-toggle="collapse"
+                                            data-bs-target="#collapseFavori<%= page_user_data[0].id %>">
+                                            favoriye eklenen ürünler
+                                        </span>
+                                        <i class="bi bi-caret-down-fill"></i>
+                                        <i class="d-none bi bi-caret-up-fill"></i>
+                                        <div class="collapse" id="collapseFavori<%= page_user_data[0].id %>">
+                                            <div class="row row-cols-1 row-cols-md-3 g-4"></div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
             </div>
         </div>

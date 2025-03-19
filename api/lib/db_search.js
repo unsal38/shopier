@@ -11,8 +11,9 @@ async function product_click_upp(db_data) {
     const id = db_data.id;
     const update_data = { on_click: new_db_data_on_click };
     return await productSchema.findByIdAndUpdate(id, update_data);
+    
 } // KAÇ KERE TIKLANDIĞI
-function find_by_id(id, schema) {
+async function find_by_id(id, schema) {
     try {
         if (schema === "Users") {
             let db_data = userSchema.findById(id);
@@ -27,18 +28,23 @@ function find_by_id(id, schema) {
             return db_data;
         }
         if (schema === "Product") {
-            let db_data = productSchema.findById(id);
-            return product_click_upp(db_data);
+            let db_data = await productSchema.findById(id);
+            await product_click_upp(db_data);
+            return db_data
         }
         if (schema === "ProductSepet") {
             let db_data = productSchema.findById(id);
+            return db_data;
+        }
+        if (schema === "Odeme") {
+            let db_data = odemeSchema.findById(id);
             return db_data;
         }
     } catch (error) {
         if (error) { return error }
     }
 }
-function findByIdAndUpdate(id, update_data, schema) {
+async function findByIdAndUpdate(id, update_data, schema) {
     try {
         if (schema === "Blog") {
             let db_data = blogSchema.findById(id);
@@ -49,34 +55,47 @@ function findByIdAndUpdate(id, update_data, schema) {
             if (!db_data) return false;
         }
         if (schema === "Users") {
-            let db_data = userSchema.findById(id);
+            let db_data = await userSchema.findById(id);
+            
             if (db_data) {
-                if (schema === "Users") userSchema.findByIdAndUpdate(id, update_data);
+                if (schema === "Users") await userSchema.findByIdAndUpdate(id, update_data);
                 return true;
             }
             if (!db_data) return false;
         }
         if (schema === "Product") {
-            let db_data = productSchema.findById(id);
+            let db_data = await productSchema.findById(id);
             if (db_data) {
-                if (schema === "Product") productSchema.findByIdAndUpdate(id, update_data);
+                if (schema === "Product") await productSchema.findByIdAndUpdate(id, update_data);
+                return true;
+            }
+            if (!db_data) return false;
+        }
+
+        if (schema === "Odeme") {
+            let db_data = odemeSchema.findById(id);
+            if (db_data) {
+                if (schema === "Odeme") await odemeSchema.findByIdAndUpdate(id, update_data);
                 return true;
             }
             if (!db_data) return false;
         }
 
     } catch (error) {
-        if (error) { return error }
+        if (error) { 
+            console.log(error,"db_search error86")
+            return error 
+        }
     }
 }
-function create_db(data, schema) {
+async function create_db(data, schema) {
     try {
         if (schema === "Blog") {
             blogSchema.create(data);
             return true;
         }
         if (schema === "Users") {
-            userSchema.create(data);
+           await userSchema.create(data);
             return true;
         }
         if (schema === "Categories") {
@@ -84,14 +103,17 @@ function create_db(data, schema) {
             return true;
         }
         if (schema === "Product") {
-            productSchema.create(data);
+            await productSchema.create(data);
             return true;
         }
         if (schema === "Odeme") {
-            odemeSchema.create(data);
-            return true;
+            const db_data = await odemeSchema.create(data);
+            return db_data._id;
         }
-
+        if (schema === "Users_Odeme") {
+             const db_data = await userSchema.create(data);
+             return db_data._id;
+         }
     } catch (err) {
         if (err) { return err }
     }
@@ -112,6 +134,10 @@ async function find_db(schema) {
         }
         if (schema === "Product") {
             let db_data = await productSchema.find();
+            return db_data;
+        }odemeSchema
+        if (schema === "Odeme") {
+            let db_data = await odemeSchema.find();
             return db_data;
         }
     } catch (error) {
@@ -136,28 +162,36 @@ function find_one(find, schema) {
             const db_data = productSchema.findOne(find);
             return db_data;
         }
+        if (schema === "Odeme") {
+            let db_data = odemeSchema.findOne(find);
+            return db_data;
+        }
 
     } catch (error) {
         if (error) { return error }
     }
 }
-function find_by_id_end_delete(id, schema) {
+async function find_by_id_end_delete(id, schema) {
     try {
         if (schema === "Users") {
-            userSchema.findByIdAndDelete(id);
+            await userSchema.findByIdAndDelete(id);
             return true;
         }
         if (schema === "Categories") {
-            kategoriSchema.findByIdAndDelete(id);
+            await kategoriSchema.findByIdAndDelete(id);
             return true;
         }
         if (schema === "Blog") {
-            blogSchema.findByIdAndDelete(id);
+            await blogSchema.findByIdAndDelete(id);
+            return true;
+        }
+        if (schema === "Product") {
+            await productSchema.findByIdAndDelete(id);
             return true;
         }
 
     } catch (error) {
-        console.log(error)
+        console.log(error, "db_search js")
         return error
     }
 }

@@ -1,12 +1,24 @@
-const db_search = require("../lib/db_search")
-let blogSchema = require("../db/models/Blog");
-let productSchema = require("../db/models/Product");
+const { find_by_id, find_db } = require("../lib/db_search");
+
+
+
+
+
 async function index_get(req, res) {
   const permissions = req.permissions;
   const page_params = "index";
-  const product_data = await db_search.find_db("Product")
-  const blog_data = await db_search.find_db("Blog")
+  const product_data = await find_db("Product")
+  const blog_data = await find_db("Blog")
+  const user_id = req.id
+  if (user_id !== "null" && user_id !== undefined) {
+    const user_data = await find_by_id(user_id, "Users")
+    var user_favori = user_data.favorite
+  }
+  if (user_id === "null" || user_id === undefined) {
+    var user_favori = null
+  }
   res.render('index', {
+    user_favori,
     product_data,
     blog_data,
     permissions,

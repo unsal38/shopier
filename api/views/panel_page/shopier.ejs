@@ -71,10 +71,11 @@
                   </div>
 
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Url giriniz" aria-label="Url giriniz"
+                    <input name="data-youtube-<%= e.id %>" type="text" class="form-control" placeholder="Url giriniz" aria-label="Url giriniz"
                       aria-describedby="button-youtube-add">
-                    <button data-product-id="<%= e.id %>" class="btn btn-outline-success" type="button"
-                      id="buttonYoutubeAdd">Ekle</button>
+                    <button data-youtube-product-id="<%= e.id %>" class="btn btn-outline-success" type="button">
+                      Ekle
+                    </button>
                   </div>
 
                   <div class="input-group mb-3">

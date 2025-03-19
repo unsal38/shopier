@@ -1,12 +1,15 @@
 <div class="menuLeft">
     <ul class="nav flex-column me-2">
       <p class="fw-bold fs-6">Menü</p>
-      <% if(permissions==="admin" ) {%>
+      <% if(permissions==="admin") {%>
         <li class="nav-item">
           <a class="nav-link p-1" href="/panel/kullanici_kontrol">kullanici_kontrol</a>
         </li>
         <li class="nav-item">
           <a class="nav-link p-1" href="/panel/shopier">Shopier işlemleri</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link p-1 text-capitalize" href="/panel/odeme">ödeme işlemleri</a>
         </li>
         <% } %>
       <li class="nav-item">
@@ -17,5 +20,13 @@
       <li class="nav-item">
         <a class="nav-link p-1" aria-current="page"
           href="/panel/sifre_islemleri">şifre işlemleri</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link p-1" aria-current="page"
+          href="/panel/order_check">siparişler</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link p-1" aria-current="page"
+          href="/panel/order">sipariş</a>
       </li>
     </ul>
