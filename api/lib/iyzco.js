@@ -6,7 +6,8 @@ var iyzipay = new Iyzipay({
     secretKey: IYZCO_SECRET_KEY,
     uri: IYZCO_BASE_URL
 });
-const baseURL = document.location.origin
+const baseURL = "https://www.tarzisahane.com/"
+//const baseURL = "http://localhost:3000/"
 var callbackUrl = `${baseURL}/sepet/iyzcoCallBack` // ÖDEME SONRASI YÖNLENDİRİLEN ADRES
 var enabledInstallments = [1, 2, 3, 6, 9]       // TAKSİT BİLGİSİ
 var itemType = Iyzipay.BASKET_ITEM_TYPE.PHYSICAL // FİZİKSEL ÜRÜN
