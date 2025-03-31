@@ -9,7 +9,6 @@
         <button id="catacory_add" type="button" class="me-1 text-capitalize btn btn-secondary">ekle</button>
       </div>
       <div class="shopier_body card-body d-none">
-
         <div class="row row-cols-1 row-cols-md-2 g-4">
 
           <% categories_data.forEach(e=> { %>
@@ -50,6 +49,9 @@
     <div class="card shopier_urun mb-3">
       <div class="card-header d-flex">
         <h4 class="text-capitalize me-auto">Ürün İşlemleri</h4>
+        <a class="me-1 text-capitalize btn btn-secondary" href="/panel/qrcode">qr kod yazdır</a>
+       <!-- // <button id="qryazdir"  type="button" class="me-1 text-capitalize btn btn-secondary">qr kod yazdır</button> -->
+        <button data-qrcode-add="all" type="button" class="me-1 text-capitalize btn btn-secondary">qr kod ekle</button>
         <button id="shopier_urun" type="button" class="me-1 text-capitalize btn btn-secondary">ürünleri gör</button>
         <button id="product_add" type="button" class="me-1 text-capitalize btn btn-secondary">ekle</button>
       </div>
@@ -64,6 +66,7 @@
                     <%= e.title _%>
                   </span>
                   <div class="w-100 mb-2 d-flex justify-content-end">
+                    <button data-qrcode-add="<%= e.id _%>" type="button" class="me-1 text-capitalize btn btn-success">qr kod ekle</button>
                     <button type="button" class="ayrinti btn btn-info m-1"><i
                         class="pe-1 fa-solid fa-circle-info"></i>Ayrıntı</button>
                     <button data-product_delete-id="<%= e.id _%>" type="button" class="btn btn-danger m-1"><i
@@ -111,6 +114,9 @@
                     <li class="list-group-item">on_click: <span>
                         <%= e.on_click _%>
                       </span></li>
+                      <li class="list-group-item">qrcode: <span>
+                        <img src="<%= e.qrcode_data _%>" alt="<%= e.title _%>">
+                      </span></li>
 
                     <li class="list-group-item">media:
                       <% for (let index=0; index < e.media.length; index++) { %>
@@ -153,5 +159,4 @@
       </div>
     </div>
   </div>
-</div>
 </div>

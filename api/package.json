@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
+    "crypto-js": "^4.2.0",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
@@ -21,6 +22,7 @@
     "nodemailer": "^6.10.0",
     "nodemon": "^3.1.9",
     "path": "^0.12.7",
+    "qrcode": "^1.5.4",
     "shopier-api": "^1.1.4"
   }
 }

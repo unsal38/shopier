@@ -50,7 +50,7 @@ const pane_params_get = async (req, res) => {
       var categories_data = null
     }
     if (page !== null) {
-      if (page === "shopier") {
+      if (page === "qrcode_iyzco" || page === "iyzico" || page === "shopier" || page === "qrcode") {
         var categories_data = await find_db("Categories")
         var product_data = await find_db("Product")
       }
@@ -58,7 +58,6 @@ const pane_params_get = async (req, res) => {
         var odeme_data = await find_db("Odeme")
       }
     }
-
     res.render(page_name, {
       order_data,
       order_data_all,

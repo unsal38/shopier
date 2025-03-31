@@ -56,8 +56,8 @@ function all_product_database_save(created_by) {
     .request(options)
     .then(res => {
       try {
-        const categori_data = res.data
-        categori_data.forEach(async e => {
+        const product_data = res.data
+        product_data.forEach(async e => {
           const check_shopier_id = { shopier_id: e.id }
           const db_data = await find_one(check_shopier_id, "Product")
           if (db_data && db_data !== null) {
@@ -68,7 +68,7 @@ function all_product_database_save(created_by) {
                 shopier_id: e.id,
                 title: e.title,
                 created_by,
-                describe: e.describe,
+                describe: e.description,
                 url: e.url,
                 stockStatus: e.stockStatus,
                 stockQuantity: e.stockQuantity,
@@ -91,7 +91,7 @@ function all_product_database_save(created_by) {
               shopier_id: e.id,
               title: e.title,
               created_by,
-              describe: e.describe,
+              describe: e.description,
               url: e.url,
               stockStatus: e.stockStatus,
               stockQuantity: e.stockQuantity,

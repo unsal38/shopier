@@ -759,7 +759,8 @@ $(async () => {
    const product_sepet = localStorage.getItem("product_sepet")
 
    const url_check = document.location.pathname
-   if (url_check === "/sepet" || url_check === "/products" && product_sepet) {
+   const check = url_check.indexOf("product")
+   if (check > 0 || url_check === "/" || url_check === "/sepet" || url_check === "/products" && product_sepet) {
       const product_data = await axios_post_urun_bilgileri(product_sepet)
       if (product_data.success === false) localStorage.clear()
       if (product_data.success !== false && product_data.success !== undefined) {
@@ -785,8 +786,6 @@ $(async () => {
          const new_product_data = product_data.success
          const product_miktar = product_data.miktar
          new_product_data.forEach((e, v, d) => {
-
-
             const media_product = e.media
             const mik = product_miktar[v].miktar
             if (media_product.length === 0) {
@@ -807,6 +806,7 @@ $(async () => {
             }
          });
          const data_check_sepet_mik = $("#sepetmiktari")
+
          if (data_check_sepet_mik.length > 0) {
             if (!product_data.success) $("#sepetmiktari")[0].textContent = 0
             if (product_data.success) $("#sepetmiktari")[0].textContent = product_data.success.length
@@ -1065,3 +1065,6 @@ $(() => {
       console.log(check, "token js")
    });
 }) // KULLANICI BİLGİLERİ DEĞİŞTİRME
+$(() => {
+   $("#carousel__product .carousel-inner .carousel-item:first-child").addClass("active")
+}) // QR code PRODUCT SAYFASI CARUSEL ACTİVE CLASS VERME

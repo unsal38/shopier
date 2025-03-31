@@ -15,6 +15,7 @@ const tokengenerator = require('./routes/token_generator');
 const iyzcoRouter = require("./routes/iyzco")
 const sozlesmelerRouter = require("./routes/sozlesmeler")
 const whatsappRouter = require("./routes/callback")
+const productRouter = require("./routes/product_description")
 //////</ROUTER////////////////////////
 
 //VİEW ENGİNE SETUP //////////////////
@@ -25,8 +26,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 //</VİEW ENGİNE SETUP //////////////////
-
 app.post("*", authorization_check())
+app.use("/product",permission_check(["visitor","user", "admin"]),productRouter)
 app.use("/iyzco", iyzcoRouter)
 app.use("/tokengenerator", tokengenerator)
 app.use('/login',permission_check(["visitor", "admin"]), loginRouter);

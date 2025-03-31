@@ -1,0 +1,24 @@
+
+    <!-- body -->
+    <div id="body">
+        <div class="container-fruid">
+            <div class="row row-cols-3 row-cols-md-4 g-4">
+                <% product_data.forEach(v=> {%>
+                    <div class="col">
+                        <div class="card">
+                            <% if(v.iyzco_data[0].QRCode) {%>
+                               <img src="<%= v.iyzco_data[0].QRCode %>" class="card-img-top" alt="<%= v.title %>"> 
+                            <% } %>
+                            <div class="card-body">
+                                <h5 class="card-title"><%= v.title %></h5>
+                                <a class="card-link text-center" href="/">www.tarzisahane.com <hr><strong>Ürün Kodu:</strong> 
+                                <span style="font-size: 1.7vw;"><%= v.id %></span></a>
+                            </div>
+                        </div>
+                    </div>
+                <%}); %>
+            </div>
+        </div>
+        <!-- / container -->
+    </div>
+    <!-- / body -->

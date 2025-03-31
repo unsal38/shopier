@@ -1,10 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var QRCode = require('qrcode')
+const { iyzlink,iyzzlinkDelete } = require("../lib/iyzco")
 const { all_product_database_save, all_categories_database_save } = require("../lib/shopier");
 const { send_message } = require("../lib/whatsapp")
 const jwt = require("../lib/jwt")
 const { pane_params_get } = require("../controller/panel")
-const { find_by_id_end_delete, find_by_id, findByIdAndUpdate } = require("../lib/db_search");
+const { find_db, find_by_id_end_delete, find_by_id, findByIdAndUpdate } = require("../lib/db_search");
 
 router.post("/youtubeLinkDelete", async (req, res) => {
   const product_id = req.body.product_id
@@ -167,7 +169,7 @@ router.post("/kargo", async (req, res) => {
         const text_body1 = odeme_id
         const text_body2 = data_odeme.cargo_company
         const text_body3 = data_odeme.cargo_number
-        await send_message(tel_number, template, text, text_body,text_body1,text_body2,text_body3) 
+        await send_message(tel_number, template, text, text_body, text_body1, text_body2, text_body3)
       }
     } catch (error) { console.log(error, "panel js router") }
   }
@@ -190,6 +192,56 @@ router.post("/kargo", async (req, res) => {
     if (check === true) res.send(true)
     if (check === false) res.send(false)
   }
+})
+router.post("/qrAdd", (req, res) => {
+  let myPromise = new Promise(async function (myResolve) {
+    const data = req.body.data_button
+    if (data !== "all") {
+      const base_url = req.headers.origin
+      const qrData = `${base_url}/product/${data}`
+      QRCode.toDataURL(qrData, function (err, url) {
+        if (err) console.log(err, "qrcode js")
+        if (!err) myResolve(url); // when successful
+      })
+    }
+    if (data === "all") {
+      const all_id = await find_db("Product")
+      for (let index = 0; index < all_id.length; index++) {
+        let element = all_id[index];
+        const base_url = req.headers.origin
+        const qrData = `${base_url}/product/${element._id}`
+        QRCode.toDataURL(qrData, async function (err, url) {
+          if (err) console.log(err, "qrcode js")
+          const id = element._id
+          const update_data = {
+            qrcode_data: url
+          }
+          await findByIdAndUpdate(id, update_data, "Product")
+        })
+      }
+
+    }
+  });
+
+  myPromise.then(
+    async function (value) {
+      const id = req.body.data_button
+      if (data !== "all") {
+        const update_data = {
+          qrcode_data: value
+        }
+        await findByIdAndUpdate(id, update_data, "Product")
+      }
+    }
+  );
+})
+router.post("/iyzlink",async (req,res)=> {
+  const product_id = req.body.produck_id
+  await iyzlink(product_id)
+})
+router.post("/iyzlinkDelete",async (req,res)=> {
+  const product_id = req.body.produck_id
+  await iyzzlinkDelete(product_id)
 })
 router.get("/categoriesAdd", async (req, res) => {
   const authorization_token = req.headers.authorization

@@ -31,14 +31,20 @@
           </a>
         </div>
       <% } %>
-      <div class="d-flex flex-row justify-content-center">
-        <h5 class="card-title fw-medium text-secondary me-3"><%= b.title %></h5>
+      <div class="d-flex flex-wrap flex-column align-items-start ">
+        <h5 class="card-title fw-medium text-secondary me-3">
+          <%= b.title %>
+          <% if(Number(b.stockQuantity) > 0) {%>
+            <span class="ms-1"><%= b.price_data.price %></span>
+            <span class="ms-1">tl</span>
+          <% } %>
+        </h5>
         <% if(Number(b.stockQuantity) > 0) {%>
-          <h6 class="card-text fw-medium text-secondary"><%= b.price_data.price %> <span>tl</span></h6>
+          <p class="text-capitalize text-secondary"><%= b.describe %></p>
         <% } %>
       </div>
     </div>
-    <div class="card-footer bg-transparent d-flex  flex-column justify-content-between">
+    <div class="card-footer bg-transparent d-flex flex-wrap flex-column align-items-start">
       <% if(Number(b.stockQuantity) <= 0) {%>
       <h5 class="text-secondary">ürün stoklarda bulunmamaktadır.</h5>
       <a class="card-link" aria-label="Chat on WhatsApp" href="https://wa.me/05517026813">
@@ -46,15 +52,15 @@
       </a>
       <% } %>
       <% if(Number(b.stockQuantity) > 0) {%>
-      <a class="card-link m-0" href="<%= b.url %>" target="_blank">
+      <!-- <a class="card-link m-0" href="<%= b.url %>" target="_blank">
         <span class="me-1" style="display: inline-block; width: 4vw;">
           <img src="../images/Shopier.png" alt="icon">
         </span>
         Shopier Devam Et
-      </a>
+      </a> -->
         <a data-product-id="<%= b.id %>" class="card-link m-0" href="sepetAdd">
           <span class="me-1 text-center" style="display: inline-block; width: 4vw;">
-            <i style="font-size: 2.2vw;" class="bi bi-cart4"></i>
+            <i style="font-size: 1.7vw;" class="bi bi-cart4"></i>
           </span>
           Sepete Ekle
         </a>

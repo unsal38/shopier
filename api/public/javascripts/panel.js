@@ -1,4 +1,5 @@
 
+
 function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
@@ -611,3 +612,58 @@ $(() => {
             })
     });
 }) /// WHATSUPP 
+$(() => {
+    $("[data-qrcode-add]").on("click", function () {
+        const data_button = $(this).attr("data-qrcode-add")
+        const url = "/panel/qrAdd"
+        axios.post(url, { data_button }, axios_config)
+        alert("qr eklendi")
+    });
+
+}) // QR CODE EKLEME // GÖRÜNTÜLEME
+$(() => {
+    const chack_page = document.location.pathname.split("/panel/")[1]
+    if (chack_page === "qrcode"||chack_page === "qrcode_iyzco") {
+        $("nav.navbar").hide()
+        $("ul.nav").hide()
+        $("div.panelBody").removeClass("panelBody")
+    } else return
+})// PDF ÇIKTISI İÇİN QRCODE SAYFASI MENULERİ YOK ETME
+$(() => {
+    $('[data-bs-target="#collapseİyzico"]').on("click", function () {
+        $("i.fa-square-caret-down").hide()
+        $("i.fa-square-caret-up").show()
+        const myCollapsible = document.getElementById('collapseİyzico')
+        myCollapsible.addEventListener('show.bs.collapse', event => {
+            $("i.fa-square-caret-down").hide()
+            $("i.fa-square-caret-up").show()
+        })
+        myCollapsible.addEventListener('hidden.bs.collapse', event => {
+            $("i.fa-square-caret-down").show()
+            $("i.fa-square-caret-up").hide()
+        })
+    }); // iyzco sayfası button ok image ayarlama
+    $("#linkAdd").on("click", async function () {
+        const target_data = $("[data-iyzico-product-id]")
+        $(target_data).each(async function (i, v) {
+            const produck_id = $(v).attr("data-iyzico-product-id")
+            const axios_data = { produck_id }
+            const axios_url = "/panel/iyzlink"
+            await axios.post(axios_url, axios_data, axios_config)
+            
+        });
+    });
+    $("button[data-onelinkAdd-id]").on("click",async function () {
+        const produck_id = $(this).attr("data-onelinkAdd-id")
+        const axios_data = { produck_id }
+        const axios_url = "/panel/iyzlink"
+        await axios.post(axios_url, axios_data, axios_config)
+    });
+    $("button[data-onelinkDelete-id]").on("click",async function () {
+        const produck_id = $(this).attr("data-onelinkDelete-id")
+        const axios_data = { produck_id }
+        const axios_url = "/panel/iyzlinkDelete"
+        await axios.post(axios_url, axios_data, axios_config)
+    });
+
+})/// İYZCO QR CODE EKLEME

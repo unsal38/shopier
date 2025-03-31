@@ -6,6 +6,7 @@ const productschema = mongoose.Schema({
     describe: String, // açıklamalar
     url: String, // shopier satış url
     media: Array,
+    qrcode_data : String,
     price_data: {
         price: String,
         discount: Boolean,
@@ -16,6 +17,14 @@ const productschema = mongoose.Schema({
     stockQuantity: String,
     categories: Array,
     on_click: Number, // KAÇ KERE TIKLANDIĞI
+    iyzco_data: Array,
+////////////////////ÖRNEK İYZCO DATA ARRAY İÇERİĞİ ////////////////
+// token: "AAEK3Q"
+// 
+// url: "https://sandbox.iyzi.link/AAEK3Q"
+// 
+// imageUrl: "https://sandbox-img.iyzi.link/AA/EK3Q.jpg
+// ////////////////////ÖRNEK İYZCO DATA ARRAY İÇERİĞİ ////////////////
     is_active: {
         default: true,
         type: Boolean

@@ -1,9 +1,5 @@
 const { find_by_id, find_db } = require("../lib/db_search");
 
-
-
-
-
 async function index_get(req, res) {
   const permissions = req.permissions;
   const page_params = "index";

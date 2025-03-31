@@ -1,105 +1,101 @@
-<div class="container-fruid">
-    <div class="row">
-        <div class="card border-0">
-            <h2 class="card-header bg-transparent border-0">Kullanıcı Kontrol</h2>
-            <ul class="kullanici-kontrol nav">
-                <li class="nav-item">
-                    <select class="form-select text-capitalize">
-                        <option selected>üyelik durumu</option>
-                        <option value="true">aktif</option>
-                        <option value="false">pasif</option>
-                    </select>
-                </li>
-                <li class="nav-item d-flex ">
-                    <input name="search" class="text-capitalize mx-3 rounded form-control form-control-sm" type="text"
-                        placeholder="isim yazınız" aria-label="search">
-                </li>
-                <li class="nav-item">
-                    <div class="btn-group my-2" role="group" aria-label="Basic example">
+<div class="card border-0">
+    <h2 class="card-header bg-transparent border-0">Kullanıcı Kontrol</h2>
+    <ul class="kullanici-kontrol nav">
+        <li class="nav-item">
+            <select class="form-select text-capitalize">
+                <option selected>üyelik durumu</option>
+                <option value="true">aktif</option>
+                <option value="false">pasif</option>
+            </select>
+        </li>
+        <li class="nav-item d-flex ">
+            <input name="search" class="text-capitalize mx-3 rounded form-control form-control-sm" type="text"
+                placeholder="isim yazınız" aria-label="search">
+        </li>
+        <li class="nav-item">
+            <div class="btn-group my-2" role="group" aria-label="Basic example">
 
-                        <button name="whatsup" type="button" class="btn btn-success">mesaj gönder</button>
-                    </div>
-                </li>
-            </ul>
-
-            <div class="card-body">
-                <div class="accordion accordion-flush" id="accordionFlushUser">
-                    <% page_user_data.forEach(v=> {%>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button data-bs-target="#flush-<%= v.id %>" aria-controls="flush-<%= v.id %>"
-                                    class="accordion-button text-capitalize collapsed" type="button"
-                                    data-bs-toggle="collapse" aria-expanded="false">
-                                    <strong class="pe-4">
-                                        <%= v.first_name %>
-                                            <%= v.last_name %>
-                                    </strong> üyelik durumu:
-                                    <% if(v.is_active===true) {%>
-                                        <span data-acitive="true" class="ps-2 text-success">aktif</span>
-                                        <% } %>
-                                            <% if(v.is_active===false) {%>
-                                                <span data-acitive="false" class="ps-2 text-danger">pasif</span>
-                                                <% } %>
-                                </button>
-                            </h2>
-                            <div id="flush-<%= v.id %>" class="accordion-collapse collapse"
-                                data-bs-parent="#accordionFlushUser">
-                                <div class="accordion-body">
-                                    <ul class="list-group list-group-flush text-capitalize">
-                                        <li class="list-group-item">email:
-                                            <span class="ps-1 text-lowercase">
-                                                <%= v.email %>
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item">mail onayı:
-                                            <span class="ps-1 text-lowercase">kayıt tarihi <%= v.phone_number %></span>
-                                        </li>
-                                        <li class="list-group-item d-flex align-items-center">
-                                            <span class="me-4">password:</span>
-                                            <button data-pass-reset="<%= v.email %>" type="button"
-                                                class="btn btn-danger btn-sm">Resetle</button>
-                                            <p class="ms-4 text-danger d-none"><em>mail kontrol ediniz</em></p>
-                                        </li>
-                                        <li class="list-group-item">isim: <span class="ps-1 text-lowercase">
-                                                <%= v.first_name %>
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item">soyad: <span class="ps-1 text-lowercase">
-                                                <%= v.last_name %>
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item">telefon numarası:
-                                            <span class="ps-1 text-lowercase">
-                                                <%= v.phone_number %>
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item">admin: <span class="ps-1 text-lowercase">
-                                                <% if(v.admin===true) { %>
-                                                    evet
-                                                    <% }%>
-                                                        <% if(v.admin===false) { %>
-                                                            hayır
-                                                            <% }%>
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span data-bs-toggle="collapse" data-bs-target="#collapseFavori<%= v.id %>">
-                                                favoriye eklenen ürünler
-                                            </span>
-                                            <i class="bi bi-caret-down-fill"></i>
-                                            <i class="d-none bi bi-caret-up-fill"></i>
-                                            <div class="collapse" id="collapseFavori<%= v.id %>">
-                                                <div class="row row-cols-1 row-cols-md-3 g-4"></div>
-                                            </div>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <% }); %>
-                </div>
+                <button name="whatsup" type="button" class="btn btn-success">mesaj gönder</button>
             </div>
+        </li>
+    </ul>
+
+    <div class="card-body">
+        <div class="accordion accordion-flush" id="accordionFlushUser">
+            <% page_user_data.forEach(v=> {%>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button data-bs-target="#flush-<%= v.id %>" aria-controls="flush-<%= v.id %>"
+                            class="accordion-button text-capitalize collapsed" type="button" data-bs-toggle="collapse"
+                            aria-expanded="false">
+                            <strong class="pe-4">
+                                <%= v.first_name %>
+                                    <%= v.last_name %>
+                            </strong> üyelik durumu:
+                            <% if(v.is_active===true) {%>
+                                <span data-acitive="true" class="ps-2 text-success">aktif</span>
+                                <% } %>
+                                    <% if(v.is_active===false) {%>
+                                        <span data-acitive="false" class="ps-2 text-danger">pasif</span>
+                                        <% } %>
+                        </button>
+                    </h2>
+                    <div id="flush-<%= v.id %>" class="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushUser">
+                        <div class="accordion-body">
+                            <ul class="list-group list-group-flush text-capitalize">
+                                <li class="list-group-item">email:
+                                    <span class="ps-1 text-lowercase">
+                                        <%= v.email %>
+                                    </span>
+                                </li>
+                                <li class="list-group-item">mail onayı:
+                                    <span class="ps-1 text-lowercase">kayıt tarihi <%= v.phone_number %></span>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <span class="me-4">password:</span>
+                                    <button data-pass-reset="<%= v.email %>" type="button"
+                                        class="btn btn-danger btn-sm">Resetle</button>
+                                    <p class="ms-4 text-danger d-none"><em>mail kontrol ediniz</em></p>
+                                </li>
+                                <li class="list-group-item">isim: <span class="ps-1 text-lowercase">
+                                        <%= v.first_name %>
+                                    </span>
+                                </li>
+                                <li class="list-group-item">soyad: <span class="ps-1 text-lowercase">
+                                        <%= v.last_name %>
+                                    </span>
+                                </li>
+                                <li class="list-group-item">telefon numarası:
+                                    <span class="ps-1 text-lowercase">
+                                        <%= v.phone_number %>
+                                    </span>
+                                </li>
+                                <li class="list-group-item">admin: <span class="ps-1 text-lowercase">
+                                        <% if(v.admin===true) { %>
+                                            evet
+                                            <% }%>
+                                                <% if(v.admin===false) { %>
+                                                    hayır
+                                                    <% }%>
+                                    </span>
+                                </li>
+                                <li class="list-group-item">
+                                    <span data-bs-toggle="collapse" data-bs-target="#collapseFavori<%= v.id %>">
+                                        favoriye eklenen ürünler
+                                    </span>
+                                    <i class="bi bi-caret-down-fill"></i>
+                                    <i class="d-none bi bi-caret-up-fill"></i>
+                                    <div class="collapse" id="collapseFavori<%= v.id %>">
+                                        <div class="row row-cols-1 row-cols-md-3 g-4"></div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
         </div>
     </div>
 </div>

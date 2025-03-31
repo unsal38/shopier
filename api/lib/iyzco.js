@@ -1,6 +1,9 @@
 const axios = require('axios');
 var Iyzipay = require('iyzipay');
+var QRCode = require('qrcode');
 const { IYZCO_API_KEY, IYZCO_SECRET_KEY, IYZCO_BASE_URL } = require("../config");
+var CryptoJS = require("crypto-js");
+let { find_by_id, create_db, find_one, findByIdAndUpdate, find_by_id_end_delete } = require("../lib/db_search");
 var iyzipay = new Iyzipay({
     apiKey: IYZCO_API_KEY,
     secretKey: IYZCO_SECRET_KEY,
@@ -46,7 +49,7 @@ function chackout_form(request_data) {
         const surname = data.surname
         const gsmNumber = String(data.gsmNumber)
         const email = data.email
-        
+
         const identityNumber = data.identityNumber
         const registrationAddress = data.registrationAddress
         const ip = data.ip
@@ -106,7 +109,7 @@ function chackout_form(request_data) {
             },
             basketItems
         };
-       // console.log(request)
+        // console.log(request)
         iyzipay.checkoutFormInitialize.create(request,
             function (err, result) {
                 //const callbackUrl = result.paymentPageUrl //.payWithIyzicoPageUrl
@@ -119,8 +122,159 @@ function chackout_form(request_data) {
     return promise_data
 }
 
-/// SONRA DENECEK OLAN KODLAR
+var apiKey = IYZCO_API_KEY
+var secretKey = IYZCO_SECRET_KEY;
 
+//Generate authorization string
+function generateAuthorizationString(data_iyzico) {
+
+    // Benzersiz bir randomKey ortaya çıkaralım
+    // Örnek randomKey : 1722246017090123456789
+    var randomKey = new Date().getTime() + "123456789";
+
+    // İstek için uri_path değişkenini yerleştirelim.
+    // Örnek uri_path : /payment/bin/check
+    //uri_path = "/iyzilink/products";
+    var uri_path = "/v2/iyzilink/products";
+
+    // payload'u alalım ve uri path ile randomKey'i birleştirelim.
+    // Örnek payload : payload: 1722246017090123456789/payment/bin/check{"binNumber":"589004"}
+    if (data_iyzico) { var payload = randomKey + uri_path + data_iyzico } else { var payload = randomKey + uri_path }
+    // HMACSHA256 kullanarak payload'u şifreleyelim.
+    // Örnek encryptedData : 91e491486d3aa951b4f387cc93d67fc754c4729af95344b694435f56447819e9
+    var encryptedData = (CryptoJS.HmacSHA256(payload, secretKey)).toString() // CryptoJS.HmacSHA256(payload, secretKey);
+    // encryptedData değişkenini kullanarak authorizationString oluşturalım.
+    /* Örnek authorizationString : apiKey:sandbox-3uHv0LccjcWDyFHTvJpiACKPcJwbczmZ&
+                                        randomKey:1722246017090123456789&
+                                        signature:91e491486d3aa951b4f387cc93d67fc754c4729af95344b694435f56447819e9 */
+    var authorizationString = "apiKey:" + apiKey
+        + "&randomKey:" + randomKey
+        + "&signature:" + encryptedData;
+    // base64 kullanarak authorizationString'i şifreleyelim.
+    // Örnek base64EncodedAuthorization : YXBpS2V5OnNhbmRib3gtM3VIdjBMY2NqY1dEeUZIVHZKcGlBQ0tQY0p3YmN6bVomcmFuZG9tS2V5OjE3MjIyNDYwMTcwOTAxMjM0NTY3ODkmc2lnbmF0dXJlOjkxZTQ5MTQ4NmQzYWE5NTFiNGYzODdjYzkzZDY3ZmM3NTRjNDcyOWFmOTUzNDRiNjk0NDM1ZjU2NDQ3ODE5ZTk=
+    const base64EncodedAuthorization_1 = CryptoJS.enc.Utf8.parse(authorizationString)
+    var base64EncodedAuthorization = CryptoJS.enc.Base64.stringify(base64EncodedAuthorization_1);
+    // authorizationStrin'i  'IYZWSv2 ' string'ine ekleyelim.
+    // Örnek return value : IYZWSv2 YXBpS2V5OnNhbmRib3gtM3VIdjBMY2NqY1dEeUZIVHZKcGlBQ0tQY0p3YmN6bVomcmFuZG9tS2V5OjE3MjIyNDYwMTcwOTAxMjM0NTY3ODkmc2lnbmF0dXJlOjkxZTQ5MTQ4NmQzYWE5NTFiNGYzODdjYzkzZDY3ZmM3NTRjNDcyOWFmOTUzNDRiNjk0NDM1ZjU2NDQ3ODE5ZTk=
+    return "IYZWSv2 " + base64EncodedAuthorization;
+}
+//Generate authorization string
+
+async function iyzzlinkDelete(product_id) {
+    const product_data = await find_by_id(product_id, "ProductSepet")
+    const token = (product_data.iyzco_data[0].token)
+    const data = {
+        token
+    }
+    const req_data = JSON.stringify(data)
+    var authorization = generateAuthorizationString(req_data);
+    const axios_config = {
+        data: { token },
+        headers: {
+            "Content-Type": 'application/json',
+            "Authorization": authorization,
+            "x-iyzi-rnd": "123456789"
+        },
+    }
+    const url = "https://sandbox-api.iyzipay.com/v2/iyzilink/products"
+    await axios.delete(url, axios_config)
+        .then(res => console.log(res))
+        .catch(err => console.log(err, "iyzco err"))
+}
+async function iyzlink(request_data) {
+    const product_id = request_data
+    const product_Data = await find_by_id(product_id, "ProductSepet")
+
+    const post_url = "https://sandbox-api.iyzipay.com/v2/iyzilink/products"
+    var name = product_Data.title
+    //iyzico komistyon ekleme/////
+    //////////////////
+    const price_shopier = product_Data.price_data.discountedPrice
+    var price = Number(price_shopier) + (iyzco_komisyon1 * Number(price_shopier)) + iyzco_komisyon2
+    //iyzico komistyon ekleme/////
+    var currencyCode = "TRY" // ÜRÜN PARA BİRİMİ
+    var description = product_Data.describe // açıklama
+    //base64 link/////
+    //////////////////
+    const image_data = product_Data.media[0].url
+    var encodedImageFile = await axios
+        .get(`${image_data}`, { responseType: 'arraybuffer' })
+        .then(res => {
+            let base64Image = Buffer.from(res.data).toString('base64')
+            return base64Image
+        })
+    //base64 link/////
+    //////////////////
+    const axios_data = {
+        name,
+        price,
+        currencyCode,
+        description,
+        encodedImageFile
+    }
+
+    const req_data = JSON.stringify(axios_data)
+    //////////////////
+    //////////////Authorization ////////
+    ///////////////////////////////////
+
+    var authorization = generateAuthorizationString(req_data);
+
+    //////////////Authorization ////////
+    ///////////////////////////////////
+
+    const axios_config = {
+        headers: {
+            "Content-Type": 'application/json',
+            "Authorization": authorization,
+            "x-iyzi-rnd": "123456789"
+        }
+    }
+    await axios.post(post_url, axios_data, axios_config)
+        .then(async res => {
+            const data_check = res.data
+            if (data_check.status === "success") {
+                const qrdata = data_check.data.url
+                QRCode.toDataURL(qrdata, async function (err, url_data) {
+                    if (err) console.log(err, "qrcode js")
+                    const data_update = {
+                        iyzco_data: {
+                            token: data_check.data.token,
+                            url: data_check.data.url,
+                            imageUrl: data_check.data.imageUrl,
+                            QRCode: url_data
+                        }
+                    }
+                    await findByIdAndUpdate(request_data, data_update, "Product")
+                })
+            }
+        })
+        .catch(err => console.log(err, "iyzco err"))
+}
+async function iyzlinkliste() {
+    var authorization = generateAuthorizationString();
+
+    const axios_config = {
+        data: {
+            page: 1,
+            count: 10
+        },
+        headers: {
+            "Content-Type": 'application/json',
+            "Authorization": authorization,
+            "x-iyzi-rnd": "123456789"
+        },
+    }
+
+    const url = "https://sandbox-api.iyzipay.com/v2/iyzilink/products"
+    await axios.get(url, axios_config)
+        .then(res => console.log(res))
+        .catch(err => console.log(err.data, "iyzco err"))
+
+}
 module.exports = {
+    iyzzlinkDelete,
     chackout_form,
+    iyzlink,
+    iyzlinkliste,
 }

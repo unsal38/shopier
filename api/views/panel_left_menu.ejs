@@ -1,32 +1,86 @@
 <div class="menuLeft">
-    <ul class="nav flex-column me-2">
-      <p class="fw-bold fs-6">Menü</p>
-      <% if(permissions==="admin") {%>
+  <ul class="nav menuLeftNav flex-column me-2">
+    <p class="fw-bold fs-6">Menü</p>
+    <% if(permissions==="admin" ) {%>
+      <li class="nav-item">
+        <a class="nav-link p-1" href="/panel/kullanici_kontrol">kullanici_kontrol</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link p-1" href="/panel/shopier">Shopier işlemleri</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link p-1" href="/panel/iyzico">İyzico işlemleri</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link p-1 text-capitalize" href="/panel/odeme">ödeme işlemleri</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link p-1" href="/panel/order_check">siparişler</a>
+      </li>
+      <% } %>
         <li class="nav-item">
-          <a class="nav-link p-1" href="/panel/kullanici_kontrol">kullanici_kontrol</a>
+          <a class="nav-link p-1" href="/panel/panel_kullanici_bilgileri">panel/kullanıcı işlemleri</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link p-1" href="/panel/shopier">Shopier işlemleri</a>
+          <a class="nav-link p-1" href="/panel/sifre_islemleri">şifre işlemleri</a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link p-1 text-capitalize" href="/panel/odeme">ödeme işlemleri</a>
+          <a class="nav-link p-1" href="/panel/order">sipariş</a>
         </li>
-        <% } %>
-      <li class="nav-item">
-        <a class="nav-link p-1" aria-current="page"
-          href="/panel/panel_kullanici_bilgileri">panel/kullanıcı
-          işlemleri</a>
+  </ul>
+  <ul class="nav menuLeftNavMobil">
+    <li class="nav-item mb-2 fa-share-from-square">
+      <a data-bs-toggle="offcanvas" href="#offcanvasMenuLeftNavMobil" role="button"
+        aria-controls="offcanvasMenuLeftNavMobil" class="nav-link p-1 " href="javascript:void(0)">
+        <i class="fa-regular fa-share-from-square"></i>
+      </a>
+    </li>
+    <% if(permissions==="admin" ) {%>
+      <li class="nav-item mb-2">
+        <a class="nav-link p-1" href="/panel/kullanici_kontrol">
+          <i class="fa-regular fa-circle-user"></i>
+        </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link p-1" aria-current="page"
-          href="/panel/sifre_islemleri">şifre işlemleri</a>
+      <li class="nav-item mb-2">
+        <a class="nav-link p-1 text-center" href="/panel/shopier">S</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link p-1" aria-current="page"
-          href="/panel/order_check">siparişler</a>
+      <li class="nav-item mb-2">
+        <a class="nav-link p-1" href="/panel/odeme"><i class="fa-regular fa-money-bill-1"></i></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link p-1" aria-current="page"
-          href="/panel/order">sipariş</a>
+      <li class="nav-item mb-2">
+        <a class="nav-link p-1" href="/panel/order_check"><i class="fa-regular fa-credit-card"></i></a>
       </li>
-    </ul>
+      <% } %>
+        <li class="nav-item mb-2">
+          <a class="nav-link p-1" href="/panel/panel_kullanici_bilgileri"><i class="fa-regular fa-user"></i></a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link p-1" href="/panel/sifre_islemleri"><i class="fa-regular fa-id-card"></i></a>
+        </li>
+
+        <li class="nav-item mb-2">
+          <a class="nav-link p-1" href="/panel/order"><i class="fa-regular fa-rectangle-list"></i></a>
+        </li>
+  </ul>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenuLeftNavMobil"
+    aria-labelledby="offcanvasMenuLeftNavMobilLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasMenuLeftNavMobilLabel">menü</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+      <ul class="list-group list-group-flush">
+        <% if(permissions==="admin" ) {%>
+          <li class="list-group-item p-0"><a class="nav-link p-1" href="/panel/kullanici_kontrol">kullanici_kontrol</a></li>
+          <li class="list-group-item p-0"><a class="nav-link p-1" href="/panel/shopier">Shopier işlemleri</a></li>
+          <li class="list-group-item p-0"><a class="nav-link p-1 text-capitalize" href="/panel/odeme">ödeme işlemleri</a></li>
+            <% } %>
+          <li class="list-group-item p-0"><a class="nav-link p-1" href="/panel/panel_kullanici_bilgileri">panel/kullanıcı
+              işlemleri</a></li>
+          <li class="list-group-item p-0"><a class="nav-link p-1" href="/panel/sifre_islemleri">şifre işlemleri</a></li>
+          <li class="list-group-item p-0"><a class="nav-link p-1" href="/panel/order_check">siparişler</a></li>
+          <li class="list-group-item p-0"><a class="nav-link p-1" href="/panel/order">sipariş</a></li>
+      </ul>
+    </div>
+  </div>
